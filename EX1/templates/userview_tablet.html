@@ -1,0 +1,56 @@
+﻿{% extends "layout_user.html" %}
+
+{% block content %}
+
+<div class="jumbotron">
+    
+</div>
+
+<div>
+    <div class=" row ">
+        <div class="col-2">
+            <label class="col-form-label col-form-label-lg" for="searchBox1">Asset Type : </label>
+        </div>
+        <div class="col-3">
+            <select class="custom-select custom-select-lg mb-3" id="searchBox1" onchange="location = this.value;">
+                <option selected> choose asset type </option>
+                {% for value in type: %}
+                {% if value[2] == 'Tablet' %}
+                <option value="{{ url_for('tablet') }}">{{ value[2]}} </option>
+                {% elif value[2] == 'Mobile'%}
+                <option value="{{ url_for('mobile') }}">{{ value[2]}} </option>
+                {% else %}
+                <option value="{{ url_for('laptop') }}">{{ value[2]}} </option>
+                {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+</div>
+<div class="container" style="overflow-x:auto;">
+    <h1>Tablets :</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="row"> </th>
+                {%  for line in headers: %}
+                <th> {{ line[0]}} </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        {%  for line in tableRows: %}
+        <tbody>
+            <tr>
+                <th scope="row"></th>
+                {%  for x in line: %}
+                <td>{{ x }}</td>
+                {% endfor %}
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+</div>
+
+
+{% endblock %}

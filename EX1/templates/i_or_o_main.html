@@ -32,7 +32,7 @@
                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#improt" role="tab" aria-controls="home" aria-selected="true">Import</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#export" role="tab" aria-controls="profile" aria-selected="false">Export</a>
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#template" role="tab" aria-controls="profile" aria-selected="false">Download Template</a>
                 </li>
             </ul>
         </div>
@@ -49,27 +49,10 @@
                                 </div>
                                 <h5>Select asset type : </h5>
                                 {% for line in type: %}
-                                {% if line[2] == 'Tablet' %}
                                 <div class="custom-control custom-radio">
-                                    <input type="radio" id="{{ line[2] }}" name="Tablet" class="custom-control-input">
-                                    <label class="custom-control-label" for="{{ line[2 ]}}">{{ line[2] }}</label>
+                                    <input type="radio" id="id{{ line[0] }}" name="{{ line[0] }}" class="custom-control-input">
+                                    <label class="custom-control-label" for="id{{ line[0]}}">{{ line[0] }}</label>
                                 </div>
-                                {% elif line[2] == 'Mobile'%}
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" id="{{ line[2] }}" name="Mobile" class="custom-control-input">
-                                    <label class="custom-control-label" for="{{ line[2 ]}}">{{ line[2] }}</label>
-                                </div>
-                                {% elif line[2] == 'Laptop'%}
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" id="{{ line[2] }}" name="Laptop" class="custom-control-input">
-                                    <label class="custom-control-label" for="{{ line[2 ]}}">{{ line[2] }}</label>
-                                </div>
-                                {% else %}
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" id="{{ line[2] }}" name="Others" class="custom-control-input">
-                                    <label class="custom-control-label" for="{{ line[2 ]}}">{{ line[2] }}</label>
-                                </div>
-                                {% endif %}
                                 {% endfor %}
                                 <br>
                                 <button type="submit" class="btn btn-primary mb-2"> Upload </button>
@@ -93,7 +76,7 @@
                     </div>
                 </div>
 
-                <div class="tab-pane fade" id="export" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="tab-pane fade" id="template" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="col-md-4">
                         <h2>Profile</h2>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, eveniet earum. Sed accusantium eligendi molestiae quo hic velit nobis et, tempora placeat ratione rem blanditiis voluptates vel ipsam? Facilis, earum!</p>

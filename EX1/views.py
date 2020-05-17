@@ -7,8 +7,8 @@ from flask import render_template
 from EX1 import app
 from EX1 import models as dbHandler
 from flask import request, redirect, url_for, session
-
-
+from io import StringIO
+import csv
 
 import sqlite3
 from sqlite3 import Error
@@ -35,22 +35,20 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 @app.route('/home')
 def home():
     """Renders the home page."""
-    return render_template(
-        'welcome.html',
-        title='Home Page',
-        year=datetime.now().year,
-    )
+    return render_template('welcome.html',
+                            title='Home Page',
+                            year=datetime.now().year,
+                        )
 
 @app.route('/login')
 def login():
      """Renders the login page."""
-     return render_template(
-         'login.html',
-         title='Login',
-         year=datetime.now().year,
-         message='Login Page',
-         msg=''
-     )
+     return render_template('login.html',
+                             title='Login',
+                             year=datetime.now().year,
+                             message='Login Page',
+                             msg=''
+                         )
 
 @app.route('/login_request', methods=['POST', 'GET'])
 def login_request():
@@ -74,32 +72,29 @@ def login_request():
         
         # Show the login form with message (if any)
         return render_template('login.html',
-                title='Login',
-                year=datetime.now().year,
-                message='Login Page',
-                error=True,
-                msg=msg)
+                                title='Login',
+                                year=datetime.now().year,
+                                message='Login Page',
+                                error=True,
+                                msg=msg)
      else:
          return render_template('login.html',
-                title='Login',
-                year=datetime.now().year,
-                message='Login Page',
-                error=True,
-                msg=''
-                )
-
-
+                                title='Login',
+                                year=datetime.now().year,
+                                message='Login Page',
+                                error=True,
+                                msg=''
+                                )
 
 
 
 @app.route('/adminview')
-def adminview():
-     
+def adminview():  
     # Check if user is loggedin
     if 'loggedin' in session:
         
         conn = sqlite3.connect(r"diona.db")
-        types = conn.execute("SELECT * FROM Asset") 
+        types = conn.execute("SELECT * FROM Type") 
    
         return render_template('adminview.html', 
                                 username=session['id'],   
@@ -117,11 +112,10 @@ def admin_mobile():
     if 'loggedin' in session:
         
         conn = sqlite3.connect(r"diona.db")
-        types = conn.execute("SELECT * FROM Asset") 
-        details = conn.execute("SELECT A.asset_name, D.asset_IEMI, D.asset_pin,D.asset_model, D.Notes FROM AssetDetails D, Asset A WHERE A.asset_type = 'Mobile' AND A.asset_id = D.asset_id")
+        types = conn.execute("SELECT * FROM Type") 
+        details = conn.execute("SELECT a.asset_name, d.details, t.type_name FROM Details d, Asset_With_Type a, Type t WHERE d.type_id = '1' AND a.asset_id = d.asset_id AND t.type_id = d.type_id ")
         colNames = details.description
-     
-   
+        
         return render_template('admin_mobile.html', 
                                 username=session['id'],   
                                 title='Admin View',
@@ -135,18 +129,15 @@ def admin_mobile():
 
 
 
-
-
 @app.route('/adminview/tablet')
 def admin_tablet():
     if 'loggedin' in session:
         
         conn = sqlite3.connect(r"diona.db")
-        types = conn.execute("SELECT * FROM Asset") 
-        details = conn.execute("SELECT A.asset_name, D.asset_IEMI, D.asset_pin, D.asset_make , D.asset_tag, D.asset_serialNo, D.asset_device,D.asset_model, D.Notes FROM AssetDetails D, Asset A WHERE A.asset_type = 'Tablet' AND A.asset_id = D.asset_id")
-        colNames = details.description
-    
-    
+        types = conn.execute("SELECT * FROM Type") 
+        details = conn.execute("SELECT a.asset_name, d.details, t.type_name FROM Details d, Asset_With_Type a, Type t WHERE d.type_id = '3' AND a.asset_id = d.asset_id AND t.type_id = d.type_id ")
+        colNames = details.description   
+       
     # """Renders the user page."""
         return render_template('admin_tablet.html',
                                 username=session['id'],
@@ -157,18 +148,18 @@ def admin_tablet():
                                 year=datetime.now().year       
                             )
     # User is not loggedin redirect to login page
-    return redirect(url_for('login'))
-   
+    return redirect(url_for('login'))  
 
 @app.route('/adminview/laptop')
 def admin_laptop():
     if 'loggedin' in session:
         
         conn = sqlite3.connect(r"diona.db")
-        types = conn.execute("SELECT * FROM Asset") 
-        details = conn.execute("SELECT A.asset_name, D.asset_make , D.asset_tag,D.asset_hardware,D.asset_serialNo,D.asset_device,D.Notes  FROM AssetDetails D, Asset A WHERE A.asset_type = 'Laptop' AND A.asset_id = D.asset_id")
+        types = conn.execute("SELECT * FROM Type") 
+
+        details = conn.execute("SELECT a.asset_name, d.details, t.type_name FROM Details d, Asset_With_Type a, Type t WHERE d.type_id = '2' AND a.asset_id = d.asset_id AND t.type_id = d.type_id ")
         colNames = details.description
-    
+        
     # """Renders the user page."""
         return render_template('admin_laptop.html',
                                 title='Admin View',
@@ -181,106 +172,225 @@ def admin_laptop():
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))
     
-
-    
+  
 
 @app.route('/userview')
 def userview():
     conn = sqlite3.connect(r"diona.db")
-    types = conn.execute("SELECT * FROM Asset") 
+    types = conn.execute("SELECT * FROM Type") 
    
     # """Renders the user page."""
-    return render_template(
-        'userview.html',
-        title='User View',
-        type = types,
-        year=datetime.now().year      
-    )
+    return render_template('userview.html',
+                            title='User View',
+                            type = types,
+                            year=datetime.now().year      
+                        )
 
 @app.route('/userview/mobile')
 def mobile():
     conn = sqlite3.connect(r"diona.db")
-    types = conn.execute("SELECT * FROM Asset") 
-    details = conn.execute("SELECT A.asset_name,D.asset_IEMI, D.asset_pin, D.asset_model, D.asset_make, D.Notes  FROM AssetDetails D, Asset A WHERE A.asset_type = 'Mobile' AND A.asset_id = D.asset_id")
+    types = conn.execute("SELECT * FROM Type") 
+    details = conn.execute("SELECT * FROM AssetDetails D, Asset A WHERE A.asset_type = 'Mobile' AND A.asset_id = D.asset_id")
     colNames = details.description
     
-    
     # """Renders the user page."""
-    return render_template(
-        'userview_mobile.html',
-        title='User View',
-        tableRows = details,
-        headers = colNames,
-        type = types,
-        year=datetime.now().year       
-    )
+    return render_template('userview_mobile.html',
+                            title='User View',
+                            tableRows = details,
+                            headers = colNames,
+                            type = types,
+                            year=datetime.now().year       
+                        )
 
 @app.route('/userview/tablet')
 def tablet():
     conn = sqlite3.connect(r"diona.db")
-    types = conn.execute("SELECT * FROM Asset") 
+    types = conn.execute("SELECT * FROM Type") 
     details = conn.execute("SELECT A.asset_name, D.asset_IEMI, D.asset_pin, D.asset_make , D.asset_tag, D.asset_serialNo, D.asset_device,D.asset_model, D.Notes FROM AssetDetails D, Asset A WHERE A.asset_type = 'Tablet' AND A.asset_id = D.asset_id")
     colNames = details.description
-    
-    
+       
     # """Renders the user page."""
-    return render_template(
-        'userview_tablet.html',
-        title='User View',
-        tableRows = details,
-        headers = colNames,
-        type = types,
-        year=datetime.now().year       
-    )
+    return render_template('userview_tablet.html',
+                            title='User View',
+                            tableRows = details,
+                            headers = colNames,
+                            type = types,
+                            year=datetime.now().year       
+                        )
 
 @app.route('/userview/laptop')
 def laptop():
     conn = sqlite3.connect(r"diona.db")
-    types = conn.execute("SELECT * FROM Asset") 
+    types = conn.execute("SELECT * FROM Type") 
     details = conn.execute("SELECT A.asset_name, D.asset_make , D.asset_tag,D.asset_hardware,D.asset_serialNo,D.asset_device,D.Notes  FROM AssetDetails D, Asset A WHERE A.asset_type = 'Laptop' AND A.asset_id = D.asset_id")
     colNames = details.description
     
     # """Renders the user page."""
-    return render_template(
-        'userview_laptop.html',
-        title='User View',
-        tableRows = details,
-        headers = colNames,
-        type = types,
-        year=datetime.now().year       
-    )
+    return render_template('userview_laptop.html',
+                            title='User View',
+                            tableRows = details,
+                            headers = colNames,
+                            type = types,
+                            year=datetime.now().year       
+                        )
 
 
 
-@app.route('/import_export')
+@app.route('/import')
 def i_or_o_main():
-     # Check if user is loggedin
-    if 'loggedin' in session:
+   
+        conn = sqlite3.connect(r"diona.db")
+        types = conn.execute("SELECT * FROM Type")
+
         return render_template('i_or_o_main.html', 
                                 username=session['id'],   
                                 title='Import/Export',
+                                type = types,
                                 year=datetime.now().year  
                                 )
-    # User is not loggedin redirect to login page
-    return redirect(url_for('login'))
+  
 
 
+@app.route('/import_request', methods=['POST', 'GET'])
+def import_main():
+     if request.method == 'POST':
+        
+        file = request.files['upload_file']
+        
+        csvf = StringIO(file.read().decode('utf8'))
+      
+        contents = csv.reader(csvf, delimiter=',')
+      
+
+        return render_template('i_or_o_main.html',
+                                header = contents,
+                                year=datetime.now().year
+                                )
+       
+
+       
+
+@app.route('/new_asset')
+def new_assets():
+    """Renders the New Assets page."""
+    return render_template('new_assets.html',
+                            title='New Assets',
+                            year=datetime.now().year,
+                            message='New assets'
+                        )
+
+@app.route('/new_asset_default')
+def new_assetDefault():
+    """Renders the New Assets Default page."""
+    #to appear all the asset types on the page
+    #menu = dbHandler.getAssetType()
+    return render_template( 'new_asset(Default).html',
+                            title='New Assets Default',
+                            year=datetime.now().year
+                        )
+
+
+@app.route('/new_asset',methods=['POST', 'GET'])
+def add_asset():
+    if request.method == 'POST':
+        new_asset = ''
+        asset_id = ''
+        user_id = ''
+        #prepare new asset from form data
+        if request.form['assetName']:
+            if request.form['assetType']:
+                new_asset = (request.form['assetName'], request.form['assetType'])
+            else:
+                msg = 'Enter all details'
+        else:
+            msg = 'Enter all details'
+        
+        #create new asset and get asset id
+        if new_asset:
+            asset_id = dbHandler.create_newAsset(new_asset)
+        else:
+            msg = 'Error! Cannot create new asset.'
+            
+        user_id = dbHandler.retrieveUserID(request.form['assetAssigned'])
+        
+        #Continue adding into Asset Details if asset is added in Asset table
+        if asset_id:
+            #convert form data into dictionary
+            data = request.form.to_dict()
+
+            #remove type and name before adding to asset details table
+            data.pop('assetType', None)
+            data.pop('assetName', None)
+            data.pop('assetAssigned', None)
+            
+            #empty dictionary for formatting
+            empty_dict = {'assetID':asset_id,'assetIEMI': '', 'assetMake':'', 'assetModel':'',
+                            'assetPin':'','assetSerial':'','assetMobileNo':'',
+                            'assetHardware':'','assetTag':'','assetDevice':'',
+                            'assetStatus':'','assetDate':'','assetNotes':''}
+
+            #combine dictionaries
+            combined_dict = {**empty_dict, **data}
+            
+            #create new list to append value from combined dictionary
+            new_list = list()
+
+            #append dictionary values into list
+            for key, value in combined_dict.items():
+                new_list.append(value)
+            
+            #convert list to dictionary before inserting into database
+            AssetDetails = tuple(new_list)
+            
+            assetdetail_id = dbHandler.create_newAssetDetails(AssetDetails)
+            
+            if asset_id:
+                if user_id:
+                    rent = (user_id[0],asset_id)
+                    dbHandler.create_newRentrecord(rent)
+                    msg = "Inserted data successfully"
+                else:
+                    msg = 'Error! Cannt create new asset'
+            else:
+                msg = 'Error! Cannt create new asset'
+        else:
+            # Table doesnt exist.
+            msg = 'Error inserting into database.'
+        
+        #pageName = page_name(request.form['assetType'])
+
+        # Show the form with message (if any)
+        return render_template('new_asset(Default).html',
+                                title='New Assets',
+                                year=datetime.now().year,
+                                message='New Assets',
+                                msg=msg)
+    else:
+        return render_template('new_assets.html',
+                                title='New Assets',
+                                year=datetime.now().year,
+                                message='New Assets',
+                                error=True,
+                                msg=''
+                                )
+
+
+
+#hello
 @app.route('/contact')
 def contact():
     """Renders the contact page."""
-    return render_template(
-        'contact.html',
-        title='Contact',
-        year=datetime.now().year,
-        message='Your contact page.'
-    )
+    return render_template('contact.html',
+                            title='Contact',
+                            year=datetime.now().year,
+                            message='hello aidan.'
+                        )
 
 @app.route('/about')
 def about():
     """Renders the about page."""
-    return render_template(
-        'about.html',
-        title='About',
-        year=datetime.now().year,
-        message='Your application description page.'
-    )
+    return render_template('about.html',
+                            title='About',
+                            year=datetime.now().year,
+                            message='Your application description page.'
+                        )

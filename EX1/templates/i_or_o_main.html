@@ -32,49 +32,80 @@
                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#improt" role="tab" aria-controls="home" aria-selected="true">Import</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Export</a>
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#export" role="tab" aria-controls="profile" aria-selected="false">Export</a>
                 </li>
             </ul>
         </div>
         <!-- /.col-md-2 -->
-        <div class="col-md-4">
+        <div class="col-md-10">
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="improt" role="tabpanel" aria-labelledby="home-tab">
-                    <form action="#" method="post">
-                        <div class="form-group">
-                            <label for="exampleFormControlFile1">Import file(.csv & .xlsx)</label>
-                            <input type="file" accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="form-control-file" id="exampleFormControlFile1" name="upload_file">
+                    <div class=" row ">
+                        <div class="col-md-4">
+                            <form action="/import_request" method="POST" enctype=multipart/form-data>
+                                <div class="form-group">
+                                    <label for="uploadfile">Import file(.csv & .xlsx)</label>
+                                    <input type="file" accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="form-control-file" id="uploadfile" name="upload_file">
+                                </div>
+                                <h5>Select asset type : </h5>
+                                {% for line in type: %}
+                                {% if line[2] == 'Tablet' %}
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="{{ line[2] }}" name="Tablet" class="custom-control-input">
+                                    <label class="custom-control-label" for="{{ line[2 ]}}">{{ line[2] }}</label>
+                                </div>
+                                {% elif line[2] == 'Mobile'%}
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="{{ line[2] }}" name="Mobile" class="custom-control-input">
+                                    <label class="custom-control-label" for="{{ line[2 ]}}">{{ line[2] }}</label>
+                                </div>
+                                {% elif line[2] == 'Laptop'%}
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="{{ line[2] }}" name="Laptop" class="custom-control-input">
+                                    <label class="custom-control-label" for="{{ line[2 ]}}">{{ line[2] }}</label>
+                                </div>
+                                {% else %}
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="{{ line[2] }}" name="Others" class="custom-control-input">
+                                    <label class="custom-control-label" for="{{ line[2 ]}}">{{ line[2] }}</label>
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                                <br>
+                                <button type="submit" class="btn btn-primary mb-2"> Upload </button>
+                            </form>
                         </div>
-                        <h5>Select asset type : </h5>
-                        <div class="custom-control custom-checkbox custom-control-inline mb-3">
-                            <input type="checkbox" class="custom-control-input" id="customCheck" name="example1">
-                            <label class="custom-control-label" for="customCheck">Mobile Phone</label>
+
+                        <div class="col-md-6">
+                            <table class="table table-striped">
+                                <thead>
+                                    {%  for row in header: %}
+                                    <tr>
+                                        <th scope="row"> </th>
+                                        {%  for line in range(row|length : %}
+                                        <th> {{ row[line] }} </th>
+                                        {% endfor %}
+                                    </tr>
+                                    {% endfor %}
+                                </thead>
+                            </table>
                         </div>
-                        <div class="custom-control custom-checkbox custom-control-inline mb-3">
-                            <input type="checkbox" class="custom-control-input" id="customCheck" name="example1">
-                            <label class="custom-control-label" for="customCheck">Laptop</label>
-                        </div>
-                        <div class="custom-control custom-checkbox custom-control-inline mb-3">
-                            <input type="checkbox" class="custom-control-input" id="customCheck" name="example1">
-                            <label class="custom-control-label" for="customCheck">Tablet</label>
-                        </div>
-                        <br>
-                        <button type="submit" class="btn btn-primary mb-2"> Upload </button>
-                    </form>
+                    </div>
                 </div>
-                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                    <h2>Profile</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, eveniet earum. Sed accusantium eligendi molestiae quo hic velit nobis et, tempora placeat ratione rem blanditiis voluptates vel ipsam? Facilis, earum!</p>
+
+                <div class="tab-pane fade" id="export" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="col-md-4">
+                        <h2>Profile</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, eveniet earum. Sed accusantium eligendi molestiae quo hic velit nobis et, tempora placeat ratione rem blanditiis voluptates vel ipsam? Facilis, earum!</p>
+                    </div>
+                    <div class="col-md-6">
+                    </div>
                 </div>
+                
+                <!-- /.col-md-10-->
+
             </div>
-        </div>
-        <!-- /.col-md-4 -->
-        <div class="col-md-6">
-            <p>Preview: </p>
-            <table>
-
-            </table>
-        </div>
+         </div>
     </div>
-
+</div>
 {% endblock %}

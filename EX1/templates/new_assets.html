@@ -2,9 +2,23 @@
 
 {% block content %}
 
-<h2>{{ title }}.</h2>
-<h3>{{ message }}</h3>
+<div>
+    <h1>New Asset Item</h1>
+    <br>
 
-<p>Use this area to provide additional information.</p>
+        <form action="#" method="post">
+        <p>Select the Asset Type to create:</p>
+        <br>
+        <label for="assetType"><strong>Type:</strong></label>
+        <select onchange="location = this.value;">
+            <option value="SelectType">- Select a Type -</option>
+            <option value="{{ url_for('new_assetDefault')}}">Default</option>
+            <option value="NewAsset_Laptop.html">Laptop</option>
+            <option value="NewAsset_Tablet.html">Tablet</option>
+            <option value="NewAsset_Mobile.html">Mobile Phone</option>
+        </select>
+
+        </form>
+</div>
 
 {% endblock %}

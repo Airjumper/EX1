@@ -1,6 +1,6 @@
 ﻿{% extends "layout_admin.html" %}
 
- {% block nav %}
+{% block nav %}
     <li class="nav-item">
         <div class="btn-group" role="group">
             <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -16,9 +16,7 @@
 
 {% block content %}
     <div class="jumbotron">
-
     </div>
-
     <div>
         <div class=" row ">
             <div class="col-2">
@@ -28,13 +26,18 @@
                 <select class="custom-select custom-select-lg mb-3" id="searchBox1" onchange="location = this.value;">
                     <option selected> choose asset type </option>
                     {% for value in type: %}
-                    {% if value[2] == 'Tablet' %}
-                    <option value="{{ url_for('admin_tablet') }}">{{ value[2]}} </option>
-                    {% elif value[2] == 'Mobile'%}
-                    <option value="{{ url_for('admin_mobile') }}">{{ value[2]}} </option>
-                    {% else %}
-                    <option value="{{ url_for('admin_laptop') }}">{{ value[2]}} </option>
-                    {% endif %}
+                
+                        {% if value[2] == 'Tablet' %}
+                        <option value="{{ url_for('admin_tablet') }}">{{ value[2]}} </option>
+                        {% elif value[2] == 'Mobile'%}
+                        <option value="{{ url_for('admin_mobile') }}">{{ value[2]}} </option>
+                        {% elif value[2] == 'Laptop'%}
+                        <option value="{{ url_for('admin_laptop') }}">{{ value[2]}} </option>
+                        {% else %}
+                        <option value="{{ url_for('adminview') }}">{{ value[2]}} </option>
+                        {% endif %}
+
+                    
                     {% endfor %}
                 </select>
             </div>

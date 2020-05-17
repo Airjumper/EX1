@@ -1,6 +1,5 @@
 ﻿<!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +16,6 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
 </head>
-
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container body-content">
@@ -34,10 +32,13 @@
                         <a class="nav-link" href="{{ url_for('adminview') }}" tabindex="-1">View Data</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" tabindex="-1">New Asset</a>
+                        <a class="nav-link" href="{{ url_for('add_asset') }}" tabindex="-1">New Asset</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" tabindex="-1">Asset Type</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" tabindex="-1">Assign Asset</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" tabindex="-1">View History</a>
@@ -60,9 +61,7 @@
         </footer>
     </div>
 
-
     {% block scripts %}{% endblock %}
 
 </body>
-
 </html>

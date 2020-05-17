@@ -1,4 +1,3 @@
-
 #import sqlite3 as sql
 import sqlite3
 from sqlite3 import Error
@@ -77,3 +76,13 @@ def retrieveUserID(email):
     userID = cur.fetchone()
     con.close()
     return userID
+
+#to make the new asset type appear in the dropdown list
+def getAssetType():
+    con = create_connection("diona.db")
+    cur = con.cursor()
+    cur.execute("SELECT DISTINCT assetType_name FROM AssetType")
+    rows = cur.fetchall()
+    con.close()
+
+    return rows

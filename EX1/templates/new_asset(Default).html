@@ -1,14 +1,28 @@
 {% extends "layout_admin.html" %}
 
+{% block nav %}
+<li class="nav-item">
+    <div class="btn-group" role="group">
+        <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Hello! {{username}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+            <a class="dropdown-item" href="#">Log out</a>
+        </div>
+    </div>
+</li>
+{% endblock %}
+
+
 {% block content %}
 
 <h1>Create New Asset - Default</h1>
 <div>
-<form action="" method="post" id="defaultassetform">
-    <h3>Asset Characteristics:</h3>
-    <br>
-    <div>
-        
+    <form action="/new_asset" method="post" id="defaultassetform">
+        <h3>Asset Characteristics:</h3>
+        <br>
+        <div>
+
             <label for="assetType"><strong>Type:</strong></label>
             <select onchange="location = this.value;">
                 <option value="Default">Default</option>
@@ -16,7 +30,7 @@
                 <option value="NewAsset_Tablet.html">Tablet</option>
                 <option value="NewAsset_Mobile.html">Mobile Phone</option>
             </select>
-       
+
             <label for="assetMake"><strong>Make:</strong></label>
             <select id="assetManufacturer" name="assetManufacturer">
                 <option value="allTypes">All Types</option>
@@ -25,61 +39,60 @@
                 <option value="hp">HP</option>
                 <option value="samsung">Samsung</option>
             </select>
-       
+
             <label for="assetStatus"><strong>Status:</strong></label>
             <select id="assetStatus" name="assetStatus">
                 <option value="active">Active</option>
                 <option value="inrepair">In Repair</option>
                 <option value="condemned">Condemned</option>
             </select>
-        
-    </div>
 
-    <div>
-        
+        </div>
+
+        <div>
+
             <label for="assetName"><strong>Asset Name:</strong><input type="text" class="" name="assetName" value="" /></label>
             <label for="assetModel"><strong>Model:</strong><input type="text" class="" name="assetModel" value="" /></label>
             <label for="assetSerial"><strong>Serial:</strong><input type="text" class="" name="assetSerial" value="" /></label>
-    </div>
-    <div>
+        </div>
+        <div>
             <label for="assetNo"><strong>Asset Number:</strong><input type="number" class="" name="assetNo" value="" /></label>
             <label for="assetAssigned"><strong>Assigned To:</strong><input type="text" class="" name="assetAssigned" value="" /></label>
             <label for="assetAssigned"><strong>State:</strong><input type="text" class="" name="assetAssigned" value="" /></label>
-    </div>
+        </div>
 
-    <div>
+        <div>
             <label for="assetDate"><strong>Purchase Date:</strong><input type="text" class="" name="assetDate" value="" /></label>
             <label for="assetWarranty"><strong>Warranty Expiry:</strong><input type="text" class="" name="assetWarranty" value="" /></label>
             <!-- DatePicker input type needed. -->
 
-    </div>
-    <br>
-    <h3>Mobile Asset Characteristics</h3>
-    <br>
-
-    <div>
-        <label for="assetMobileNo"><strong>Mobile Number:</strong><input type="number" class="" name="assetMobileNo" value="" /></label>
-        <label for="assetMobileIEMI"><strong>IEMI:</strong><input type="number" class="" name="assetMobileIEMI" value="" /></label>
-        <label for="assetMobilePin"><strong>PIN:</strong><input type="number" class="" name="assetMobilePin" value="" /></label>
-    </div>
-
-    <br>
-    <h3>Additional Characteristics</h3>
-    <br>
-    <div>
-        <strong>Asset Specifications:</strong>
+        </div>
+        <br>
+        <h3>Mobile Asset Characteristics</h3>
         <br>
 
-        <textarea rows="5" cols="50" name="assetNotes" form="addassetform" placeholder="Enter Additional Asset Specifications Here" />
-        <br>
-        <br>
-    </div>
+        <div>
+            <label for="assetMobileNo"><strong>Mobile Number:</strong><input type="number" class="" name="assetMobileNo" value="" /></label>
+            <label for="assetMobileIEMI"><strong>IEMI:</strong><input type="number" class="" name="assetMobileIEMI" value="" /></label>
+            <label for="assetMobilePin"><strong>PIN:</strong><input type="number" class="" name="assetMobilePin" value="" /></label>
+        </div>
 
-    <div>
-        <input type="Submit" value="Save">
-    </div>
+        <br>
+        <h3>Additional Characteristics</h3>
+        <br>
+        <div>
+            <strong>Asset Specifications:</strong>
+            <br>
+            <textarea rows="5" cols="50" name="assetNotes" form="addassetform" placeholder="Enter Additional Asset Specifications Here"></textarea>
+            <br>
+            <br>
+        </div>
 
-</form>
+        <div>
+            <input type="Submit" value="Save">
+        </div>
+
+    </form>
 </div>
 
 {% endblock %}

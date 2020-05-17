@@ -93,8 +93,7 @@ def adminview():
     # Check if user is loggedin
     if 'loggedin' in session:
         
-        conn = sqlite3.connect(r"diona.db")
-        types = conn.execute("SELECT * FROM Type") 
+        types = dbHandler.getAssetType()
    
         return render_template('adminview.html', 
                                 username=session['id'],   
@@ -111,16 +110,15 @@ def admin_mobile():
     # Check if user is loggedin
     if 'loggedin' in session:
         
-        conn = sqlite3.connect(r"diona.db")
-        types = conn.execute("SELECT * FROM Type") 
-        details = conn.execute("SELECT a.asset_name, d.details, t.type_name FROM Details d, Asset_With_Type a, Type t WHERE d.type_id = '1' AND a.asset_id = d.asset_id AND t.type_id = d.type_id ")
-        colNames = details.description
+        types = dbHandler.getAssetType()
+
+        conn = sqlite3.connect(r"diona.db")     
+        details = conn.execute("SELECT a.asset_name AS AssetName , t.assetType_name AS AssetType, GROUP_CONCAT(d.key_value), GROUP_CONCAT(d.key_name) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Mobile Phone' GROUP BY a.asset_name")
         
         return render_template('admin_mobile.html', 
                                 username=session['id'],   
                                 title='Admin View',
                                 tableRows = details,
-                                headers = colNames,
                                 type = types,
                                 year=datetime.now().year  
                                 )
@@ -133,17 +131,15 @@ def admin_mobile():
 def admin_tablet():
     if 'loggedin' in session:
         
-        conn = sqlite3.connect(r"diona.db")
-        types = conn.execute("SELECT * FROM Type") 
-        details = conn.execute("SELECT a.asset_name, d.details, t.type_name FROM Details d, Asset_With_Type a, Type t WHERE d.type_id = '3' AND a.asset_id = d.asset_id AND t.type_id = d.type_id ")
-        colNames = details.description   
+        types = dbHandler.getAssetType()
+        conn= sqlite3.connect(r"diona.db")
+        details = conn.execute("SELECT a.asset_name AS AssetName , t.assetType_name AS AssetType, GROUP_CONCAT(d.key_value), GROUP_CONCAT(d.key_name) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Tablet' GROUP BY a.asset_name")
        
     # """Renders the user page."""
         return render_template('admin_tablet.html',
                                 username=session['id'],
                                 title='Admin View',
                                 tableRows = details,
-                                headers = colNames,
                                 type = types,
                                 year=datetime.now().year       
                             )
@@ -154,18 +150,15 @@ def admin_tablet():
 def admin_laptop():
     if 'loggedin' in session:
         
-        conn = sqlite3.connect(r"diona.db")
-        types = conn.execute("SELECT * FROM Type") 
-
-        details = conn.execute("SELECT a.asset_name, d.details, t.type_name FROM Details d, Asset_With_Type a, Type t WHERE d.type_id = '2' AND a.asset_id = d.asset_id AND t.type_id = d.type_id ")
-        colNames = details.description
-        
+        types = dbHandler.getAssetType()
+        conn= sqlite3.connect(r"diona.db")
+        details = conn.execute("SELECT a.asset_name AS AssetName , t.assetType_name AS AssetType, GROUP_CONCAT(d.key_value), GROUP_CONCAT(d.key_name) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Laptop' GROUP BY a.asset_name")
+                                      
     # """Renders the user page."""
         return render_template('admin_laptop.html',
                                 title='Admin View',
                                 username=session['id'],
                                 tableRows = details,
-                                headers = colNames,
                                 type = types,
                                 year=datetime.now().year       
                             )
@@ -176,8 +169,8 @@ def admin_laptop():
 
 @app.route('/userview')
 def userview():
-    conn = sqlite3.connect(r"diona.db")
-    types = conn.execute("SELECT * FROM Type") 
+
+    types = dbHandler.getAssetType() 
    
     # """Renders the user page."""
     return render_template('userview.html',
@@ -188,51 +181,49 @@ def userview():
 
 @app.route('/userview/mobile')
 def mobile():
-    conn = sqlite3.connect(r"diona.db")
-    types = conn.execute("SELECT * FROM Type") 
-    details = conn.execute("SELECT * FROM AssetDetails D, Asset A WHERE A.asset_type = 'Mobile' AND A.asset_id = D.asset_id")
-    colNames = details.description
-    
-    # """Renders the user page."""
-    return render_template('userview_mobile.html',
-                            title='User View',
-                            tableRows = details,
-                            headers = colNames,
-                            type = types,
-                            year=datetime.now().year       
-                        )
+        types = dbHandler.getAssetType()
+
+        conn = sqlite3.connect(r"diona.db")     
+        details = conn.execute("SELECT a.asset_name AS AssetName , t.assetType_name AS AssetType, GROUP_CONCAT(d.key_value), GROUP_CONCAT(d.key_name) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Mobile Phone' GROUP BY a.asset_name")
+        
+        return render_template('userview_mobile.html', 
+                                username=session['id'],   
+                                title='User View',
+                                tableRows = details,
+                                type = types,
+                                year=datetime.now().year  
+                                )
+
 
 @app.route('/userview/tablet')
 def tablet():
-    conn = sqlite3.connect(r"diona.db")
-    types = conn.execute("SELECT * FROM Type") 
-    details = conn.execute("SELECT A.asset_name, D.asset_IEMI, D.asset_pin, D.asset_make , D.asset_tag, D.asset_serialNo, D.asset_device,D.asset_model, D.Notes FROM AssetDetails D, Asset A WHERE A.asset_type = 'Tablet' AND A.asset_id = D.asset_id")
-    colNames = details.description
+        types = dbHandler.getAssetType()
+        conn= sqlite3.connect(r"diona.db")
+        details = conn.execute("SELECT a.asset_name AS AssetName , t.assetType_name AS AssetType, GROUP_CONCAT(d.key_value), GROUP_CONCAT(d.key_name) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Tablet' GROUP BY a.asset_name")
        
     # """Renders the user page."""
-    return render_template('userview_tablet.html',
-                            title='User View',
-                            tableRows = details,
-                            headers = colNames,
-                            type = types,
-                            year=datetime.now().year       
-                        )
+        return render_template('userview_tablet.html',
+                                username=session['id'],
+                                title='User View',
+                                tableRows = details,
+                                type = types,
+                                year=datetime.now().year       
+                            )
 
 @app.route('/userview/laptop')
 def laptop():
-    conn = sqlite3.connect(r"diona.db")
-    types = conn.execute("SELECT * FROM Type") 
-    details = conn.execute("SELECT A.asset_name, D.asset_make , D.asset_tag,D.asset_hardware,D.asset_serialNo,D.asset_device,D.Notes  FROM AssetDetails D, Asset A WHERE A.asset_type = 'Laptop' AND A.asset_id = D.asset_id")
-    colNames = details.description
-    
+        types = dbHandler.getAssetType()
+        conn= sqlite3.connect(r"diona.db")
+        details = conn.execute("SELECT a.asset_name AS AssetName , t.assetType_name AS AssetType, GROUP_CONCAT(d.key_value), GROUP_CONCAT(d.key_name) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Laptop' GROUP BY a.asset_name")
+                                      
     # """Renders the user page."""
-    return render_template('userview_laptop.html',
-                            title='User View',
-                            tableRows = details,
-                            headers = colNames,
-                            type = types,
-                            year=datetime.now().year       
-                        )
+        return render_template('userview_laptop.html',
+                                title='User View',
+                                username=session['id'],
+                                tableRows = details,
+                                type = types,
+                                year=datetime.now().year       
+                            )
 
 
 
@@ -240,7 +231,7 @@ def laptop():
 def i_or_o_main():
    
         conn = sqlite3.connect(r"diona.db")
-        types = conn.execute("SELECT * FROM Type")
+        types = conn.execute("SELECT DISTINCT assetType_name FROM AssetType") 
 
         return render_template('i_or_o_main.html', 
                                 username=session['id'],   

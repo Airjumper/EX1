@@ -82,7 +82,7 @@
                                     {%  for row in header: %}
                                     <tr>
                                         <th scope="row"> </th>
-                                        {%  for line in range(row|length : %}
+                                        {%  for line in range(row|length) : %}
                                         <th> {{ row[line] }} </th>
                                         {% endfor %}
                                     </tr>

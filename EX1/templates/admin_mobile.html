@@ -31,14 +31,14 @@
                     <option selected> choose asset type </option>
                     {% for value in type: %}
 
-                    {% if value[2] == 'Tablet' %}
-                    <option value="{{ url_for('admin_tablet') }}">{{ value[2]}} </option>
-                    {% elif value[2] == 'Mobile'%}
-                    <option value="{{ url_for('admin_mobile') }}">{{ value[2]}} </option>
-                    {% elif value[2] == 'Laptop'%}
-                    <option value="{{ url_for('admin_laptop') }}">{{ value[2]}} </option>
+                    {% if value[0] == 'Tablet' %}
+                    <option value="{{ url_for('admin_tablet') }}">{{ value[0]}} </option>
+                    {% elif value[0] == 'Mobile Phone'%}
+                    <option value="{{ url_for('admin_mobile') }}">{{ value[0]}} </option>
+                    {% elif value[0] == 'Laptop'%}
+                    <option value="{{ url_for('admin_laptop') }}">{{ value[0]}} </option>
                     {% else %}
-                    <option value="{{ url_for('adminview') }}">{{ value[2]}} </option>
+                    <option value="{{ url_for('adminview') }}">{{ value[0]}} </option>
                     {% endif %}
 
 
@@ -53,16 +53,16 @@
             <thead>
                 <tr>
                     <th scope="row"> </th>
-                    {%  for line in headers: %}
-                    <th> {{ line[0]}} </th>
-                    {% endfor %}
+                    <th> Asset Name </th>
+                    <th> Asset Type </th>
+                    <th> Details </th>
                 </tr>
             </thead>
-            {%  for line in tableRows: %}
+            {%  for rows in tableRows: %}
             <tbody>
                 <tr>
                     <th scope="row"></th>
-                    {%  for x in line: %}
+                    {%  for x in rows: %}
                     <td>{{ x }}</td>
                     {% endfor %}
                     <td><a href="#" class="text-primary">Edit</a></td>

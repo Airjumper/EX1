@@ -27,14 +27,14 @@
                     <option selected> choose asset type </option>
                     {% for value in type: %}
                 
-                        {% if value[2] == 'Tablet' %}
-                        <option value="{{ url_for('admin_tablet') }}">{{ value[2]}} </option>
-                        {% elif value[2] == 'Mobile'%}
-                        <option value="{{ url_for('admin_mobile') }}">{{ value[2]}} </option>
-                        {% elif value[2] == 'Laptop'%}
-                        <option value="{{ url_for('admin_laptop') }}">{{ value[2]}} </option>
+                        {% if value[0] == 'Tablet' %}
+                        <option value="{{ url_for('admin_tablet') }}">{{ value[0]}} </option>
+                        {% elif value[0] == 'Mobile Phone'%}
+                        <option value="{{ url_for('admin_mobile') }}">{{ value[0]}} </option>
+                        {% elif value[0] == 'Laptop'%}
+                        <option value="{{ url_for('admin_laptop') }}">{{ value[0]}} </option>
                         {% else %}
-                        <option value="{{ url_for('adminview') }}">{{ value[2]}} </option>
+                        <option value="{{ url_for('adminview') }}">{{ value[0]}} </option>
                         {% endif %}
 
                     

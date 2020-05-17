@@ -86,3 +86,13 @@ def getAssetType():
     con.close()
 
     return rows
+
+
+def getAssetDetails():
+    con = create_connection("diona.db")
+    cur = con.cursor()
+    cur.execute("SELECT DISTINCT assetType_name FROM AssetType")
+    rows = cur.fetchall()
+    con.close()
+
+    return rows

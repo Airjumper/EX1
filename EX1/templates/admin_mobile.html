@@ -55,14 +55,18 @@
                     <th scope="row"> </th>
                     <th> Asset Name </th>
                     <th> Asset Type </th>
-                    <th> Details </th>
+                    {%  for x in keys: %}
+                    <th> {{ x }} </th>
+                    {% endfor %}
                 </tr>
             </thead>
-            {%  for rows in tableRows: %}
+            {%  for row in range(rows|length): %}
             <tbody>
                 <tr>
                     <th scope="row"></th>
-                    {%  for x in rows: %}
+                    <td>{{ rows[row][0] }}</td>
+                    <td>{{ rows[row][1] }}</td>
+                    {%  for x in res[row]: %}
                     <td>{{ x }}</td>
                     {% endfor %}
                     <td><a href="#" class="text-primary">Edit</a></td>

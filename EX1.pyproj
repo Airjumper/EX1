@@ -49,7 +49,7 @@
     <Content Include="EX1\templates\layout_user.html" />
     <Content Include="EX1\templates\layout_admin.html" />
     <Content Include="EX1\templates\new_assetsTablet.html" />
-    <Content Include="EX1\templates\new_asset%28Default%29.html" />
+    <Content Include="EX1\templates\new_assetDefault.html" />
     <Content Include="EX1\templates\new_assetsMobile.html" />
     <Content Include="EX1\templates\new_assetsLaptop.html" />
     <Content Include="EX1\templates\new_assets.html" />

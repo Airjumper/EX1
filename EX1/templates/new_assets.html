@@ -11,11 +11,19 @@
         <br>
         <label for="assetType"><strong>Type:</strong></label>
         <select onchange="location = this.value;">
-            <option value="SelectType">- Select a Type -</option>
-            <option value="{{ url_for('new_assetDefault')}}">Default</option>
-            <option value="NewAsset_Laptop.html">Laptop</option>
-            <option value="NewAsset_Tablet.html">Tablet</option>
-            <option value="NewAsset_Mobile.html">Mobile Phone</option>
+            <option value="Default">- Select a Type -</option>
+            {% for value in menu: %}
+            {% if value[0] == 'Tablet' %}
+            <option value="{{url_for('new_assetsTablet') }}">{{value[0]}}</option>
+            {% elif value[0] == 'Mobile Phone' %}
+            <option value="{{url_for('new_assetsMobile') }}">{{value[0]}}</option>
+            {% elif value[0] == 'Laptop' %}
+            <option value="{{url_for('new_assetsLaptop') }}">{{value[0]}}</option>
+            {% else %}
+            <option value="{{url_for('asset_type') }}">{{value[0]}}</option>
+            {% endif %}
+
+            {% endfor %}
         </select>
 
         </form>

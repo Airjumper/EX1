@@ -5,6 +5,90 @@
 <h2>{{ title }}.</h2>
 <h3>{{ message }}</h3>
 
-<p>Use this area to provide additional information.</p>
+<div>
+    <form action="add_asset" method="post" id="defaultassetform">
+        <h3>Asset Characteristics:</h3>
+        <br>
+        <div>
+
+            <label for="assetType"><strong>Type:</strong></label>
+            <select onchange="location = this.value;">
+                {% for value in menu: %}
+                {% if value[0] == 'Tablet' %}
+                <option value="{{url_for('new_assetsTablet') }}">{{value[0]}}</option>
+                {% elif value[0] == 'Mobile Phone' %}
+                <option value="{{url_for('new_assetsMobile') }}">{{value[0]}}</option>
+                {% elif value[0] == 'Laptop' %}
+                <option value="{{url_for('new_assetsLaptop') }}">{{value[0]}}</option>
+                {% else %}
+                <option value="{{url_for('asset_type') }}">{{value[0]}}</option>
+                {% endif %}
+
+                {% endfor %}
+            </select>
+
+            <label for="assetMake"><strong>Make:</strong></label>
+            <select id="assetManufacturer" name="assetManufacturer">
+                <option value="allTypes">All Types</option>
+                <option value="apple">Apple</option>
+                <option value="microsoft">Microsoft</option>
+                <option value="hp">HP</option>
+                <option value="samsung">Samsung</option>
+            </select>
+
+            <label for="assetStatus"><strong>Status:</strong></label>
+            <select id="assetStatus" name="assetStatus">
+                <option value="active">Active</option>
+                <option value="inrepair">In Repair</option>
+                <option value="condemned">Condemned</option>
+            </select>
+
+        </div>
+
+        <div>
+
+            <label for="assetName"><strong>Asset Name:</strong><input type="text" class="" name="assetName" value="" /></label>
+            <label for="assetModel"><strong>Model:</strong><input type="text" class="" name="assetModel" value="" /></label>
+            <label for="assetSerial"><strong>Serial:</strong><input type="text" class="" name="assetSerial" value="" /></label>
+        </div>
+        <div>
+            <label for="assetNo"><strong>Asset Number:</strong><input type="number" class="" name="assetNo" value="" /></label>
+            <label for="assetAssigned"><strong>Assigned To:</strong><input type="text" class="" name="assetAssigned" value="" /></label>
+            <label for="assetAssigned"><strong>State:</strong><input type="text" class="" name="assetAssigned" value="" /></label>
+        </div>
+
+        <div>
+            <label for="assetDate"><strong>Purchase Date:</strong><input type="text" class="" name="assetDate" value="" /></label>
+            <label for="assetWarranty"><strong>Warranty Expiry:</strong><input type="text" class="" name="assetWarranty" value="" /></label>
+            <!-- DatePicker input type needed. -->
+
+        </div>
+        <br>
+        <h3>Mobile Asset Characteristics</h3>
+        <br>
+
+        <div>
+            <label for="assetMobileNo"><strong>Mobile Number:</strong><input type="number" class="" name="assetMobileNo" value="" /></label>
+            <label for="assetMobileIEMI"><strong>IEMI:</strong><input type="number" class="" name="assetMobileIEMI" value="" /></label>
+            <label for="assetMobilePin"><strong>PIN:</strong><input type="number" class="" name="assetMobilePin" value="" /></label>
+        </div>
+
+        <br>
+        <h3>Additional Characteristics</h3>
+        <br>
+        <div>
+            <strong>Asset Specifications:</strong>
+            <br>
+            <textarea rows="5" cols="50" name="assetNotes" form="addassetform" placeholder="Enter Additional Asset Specifications Here"></textarea>
+            <br>
+            <br>
+        </div>
+
+        <div>
+            <input type="Submit" value="Save">
+        </div>
+
+    </form>
+</div>
 
 {% endblock %}

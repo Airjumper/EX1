@@ -18,17 +18,25 @@
 
 <h1>Create New Asset - Default</h1>
 <div>
-    <form action="/new_asset" method="post" id="defaultassetform">
+    <form action="/add_asset" method="post" id="defaultassetform">
         <h3>Asset Characteristics:</h3>
         <br>
         <div>
 
             <label for="assetType"><strong>Type:</strong></label>
             <select onchange="location = this.value;">
-                <option value="Default">Default</option>
-                <option value="NewAsset_Laptop.html">Laptop</option>
-                <option value="NewAsset_Tablet.html">Tablet</option>
-                <option value="NewAsset_Mobile.html">Mobile Phone</option>
+                {% for value in menu: %}
+                {% if value[0] == 'Tablet' %}
+                <option value="{{url_for('new_assetsTablet') }}">{{value[0]}}</option>
+                {% elif value[0] == 'Mobile Phone' %}
+                <option value="{{url_for('new_assetsMobile') }}">{{value[0]}}</option>
+                {% elif value[0] == 'Laptop' %}
+                <option value="{{url_for('new_assetsLaptop') }}">{{value[0]}}</option>
+                {% else %}
+                <option value="{{url_for('asset_type') }}">{{value[0]}}</option>
+                {% endif %}
+
+                {% endfor %}
             </select>
 
             <label for="assetMake"><strong>Make:</strong></label>

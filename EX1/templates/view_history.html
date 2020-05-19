@@ -1,7 +1,20 @@
 ﻿{% extends "layout_admin.html" %}
 
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        $("#tableSearch").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+{% endblock %}
 
- {% block nav %}
+
+{% block nav %}
 <li class="nav-item">
     <div class="btn-group" role="group">
         <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -16,60 +29,35 @@
 
 
 {% block content %}
-<div>
-    
-    <form class="example" method="post" action=""
-          style="margin:auto;max-width:600px">
-        <input type="text" placeholder="Search by author or
-             book, or all to see all the data" name="book">
-        <button type="submit">
-            <i class="fa fa-search"></i>
-        </button>
-    </form>    
-
-</div>>
 
 
 
 
 <div class="container" style="overflow-x:auto;">
-    <h1>Mobile Phones :</h1>
+
+    <input class="form-control mb-4" id="tableSearch" type="text" placeholder="Type something to search list items">
+
     <table class="table table-striped">
         <thead>
             <tr>
                 <th scope="row"> </th>
-                <th> Asset Name </th>
-                <th> Asset Type </th>
-                {%  for x in keys: %}
+                {%  for x in header: %}
                 <th> {{ x }} </th>
                 {% endfor %}
             </tr>
         </thead>
-        {%  for row in range(rows|length): %}
-        <tbody>
+        {%  for row in list: %}
+        <tbody id="myTable">
             <tr>
                 <th scope="row"></th>
-                <td>{{ rows[row][0] }}</td>
-                <td>{{ rows[row][1] }}</td>
-                {%  for x in res[row]: %}
+                {%  for x in row: %}
                 <td>{{ x }}</td>
                 {% endfor %}
-                <td><a href="#" class="text-primary">Edit</a></td>
-                <td><a href="#" class="text-primary">Delete</a>
-                <td>
             </tr>
         </tbody>
         {% endfor %}
     </table>
 </div>
 
-
-
-
-
-
-
-
-
-
 {% endblock %}
+

@@ -13,10 +13,9 @@
         </div>
         <div class="col-3">
             <select class="custom-select custom-select-lg mb-3" id="searchBox1" onchange="location = this.value;">
-                <option selected> choose asset type </option>
                 {% for value in type: %}
                 {% if value[0] == 'Tablet' %}
-                <option value="{{ url_for('tablet') }}">{{ value[0]}} </option>
+                <option value="{{ url_for('tablet') }}" selected>{{ value[0]}} </option>
                 {% elif value[0] == 'Mobile Phone'%}
                 <option value="{{ url_for('mobile') }}">{{ value[0]}} </option>
                 {% elif value[0] == 'Laptop'%}

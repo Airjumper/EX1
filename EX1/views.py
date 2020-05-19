@@ -48,6 +48,21 @@ def login():
                              message='Login Page',
                              msg='')
 
+
+@app.route('/login_success')
+def login_success():
+
+     if 'loggedin' in session:
+         #"""Renders the login page."""
+         return render_template('admin_login.html',
+                                 username=session['id'],
+                                 title='Login',
+                                 year=datetime.now().year,
+                                 message='Main page')
+     return render_template('login.html')
+
+
+
 @app.route('/login_request', methods=['POST', 'GET'])
 def login_request():
     # error = None
@@ -62,7 +77,7 @@ def login_request():
             session['id'] = account
             #session['username'] = account['username']
             # Redirect to home page
-            return redirect(url_for('adminview'))
+            return redirect(url_for('login_success'))
             #return 'Logged in successfully!'
         else:
             # Account doesnt exist or username/password incorrect
@@ -328,7 +343,7 @@ def new_assets():
     """Renders the New Assets page."""
     menu = dbHandler.getAssetType()
     print(menu)
-    return render_template('new_assets.html',
+    return render_template('new_assets_main.html',
         title='New Assets',
         year=datetime.now().year,
         message='New assets',
@@ -418,7 +433,7 @@ def add_asset():
                 message='New Assets',
                 msg=msg)
     else:
-        return render_template('new_assets.html',
+        return render_template('new_assets_main.html',
             title='New Assets',
             year=datetime.now().year,
             message='New Assets',
@@ -427,10 +442,10 @@ def add_asset():
 
 def page_name(x):
             return {
-                'Mobile Phone': 'new_assetsMobile.html',
-                'Tablet': 'new_assetsTablet.html',
-                'Laptop': 'new_assetsLaptop.html'
-            }.get(x, 'index.html')
+                'Mobile Phone': 'new_Mobile.html',
+                'Tablet': 'new_Tablet.html',
+                'Laptop': 'new_Laptop.html'
+            }.get(x, 'adminview.html')
 
 @app.route('/NewAsset_Default.html')
 def new_assetDefault():
@@ -477,13 +492,27 @@ def new_assetsLaptop():
 
 @app.route('/history')
 def view_history():
-    """Renders the contact page."""
+    if 'loggedin' in session:
+       
+        conn = sqlite3.connect(r"diona.db")
+
+        conn.row_factory = sqlite3.Row
+            # Get name and type of an asset, and get key_value store as results
+        rows = conn.execute("SELECT u.user_name, a.asset_Name, r.date_rental, r.date_return FROM Rent r, Asset a INNER JOIN User u on u.user_id = r.user_id AND a.asset_id = r.asset_id ")
+        col_names = rows.fetchone()
+        headers = col_names.keys()
+
+        cur2 = conn.cursor() 
+        results = cur2.execute("SELECT u.user_name, a.asset_Name, r.date_rental, r.date_return FROM Rent r, Asset a INNER JOIN User u on u.user_id = r.user_id AND a.asset_id = r.asset_id ")
+
+
     return render_template('view_history.html',
-                            title='Contact',
-                            year=datetime.now().year,
-                            message='hello aidan.')
-
-
+                            username=session['id'],
+                            title = 'User History',
+                            header = headers,
+                            list = results.fetchall(),
+                            year = datetime.now().year,
+                           )
 
 
 @app.route('/contact')
@@ -492,7 +521,7 @@ def contact():
     return render_template('contact.html',
                             title='Contact',
                             year=datetime.now().year,
-                            message='hello aidan.')
+                            message='hello.')
 
 @app.route('/about')
 def about():

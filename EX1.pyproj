@@ -45,6 +45,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="EX1\static\image\logo.png" />
+    <Content Include="EX1\templates\admin_login.html" />
+    <Content Include="EX1\templates\new_assets_default.html" />
+    <Content Include="EX1\templates\new_Laptop.html" />
+    <Content Include="EX1\templates\new_assets_main.html" />
+    <Content Include="EX1\templates\new_Mobile.html" />
+    <Content Include="EX1\templates\new_Tablet.html" />
     <Content Include="EX1\templates\i_or_o_main.html" />
     <Content Include="EX1\templates\layout_user.html" />
     <Content Include="EX1\templates\layout_admin.html" />

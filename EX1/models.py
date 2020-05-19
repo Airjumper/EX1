@@ -35,7 +35,7 @@ def create_newAsset(newAsset):
             cur.execute(sql,newAsset)
             return cur.lastrowid
     except sqlite3.IntegrityError:
-        print ("couldn't add data")
+        print("couldn't add data")
     con.close()
 
 #for adding new asset to Asset Details table
@@ -51,7 +51,7 @@ def create_newAssetDetails(newAssetDetails):
             cur.execute(sql,newAssetDetails)
             return cur.lastrowid
     except sqlite3.IntegrityError:
-        print ("couldn't add data")
+        print("couldn't add data")
     con.close()
 
 #for adding new assets to rent table
@@ -65,7 +65,7 @@ def create_newRentrecord(rent):
             con.commit() #to finanlise the changes in the database
             return cur.lastrowid
     except sqlite3.IntegrityError:
-        print ("couldn't add data")
+        print("couldn't add data")
     con.close()
 
 #find user id by using email

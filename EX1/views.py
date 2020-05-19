@@ -37,8 +37,7 @@ def home():
     """Renders the home page."""
     return render_template('welcome.html',
                             title='Home Page',
-                            year=datetime.now().year,
-                        )
+                            year=datetime.now().year,)
 
 @app.route('/login')
 def login():
@@ -47,8 +46,7 @@ def login():
                              title='Login',
                              year=datetime.now().year,
                              message='Login Page',
-                             msg=''
-                         )
+                             msg='')
 
 @app.route('/login_request', methods=['POST', 'GET'])
 def login_request():
@@ -83,8 +81,7 @@ def login_request():
                                 year=datetime.now().year,
                                 message='Login Page',
                                 error=True,
-                                msg=''
-                                )
+                                msg='')
 
 
 
@@ -99,8 +96,7 @@ def adminview():
                                 username=session['id'],   
                                 title='Admin View',
                                 type = types,
-                                year=datetime.now().year  
-                                )
+                                year=datetime.now().year)
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))
 
@@ -133,8 +129,7 @@ def admin_mobile():
                                 res = results,
                                 keys = details_keys.fetchall()[0][1].split(','),
                                 type = types,
-                                year=datetime.now().year  
-                                )
+                                year=datetime.now().year)
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))
 
@@ -167,8 +162,7 @@ def admin_tablet():
                                 res = results,
                                 keys = details_keys.fetchall()[0][1].split(','),
                                 type = types,
-                                year=datetime.now().year       
-                            )
+                                year=datetime.now().year)
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))  
 
@@ -199,8 +193,7 @@ def admin_laptop():
                                 res = results,
                                 keys = details_keys.fetchall()[0][1].split(','),
                                 type = types,
-                                year=datetime.now().year       
-                            )
+                                year=datetime.now().year)
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))
     
@@ -215,54 +208,85 @@ def userview():
     return render_template('userview.html',
                             title='User View',
                             type = types,
-                            year=datetime.now().year      
-                        )
+                            year=datetime.now().year)
 
 @app.route('/userview/mobile')
 def mobile():
         types = dbHandler.getAssetType()
 
-        conn = sqlite3.connect(r"diona.db")     
-        details = conn.execute("SELECT a.asset_name AS AssetName , t.assetType_name AS AssetType, GROUP_CONCAT(d.key_value), GROUP_CONCAT(d.key_name) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Mobile Phone' GROUP BY a.asset_name")
+        conn = sqlite3.connect(r"diona.db")
+        # Get name and type of an asset, and get key_value store as results
+        cur = conn.cursor() 
+        name_types = cur.execute("SELECT a.asset_name , t.assetType_name, GROUP_CONCAT(d.key_value) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Mobile Phone' GROUP BY a.asset_name")
+        rows = name_types.fetchall()
+        results = [0 for x in range(len(rows))]
+        for x in range(len(rows)):
+            results[x] = rows[x][2].split(',')      
+
+        # Get key_name rows
+        cur2 = conn.cursor() 
+        details_keys = cur2.execute("SELECT a.asset_name, GROUP_CONCAT(d.key_name) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Mobile Phone' GROUP BY a.asset_name")
+
         
         return render_template('userview_mobile.html', 
-                                username=session['id'],   
                                 title='User View',
-                                tableRows = details,
+                                rows = rows,
+                                res = results,
+                                keys = details_keys.fetchall()[0][1].split(','),
                                 type = types,
-                                year=datetime.now().year  
-                                )
+                                year=datetime.now().year)
 
 
 @app.route('/userview/tablet')
 def tablet():
         types = dbHandler.getAssetType()
-        conn= sqlite3.connect(r"diona.db")
-        details = conn.execute("SELECT a.asset_name AS AssetName , t.assetType_name AS AssetType, GROUP_CONCAT(d.key_value), GROUP_CONCAT(d.key_name) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Tablet' GROUP BY a.asset_name")
+
+        conn = sqlite3.connect(r"diona.db")
+        # Get name and type of an asset, and get key_value store as results
+        cur = conn.cursor() 
+        name_types = cur.execute("SELECT a.asset_name , t.assetType_name, GROUP_CONCAT(d.key_value) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Tablet' GROUP BY a.asset_name")
+        rows = name_types.fetchall()
+        results = [0 for x in range(len(rows))]
+        for x in range(len(rows)):
+            results[x] = rows[x][2].split(',')      
+
+        # Get key_name rows
+        cur2 = conn.cursor() 
+        details_keys = cur2.execute("SELECT a.asset_name, GROUP_CONCAT(d.key_name) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Tablet' GROUP BY a.asset_name")
        
     # """Renders the user page."""
         return render_template('userview_tablet.html',
-                                username=session['id'],
                                 title='User View',
-                                tableRows = details,
+                                rows = rows,
+                                res = results,
+                                keys = details_keys.fetchall()[0][1].split(','),
                                 type = types,
-                                year=datetime.now().year       
-                            )
+                                year=datetime.now().year)
 
 @app.route('/userview/laptop')
 def laptop():
         types = dbHandler.getAssetType()
-        conn= sqlite3.connect(r"diona.db")
-        details = conn.execute("SELECT a.asset_name AS AssetName , t.assetType_name AS AssetType, GROUP_CONCAT(d.key_value), GROUP_CONCAT(d.key_name) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Laptop' GROUP BY a.asset_name")
-                                      
+
+        conn = sqlite3.connect(r"diona.db")
+        # Get name and type of an asset, and get key_value store as results
+        cur = conn.cursor() 
+        name_types = cur.execute("SELECT a.asset_name , t.assetType_name, GROUP_CONCAT(d.key_value) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Laptop' GROUP BY a.asset_name")
+        rows = name_types.fetchall()
+        results = [0 for x in range(len(rows))]
+        for x in range(len(rows)):
+            results[x] = rows[x][2].split(',')      
+
+        # Get key_name rows
+        cur2 = conn.cursor() 
+        details_keys = cur2.execute("SELECT a.asset_name, GROUP_CONCAT(d.key_name) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Laptop' GROUP BY a.asset_name")
     # """Renders the user page."""
         return render_template('userview_laptop.html',
                                 title='User View',
-                                username=session['id'],
-                                tableRows = details,
+                                rows = rows,
+                                res = results,
+                                keys = details_keys.fetchall()[0][1].split(','),
                                 type = types,
-                                year=datetime.now().year       
-                            )
+                                year=datetime.now().year)
 
 
 
@@ -276,8 +300,7 @@ def i_or_o_main():
                                 username=session['id'],   
                                 title='Import/Export',
                                 type = types,
-                                year=datetime.now().year  
-                                )
+                                year=datetime.now().year)
   
 
 
@@ -294,8 +317,7 @@ def import_main():
 
         return render_template('i_or_o_main.html',
                                 header = contents,
-                                year=datetime.now().year
-                                )
+                                year=datetime.now().year)
        
 
        
@@ -305,24 +327,24 @@ def import_main():
 def new_assets():
     """Renders the New Assets page."""
     menu = dbHandler.getAssetType()
-    print (menu)
-    return render_template(
-        'new_assets.html',
+    print(menu)
+    return render_template('new_assets.html',
         title='New Assets',
         year=datetime.now().year,
         message='New assets',
-        menu = menu
-    )
+        menu = menu)
 
 
 @app.route('/add_asset', methods=['POST', 'GET'])
 def add_asset():
-    #if the form is submittied, declare the variable of new_asset, asset_id and user_id
+    #if the form is submittied, declare the variable of new_asset, asset_id and
+    #user_id
     if request.method == 'POST':
         new_asset = ''
         asset_id = ''
         user_id = ''
-        #prepare new asset from form data, to get the asset record (name and type) first
+        #prepare new asset from form data, to get the asset record (name and
+        #type) first
         if request.form['assetName']:
             if request.form['assetType']:
                 new_asset = (request.form['assetName'], request.form['assetType'])
@@ -337,7 +359,7 @@ def add_asset():
         else:
             msg = 'Error! Cannot create new asset.'
 
-        #get the email from the form to get userID    
+        #get the email from the form to get userID
         user_id = dbHandler.retrieveUserID(request.form['assetAssigned'])
         
         #Continue adding into Asset Details if asset is added in Asset table
@@ -356,10 +378,13 @@ def add_asset():
                             'assetHardware':'','assetTag':'','assetDevice':'',
                             'assetStatus':'','assetDate':'','assetNotes':''}
 
-            #combine dictionaries (since different asset types have different labels in the form, only the textfields that are filled out will be entered in the database)
+            #combine dictionaries (since different asset types have different
+            #labels in the form, only the textfields that are filled out will
+            #be entered in the database)
             combined_dict = {**empty_dict, **data}
             
-            #create new list to append value from combined dictionary as dictionary cannot be updated
+            #create new list to append value from combined dictionary as
+            #dictionary cannot be updated
             new_list = list()
 
             #append dictionary values into list
@@ -398,8 +423,7 @@ def add_asset():
             year=datetime.now().year,
             message='New Assets',
             error=True,
-            msg=''
-            )
+            msg='')
 
 def page_name(x):
             return {
@@ -413,50 +437,42 @@ def new_assetDefault():
     """Renders the New Assets Default page."""
     #to make all the asset types appear on the page
     menu = dbHandler.getAssetType()
-    return render_template(
-        'new_assetDefault.html',
+    return render_template('new_assetDefault.html',
         title='New Assets for Mobile',
         year=datetime.now().year,
         message='New assets Mobile',
-        menu = menu
-    )
+        menu = menu)
 
 
 @app.route('/NewAsset_Mobile.html')
 def new_assetsMobile():
     """Renders the New Assets Mobile page."""
     menu = dbHandler.getAssetType()
-    return render_template(
-        'new_assetsMobile.html',
+    return render_template('new_assetsMobile.html',
         title='New Assets for Mobile',
         year=datetime.now().year,
         message='New assets Mobile',
-        menu = menu
-    )
+        menu = menu)
 
 @app.route('/NewAsset_Tablet.html')
 def new_assetsTablet():
     """Renders the New Assets Tablet page."""
     menu = dbHandler.getAssetType()
-    return render_template(
-        'new_assetsTablet.html',
+    return render_template('new_assetsTablet.html',
         title='New Assets for Tablet',
         year=datetime.now().year,
         message='New assets Tablet',
-        menu = menu
-    )
+        menu = menu)
 
 @app.route('/NewAsset_Laptop.html')
 def new_assetsLaptop():
     """Renders the New Assets Laptop page."""
     menu = dbHandler.getAssetType()
-    return render_template(
-        'new_assetsLaptop.html',
+    return render_template('new_assetsLaptop.html',
         title='New Assets for Laptop',
         year=datetime.now().year,
         message='New assets Laptop',
-        menu = menu
-    )
+        menu = menu)
 
 
 @app.route('/history')
@@ -465,8 +481,7 @@ def view_history():
     return render_template('view_history.html',
                             title='Contact',
                             year=datetime.now().year,
-                            message='hello aidan.'
-                        )
+                            message='hello aidan.')
 
 
 
@@ -477,8 +492,7 @@ def contact():
     return render_template('contact.html',
                             title='Contact',
                             year=datetime.now().year,
-                            message='hello aidan.'
-                        )
+                            message='hello aidan.')
 
 @app.route('/about')
 def about():
@@ -486,5 +500,4 @@ def about():
     return render_template('about.html',
                             title='About',
                             year=datetime.now().year,
-                            message='Your application description page.'
-                        )
+                            message='Your application description page.')

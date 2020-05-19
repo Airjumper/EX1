@@ -62,6 +62,7 @@
     <Content Include="EX1\templates\userview_laptop.html" />
     <Content Include="EX1\templates\userview.html" />
     <Content Include="EX1\templates\login.html" />
+    <Content Include="EX1\templates\view_history.html" />
     <Content Include="requirements.txt" />
     <Content Include="EX1\static\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="EX1\static\fonts\glyphicons-halflings-regular.svg" />

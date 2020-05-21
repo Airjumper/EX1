@@ -47,8 +47,9 @@
     <Content Include="EX1\static\image\logo.png" />
     <Content Include="EX1\templates\confirmation.html" />
     <Content Include="EX1\templates\admin_login.html" />
+    <Content Include="EX1\templates\new_assetsDefault - Copy.html" />
     <Content Include="EX1\templates\new_asset_type.html" />
-    <Content Include="EX1\templates\new_assetsDefault.html" />
+    <Content Include="EX1\templates\site_details.html" />
     <Content Include="EX1\templates\new_assetsLaptop.html" />
     <Content Include="EX1\templates\new_assets.html" />
     <Content Include="EX1\templates\new_assetsMobile.html" />

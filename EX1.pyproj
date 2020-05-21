@@ -45,20 +45,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="EX1\static\image\logo.png" />
+    <Content Include="EX1\templates\confirmation.html" />
     <Content Include="EX1\templates\admin_login.html" />
-    <Content Include="EX1\templates\new_assets_default.html" />
-    <Content Include="EX1\templates\new_Laptop.html" />
-    <Content Include="EX1\templates\new_assets_main.html" />
-    <Content Include="EX1\templates\new_Mobile.html" />
-    <Content Include="EX1\templates\new_Tablet.html" />
+    <Content Include="EX1\templates\new_asset_type.html" />
+    <Content Include="EX1\templates\new_assetsDefault.html" />
+    <Content Include="EX1\templates\new_assetsLaptop.html" />
+    <Content Include="EX1\templates\new_assets.html" />
+    <Content Include="EX1\templates\new_assetsMobile.html" />
+    <Content Include="EX1\templates\new_assetsTablet.html" />
     <Content Include="EX1\templates\i_or_o_main.html" />
     <Content Include="EX1\templates\layout_user.html" />
     <Content Include="EX1\templates\layout_admin.html" />
-    <Content Include="EX1\templates\new_assetsTablet.html" />
-    <Content Include="EX1\templates\new_assetDefault.html" />
-    <Content Include="EX1\templates\new_assetsMobile.html" />
-    <Content Include="EX1\templates\new_assetsLaptop.html" />
-    <Content Include="EX1\templates\new_assets.html" />
     <Content Include="EX1\templates\adminview.html" />
     <Content Include="EX1\templates\admin_laptop.html" />
     <Content Include="EX1\templates\admin_mobile.html" />

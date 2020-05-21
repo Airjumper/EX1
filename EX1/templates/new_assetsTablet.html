@@ -1,10 +1,106 @@
-{% extends "layout_admin.html" %}
+﻿{% extends "layout_admin.html" %}
+
+
+ {% block nav %}
+<li class="nav-item">
+    <div class="btn-group" role="group">
+        <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Hello! {{username}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+            <a class="dropdown-item" href="#">Log out</a>
+        </div>
+    </div>
+</li>
+{% endblock %}
 
 {% block content %}
 
-<h2>{{ title }}.</h2>
-<h3>{{ message }}</h3>
+<div class="container">
 
-<p>Use this area to provide additional information.</p>
+    <h1>Create New Asset - Mobile Phone</h1>
+
+    <form action="add_asset" method="post" id="defaultassetform">
+        <h3>Asset Characteristics:</h3>
+
+        <div class="msg">{{ msg }}</div>
+
+        <div>
+            <label for="assetType"><strong>Type:</strong></label>
+            <select id="assetType" name="assetType" onchange="location = this.value;">
+                <option value="#">Default</option>
+                {% for value in menu: %}
+                {% if value[0] == 'Tablet' %}
+                <option value="{{value[0]}}" selected>{{value[0]}}</option>
+                {% elif value[0] == 'Mobile Phone' %}
+                <option value="{{url_for('new_assetsMobile') }}">{{value[0]}}</option>
+                {% elif value[0] == 'Laptop' %}
+                <option value="{{url_for('new_assetsLaptop') }}">{{value[0]}}</option>
+                {% else %}
+                <option value="#">{{value[0]}}</option>
+                {% endif %}
+
+                {% endfor %}
+            </select>
+
+            <label for="assetMake"><strong>Make:</strong></label>
+            <select id="assetMake" name="assetMake">
+                <option value="allTypes">All Types</option>
+                <option value="apple">Apple</option>
+                <option value="microsoft">Microsoft</option>
+                <option value="hp">HP</option>
+                <option value="samsung">Samsung</option>
+            </select>
+
+            <label for="assetStatus"><strong>Status:</strong></label>
+            <select id="assetStatus" name="assetStatus">
+                <option value="active">Active</option>
+                <option value="inrepair">In Repair</option>
+                <option value="condemned">Condemned</option>
+            </select>
+
+        </div>
+
+        <div>
+            <label for="assetName"><strong>Asset Name:</strong><input type="text" class="" name="assetName" value="" /></label>
+            <label for="assetTag"><strong>Asset Tag:</strong><input type="number" class="" name="assetTag" value="" /></label>
+
+        </div>
+
+
+        <div>
+            <label for="assetAssigned"><strong>Assigned To:</strong><input type="text" class="" name="assetAssigned" value="" /></label>
+            <label for="assetDate"><strong>Purchase Date:</strong><input type="text" class="" name="assetDate" value="" /></label>
+        </div>
+
+        <br>
+        <h3>Additional Characteristics</h3>
+        <br>
+
+        <div>
+            <label for="assetDevice"><strong>Device:</strong><input type="text" class="" name="assetDevice" value="" /></label>
+            <label for="assetSerial"><strong>Serial:</strong><input type="text" class="" name="assetSerial" value="" /></label>
+            <label for="assetIEMI"><strong>IEMI:</strong><input type="text" class="" name="assetIEMI" value="" /></label>
+            <label for="assetPin"><strong>PIN:</strong><input type="number" class="" name="assetPin" value="" /></label>
+            <label for="assetModel"><strong>Model:</strong><input type="text" class="" name="assetModel" value="" /></label>
+        </div>
+
+        <br>
+        <h3>Additional Characteristics</h3>
+        <br>
+        <div>
+            <strong>Asset Specifications:</strong>
+            <br>
+            <textarea rows="5" cols="50" name="assetNotes" placeholder="Enter Additional Asset Specifications Here"></textarea>
+            <br>
+            <br>
+        </div>
+
+        <div>
+            <input type="Submit" value="Save">
+        </div>
+
+    </form>
+</div>
 
 {% endblock %}

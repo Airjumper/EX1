@@ -30,12 +30,12 @@ def create_newAsset(newAsset):
     con = create_connection("diona.db")
     try:
         with con:
-            sql = '''INSERT INTO Asset (asset_name, asset_type) VALUES(?,?)'''
+            sql = '''INSERT INTO Asset (assetType_id, asset_name) VALUES(?,?)'''
             cur = con.cursor()
             cur.execute(sql,newAsset)
             return cur.lastrowid
     except sqlite3.IntegrityError:
-        print("couldn't add data")
+        print ("couldn't add data")
     con.close()
 
 #for adding new asset to Asset Details table
@@ -43,15 +43,13 @@ def create_newAssetDetails(newAssetDetails):
     con = create_connection("diona.db")
     try:
         with con:
-            sql = '''INSERT INTO AssetDetails (asset_id,asset_IEMI, asset_make, asset_model, 
-                                                asset_pin, asset_serialNo,asset_phNo,
-                                                asset_hardware,asset_tag,asset_device,asset_status,
-                                                asset_purchaseDate,Notes) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)'''
+            sql = '''INSERT INTO AssetDetails (asset_id,key_name, key_value, created_date, 
+                                                modified_date) VALUES(?,?,?,?,?)'''
             cur = con.cursor()
             cur.execute(sql,newAssetDetails)
             return cur.lastrowid
     except sqlite3.IntegrityError:
-        print("couldn't add data")
+        print ("couldn't add data")
     con.close()
 
 #for adding new assets to rent table
@@ -59,13 +57,13 @@ def create_newRentrecord(rent):
     con = create_connection("diona.db")
     try:
         with con:
-            sql = '''INSERT INTO Rent(user_id, asset_id) VALUES(?,?)'''
+            sql = '''INSERT INTO Rent(user_id, asset_id,date_rental) VALUES(?,?,?)'''
             cur = con.cursor()
             cur.execute(sql,rent)
             con.commit() #to finanlise the changes in the database
             return cur.lastrowid
     except sqlite3.IntegrityError:
-        print("couldn't add data")
+        print ("couldn't add data")
     con.close()
 
 #find user id by using email
@@ -77,6 +75,18 @@ def retrieveUserID(email):
     con.close()
     return userID
 
+#find asset type id by using asset type name
+def retrieveAssetTypeID(assetTypeName):
+    con = create_connection("diona.db")
+    cur = con.cursor()
+    cur.execute("SELECT assetType_id FROM AssetType WHERE assetType_name = (?)", ([assetTypeName]))
+    assetTypeID = cur.fetchone()
+    print('winter is coming')
+    print(assetTypeID)
+    con.close()
+    return assetTypeID
+    
+
 #to make the new asset type appear in the dropdown list
 def getAssetType():
     con = create_connection("diona.db")
@@ -84,6 +94,31 @@ def getAssetType():
     cur.execute("SELECT DISTINCT assetType_name FROM AssetType")
     rows = cur.fetchall()
     con.close()
-
     return rows
 
+#to store the new asset type in the database
+def create_newAssetType(assetType):
+    con = create_connection("diona.db")
+    try:
+        with con:
+            sql = '''INSERT INTO AssetType(assetType_name) VALUES(?)'''
+            cur = con.cursor()
+            cur.execute(sql,[assetType])
+            con.commit() #to finanlise the changes in the database
+            return cur.lastrowid
+    except sqlite3.IntegrityError:
+        print ("couldn't add data")
+    con.close()
+
+#for adding new site details to Site table
+def create_newSite(newSite):
+    con = create_connection("diona.db")
+    try:
+        with con:
+            sql = '''INSERT INTO Site (site_location, site_address, site_device, device_name, serial, ip_address, mobile_no, sim, computer, PC_username, PC_password, printer, projectManager) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)'''
+            cur = con.cursor()
+            cur.execute(sql,newSite)
+            return cur.lastrowid
+    except sqlite3.IntegrityError:
+        print ("couldn't add data")
+    con.close()

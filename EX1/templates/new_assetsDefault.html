@@ -18,7 +18,7 @@
 
 <h1>Create New Asset - Default</h1>
 <div>
-    <form action="/add_asset" method="post" id="defaultassetform">
+    <form action="add_asset" method="post" id="defaultassetform">
         <h3>Asset Characteristics:</h3>
         <br>
         <div>
@@ -33,7 +33,7 @@
                 {% elif value[0] == 'Laptop' %}
                 <option value="{{url_for('new_assetsLaptop') }}">{{value[0]}}</option>
                 {% else %}
-                <option value="{{url_for('asset_type') }}">{{value[0]}}</option>
+                <option value="#">{{value[0]}}</option>
                 {% endif %}
 
                 {% endfor %}
@@ -91,7 +91,7 @@
         <div>
             <strong>Asset Specifications:</strong>
             <br>
-            <textarea rows="5" cols="50" name="assetNotes" form="addassetform" placeholder="Enter Additional Asset Specifications Here"></textarea>
+            <textarea rows="5" cols="50" name="assetNotes" placeholder="Enter Additional Asset Specifications Here"></textarea>
             <br>
             <br>
         </div>

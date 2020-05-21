@@ -1,0 +1,78 @@
+﻿{% extends "layout_admin.html" %}
+
+{% block nav %}
+<li class="nav-item">
+    <div class="btn-group" role="group">
+        <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Hello! {{username}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+            <a class="dropdown-item" href="#">Log out</a>
+        </div>
+    </div>
+</li>
+{% endblock %}
+
+
+{% block content %}
+
+<h1>Create New Asset Type</h1>
+<div>
+    <form action="add_asset" method="post" id="defaultassetform">
+        <h3>Define the following values:</h3>
+        <br>
+        <div>
+
+            <label for="assetType"><strong>Type:</strong></label>
+            <<label for="assetType"><strong>Asset Type:</strong><input type="text" class="" name="assetType" value="" /></label>
+            <label for="assetMake"><strong>Make:</strong><input type="text" class="" name="assetMake" value="" /></label>
+            <label for="assetStatus"><strong>Status:</strong></label>
+
+            <select id="assetStatus" name="assetStatus">
+                <option value="active">Active</option>
+                <option value="inrepair">In Repair</option>
+                <option value="condemned">Condemned</option>
+            </select>
+
+           
+
+        </div>
+
+        <div>
+            <label for="assetName"><strong>Asset Name:</strong><input type="text" class="" name="assetName" value="" /></label>
+            <label for="assetModel"><strong>Model:</strong><input type="text" class="" name="assetModel" value="" /></label>
+            <label for="assetSerial"><strong>Serial:</strong><input type="text" class="" name="assetSerial" value="" /></label>
+        </div>
+        <div>
+            <label for="assetHardware"><strong>Asset Hardware:</strong><input type="text" class="" name="assetHardware" value="" /></label>
+            <label for="assetAssigned"><strong>Assigned To:</strong><input type="text" class="" name="assetAssigned" value="" /></label>
+        </div>
+
+        <div>
+            <label for="assetDate"><strong>Purchase Date:</strong><input type="text" class="" name="assetDate" value="" /></label>
+            <label for="assetTag"><strong>Tag:</strong><input type="text" class="" name="assetTag" value="" /></label>
+            <label for="assetIEMI"><strong>IEMI:</strong><input type="number" class="" name="assetIEMI" value="" /></label>
+            <label for="assetPin"><strong>PIN:</strong><input type="number" class="" name="assetPin" value="" /></label>
+            <label for="assetDevice"><strong>Asset Device:</strong><input type="number" class="" name="assetDevice" value="" /></label>
+
+        </div>
+        
+        <br>
+        <h3>Additional Characteristics</h3>
+        <br>
+        <div>
+            <strong>Asset Specifications:</strong>
+            <br>
+            <textarea rows="5" cols="50" name="assetNotes" placeholder="Enter Additional Asset Specifications Here"></textarea>
+            <br>
+            <br>
+        </div>
+
+        <div>
+            <input type="Submit" value="Save">
+        </div>
+
+    </form>
+</div>
+
+{% endblock %}

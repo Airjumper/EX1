@@ -6,10 +6,11 @@ from datetime import datetime
 from flask import render_template
 from EX1 import app
 from EX1 import models as dbHandler
-from flask import request, redirect, url_for, session
-from io import StringIO
+from flask import request, redirect, url_for, session, jsonify
+from io import TextIOWrapper
 import csv
 
+import pandas
 import sqlite3
 from sqlite3 import Error
 
@@ -313,35 +314,61 @@ def laptop():
 
 
 @app.route('/import')
-def i_or_o_main():
-   
-        conn = sqlite3.connect(r"diona.db")
-        types = conn.execute("SELECT DISTINCT assetType_name FROM AssetType") 
+def import_main():
+        templates = ["mobile.csv","laptop.csv","tablet.csv"]
+        msg = ''
 
         return render_template('i_or_o_main.html', 
                                 username=session['id'],   
-                                title='Import/Export',
-                                type = types,
+                                title='Import/Export',  
+                                files = templates,
+                                msg = msg,
                                 year=datetime.now().year)
   
 
-
 @app.route('/import_request', methods=['POST', 'GET'])
-def import_main():
+def import_request():
+
      if request.method == 'POST':
-        
-        file = request.files['upload_file']
-        
-        csvf = StringIO(file.read().decode('utf8'))
-      
-        contents = csv.reader(csvf, delimiter=',')
-      
-
-        return render_template('i_or_o_main.html',
-                                header = contents,
-                                year=datetime.now().year)
        
+        new_asset = ''
+        asset_id = ''
+       
+        file = request.files['upload_file']
 
+        csvf = TextIOWrapper(file, encoding='utf-8')
+        csv_reader = csv.reader(csvf, delimiter=',')
+        headers = next(csv_reader, None)
+ 
+        for row in csv_reader:
+            name = row[0]
+            type = row[1]
+            assetType_id = dbHandler.retrieveAssetTypeID(type)
+            
+            if assetType_id:
+                new_asset = (assetType_id[0],name)
+            if new_asset:
+                asset_id = dbHandler.create_newAsset(new_asset)
+
+            if asset_id:
+                data = row[2:]
+                keys = headers[2:]
+                new_dict = dict(zip(keys,data))
+                print(new_dict)
+
+                for key, value in new_dict.items():
+                    new_assetDetails = (asset_id, key, value, datetime.today(), datetime.today())    
+                    dbHandler.create_newAssetDetails(new_assetDetails)
+
+                msg = 'Successfully insert...'
+            else:
+                # Table doesnt exist.
+                msg = 'Error inserting into database.'
+
+        return render_template('i_or_o_confirm.html',
+                               username=session['id'],
+                               msg = msg,
+                               year=datetime.now().year)
        
 
 
@@ -359,19 +386,21 @@ def new_assets():
 
 @app.route('/add_asset', methods=['POST', 'GET'])
 def add_asset():
-    #if the form is submittied, declare the variable of new_asset, asset_id and user_id
+    #if the form is submittied, declare the variable of new_asset, asset_id and
+    #user_id
     if request.method == 'POST':
         new_asset = ''
         asset_id = ''
         user_id = ''
         print('hello')
-        #get the asset type from the form to get assetTypeID    
+        #get the asset type from the form to get assetTypeID
         if request.form['assetType']:
             assetType_id = dbHandler.retrieveAssetTypeID(request.form['assetType'])
         else:
             msg = 'Enter all details'
         
-        #prepare new asset from form data, to get the asset record (name and type) first
+        #prepare new asset from form data, to get the asset record (name and
+        #type) first
         if request.form['assetName']:
             if assetType_id:
                 new_asset = (assetType_id[0], request.form['assetName'])
@@ -389,7 +418,7 @@ def add_asset():
         else:
             msg = 'Error! Cannot create new asset.'
         
-        #get the email from the form to get userID    
+        #get the email from the form to get userID
         user_id = dbHandler.retrieveUserID(request.form['assetAssigned'])
         
         #Continue adding into Asset Details if asset is added in Asset table
@@ -439,8 +468,7 @@ def add_asset():
             message='New Assets',
             menu = menu,
             error=True,
-            msg=''
-            )
+            msg='')
 
 
 def page_name(x):
@@ -514,33 +542,29 @@ def view_history():
                             title = 'User History',
                             header = headers,
                             list = results.fetchall(),
-                            year = datetime.now().year,
-                           )
+                            year = datetime.now().year,)
 
 
 @app.route('/asset_type')
 def asset_type():
     """Renders the Asset Type page."""
-    return render_template(
-        'new_asset_type.html',
+    return render_template('new_asset_type.html',
         title='Asset Type',
         year=datetime.now().year,
-        message='Asset type'
-    )
+        message='Asset type')
 
 @app.route('/site_details')
 def site_details():
     """Renders the Site Details page."""
-    return render_template(
-        'site_details.html',
+    return render_template('site_details.html',
         title='Site Details',
         year=datetime.now().year,
-        message='Site Details'
-    )
+        message='Site Details')
 
 @app.route('/submit_site_details', methods=['POST', 'GET'])
 def submit_site_details():
-    #if the form is submittied, declare the variable of new_siteDetails and site_id 
+    #if the form is submittied, declare the variable of new_siteDetails and
+    #site_id
     if request.method == 'POST':
         new_siteDetails = (request.form['siteLocation'],request.form['siteAddress'],request.form['siteDevice'],request.form['siteDeviceName'],request.form['siteDeviceSerial'],request.form['siteIpAddress'],request.form['siteMobileNo'],request.form['siteMobileSim'],request.form['siteComputer'],request.form['sitePcUsername'],request.form['sitePcPassword'],request.form['sitePrinter'],request.form['siteProjectMgr'])
         site_id = dbHandler.create_newSite(new_siteDetails)
@@ -551,8 +575,7 @@ def submit_site_details():
         else:
             msg = 'Error'
 
-        return render_template(
-                'site_details.html',
+        return render_template('site_details.html',
                 title='Site Details',
                 year=datetime.now().year,
                 message='Site Details',

@@ -39,12 +39,15 @@
   <ItemGroup>
     <Folder Include="EX1\" />
     <Folder Include="EX1\static\" />
-    <Folder Include="EX1\static\fonts\" />
     <Folder Include="EX1\static\image\" />
     <Folder Include="EX1\templates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="EX1\static\image\logo.png" />
+    <Content Include="EX1\static\laptop.csv" />
+    <Content Include="EX1\static\mobile.csv" />
+    <Content Include="EX1\static\tablet.csv" />
+    <Content Include="EX1\templates\i_or_o_confirm.html" />
     <Content Include="EX1\templates\confirmation.html" />
     <Content Include="EX1\templates\admin_login.html" />
     <Content Include="EX1\templates\new_assetsDefault - Copy.html" />
@@ -68,10 +71,6 @@
     <Content Include="EX1\templates\login.html" />
     <Content Include="EX1\templates\view_history.html" />
     <Content Include="requirements.txt" />
-    <Content Include="EX1\static\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="EX1\static\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="EX1\static\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="EX1\static\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="EX1\templates\about.html" />
     <Content Include="EX1\templates\contact.html" />
     <Content Include="EX1\templates\welcome.html" />

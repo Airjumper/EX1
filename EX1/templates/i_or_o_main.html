@@ -17,12 +17,6 @@
 
 {% block content %}
 
-<div class="jumbotron">
-    <h1>Flask</h1>
-    <p class="lead">Flask is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://flask.pocoo.org/" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-</div>
-
 <div class="container">
     <hr>
     <div class="row">
@@ -40,48 +34,36 @@
         <div class="col-md-10">
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="improt" role="tabpanel" aria-labelledby="home-tab">
-                    <div class=" row ">
-                        <div class="col-md-4">
-                            <form action="/import_request" method="POST" enctype=multipart/form-data>
+                    <div class="text-success">
+                        {{ msg }}
+                    </div>
+                    <form action="/import_request" method="POST" enctype=multipart/form-data>
+                        <div class=" row ">
+                            <div class="col-md-10">
+                                <br>
+                                <br>
                                 <div class="form-group">
-                                    <label for="uploadfile">Import file(.csv & .xlsx)</label>
+                                    <label for="uploadfile"><strong>Import file(.csv & .xlsx):</strong></label>
                                     <input type="file" accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="form-control-file" id="uploadfile" name="upload_file">
                                 </div>
-                                <h5>Select asset type : </h5>
-                                {% for line in type: %}
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" id="id{{ line[0] }}" name="{{ line[0] }}" class="custom-control-input">
-                                    <label class="custom-control-label" for="id{{ line[0]}}">{{ line[0] }}</label>
-                                </div>
-                                {% endfor %}
                                 <br>
                                 <button type="submit" class="btn btn-primary mb-2"> Upload </button>
-                            </form>
+                            </div>
                         </div>
+                    </form>
 
-                        <div class="col-md-6">
-                            <table class="table table-striped">
-                                <thead>
-                                    {%  for row in header: %}
-                                    <tr>
-                                        <th scope="row"> </th>
-                                        {%  for line in range(row|length) : %}
-                                        <th> {{ row[line] }} </th>
-                                        {% endfor %}
-                                    </tr>
-                                    {% endfor %}
-                                </thead>
-                            </table>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="tab-pane fade" id="template" role="tabpanel" aria-labelledby="profile-tab">
-                    <div class="col-md-4">
-                        <h2>Profile</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, eveniet earum. Sed accusantium eligendi molestiae quo hic velit nobis et, tempora placeat ratione rem blanditiis voluptates vel ipsam? Facilis, earum!</p>
-                    </div>
-                    <div class="col-md-6">
+                    <div class="col-md-10">
+                        <h2>templates for download: </h2>
+                        <ul class="nav flex-column">
+                            {% for file in files %}
+                            <li class="nav-item">
+                                <a href={{ url_for('static', filename=file) }}>Download template: {{ file }} </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
                     </div>
                 </div>
                 

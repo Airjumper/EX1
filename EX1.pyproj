@@ -47,10 +47,12 @@
     <Content Include="EX1\static\laptop.csv" />
     <Content Include="EX1\static\mobile.csv" />
     <Content Include="EX1\static\tablet.csv" />
+    <Content Include="EX1\templates\delete_mobile.html" />
+    <Content Include="EX1\templates\update_mobile.html" />
     <Content Include="EX1\templates\i_or_o_confirm.html" />
     <Content Include="EX1\templates\confirmation.html" />
     <Content Include="EX1\templates\admin_login.html" />
-    <Content Include="EX1\templates\new_assetsDefault - Copy.html" />
+    <Content Include="EX1\templates\new_assetsDefault.html" />
     <Content Include="EX1\templates\new_asset_type.html" />
     <Content Include="EX1\templates\site_details.html" />
     <Content Include="EX1\templates\new_assetsLaptop.html" />
@@ -71,8 +73,6 @@
     <Content Include="EX1\templates\login.html" />
     <Content Include="EX1\templates\view_history.html" />
     <Content Include="requirements.txt" />
-    <Content Include="EX1\templates\about.html" />
-    <Content Include="EX1\templates\contact.html" />
     <Content Include="EX1\templates\welcome.html" />
     <Content Include="EX1\templates\layout.html" />
   </ItemGroup>

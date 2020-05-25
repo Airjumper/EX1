@@ -122,3 +122,81 @@ def create_newSite(newSite):
     except sqlite3.IntegrityError:
         print ("couldn't add data")
     con.close()
+
+
+def getAssetValues(id):
+    con = create_connection("diona.db")
+    try:
+        with con:
+            cur = con.cursor()
+            cur.execute("SELECT a.asset_id, a.asset_name , GROUP_CONCAT(d.key_value) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE a.asset_id = (?)", ([id]))
+            rows = cur.fetchall()
+            return rows
+    except sqlite3.IntegrityError:
+        print ("couldn't add data")
+    
+    con.close()
+
+
+
+def getAssetKeys(id):
+    con = create_connection("diona.db")
+    try:
+        with con:
+            cur = con.cursor()
+            cur.execute("SELECT GROUP_CONCAT(d.key_name) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE a.asset_id = (?)", ([id]))
+            rows = cur.fetchall()
+            return rows
+    except sqlite3.IntegrityError:
+        print ("couldn't add data")
+    
+    con.close()
+
+
+def updateAssetName(asset):
+    con = create_connection("diona.db")
+    try:
+        with con:
+            cur = con.cursor()
+            cur.execute("UPDATE Asset SET asset_name = ? WHERE asset_id = ?", (asset))
+            return True
+    except sqlite3.IntegrityError:
+        print ("couldn't add data")
+    
+    con.close()
+
+def updateAssetDetails(asset):
+    con = create_connection("diona.db")
+    try:
+        with con:
+            cur = con.cursor()
+            cur.execute("UPDATE AssetDetails SET key_value = ?, modified_date = ? WHERE asset_id = ? AND key_name = ?", (asset))
+            return True
+    except sqlite3.IntegrityError:
+        print ("couldn't add data")
+    
+    con.close()
+
+def deleteAsset(asset):
+    con = create_connection("diona.db")
+    try:
+        with con:
+            cur = con.cursor()
+            cur.execute("DELETE FROM Asset WHERE asset_id = ?", (asset))
+            return True
+    except sqlite3.IntegrityError:
+        print ("couldn't add data")
+    
+    con.close()
+
+def deleteAssetDetails(asset):
+    con = create_connection("diona.db")
+    try:
+        with con:
+            cur = con.cursor()
+            cur.execute("DELETE FROM AssetDetails WHERE asset_id = ?",(asset))
+            return True
+    except sqlite3.IntegrityError:
+        print ("couldn't add data")
+    
+    con.close()

@@ -1,0 +1,113 @@
+﻿{% extends "layout_admin.html" %}
+
+
+ {% block nav %}
+<li class="nav-item">
+    <div class="btn-group" role="group">
+        <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Hello! {{username}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+            <a class="dropdown-item" href="#">Log out</a>
+        </div>
+    </div>
+</li>
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="title"><h1>{{ header }}</h1></div>
+<div class="msg">{{ msg }}</div>
+
+<form action="{{ submit_url }}" method="post" id="mobileform">
+    <h3>Asset Characteristics:</h3>
+    <br>
+    <div>
+        <label for="assetType"><strong>Type:</strong></label>
+        <select id="assetType" name="assetType" onchange="location = this.value;" disabled="disabled">
+            <option value="{{url_for('asset_type') }}">Default</option>
+            {% for value in menu: %}
+            {% if value[0] == 'Tablet' %}
+            <option value="{{url_for('new_assetsTablet') }}">{{value[0]}}</option>
+            {% elif value[0] == 'Mobile Phone' %}
+            <option value="{{value[0]}}" selected>{{value[0]}}</option>
+            {% elif value[0] == 'Laptop' %}
+            <option value="{{url_for('new_assetsLaptop') }}">{{value[0]}}</option>
+            {% else %}
+            <option value="{{url_for('asset_type') }}">{{value[0]}}</option>
+            {% endif %}
+
+            {% endfor %}
+        </select>
+
+        <label for="assetMake"><strong>Make:</strong></label>
+        <select id="assetMake" name="assetMake">
+            <option value="allTypes">All Types</option>
+            {% if asset_kv_pair['assetMake'] == 'apple' %}
+            <option value="apple" selected>Apple</option>
+            {% elif asset_kv_pair['assetMake'] == 'microsoft' %}
+            <option value="microsoft" selected>Microsoft</option>
+            {% elif asset_kv_pair['assetMake'] == 'hp' %}
+            <option value="hp" selected>HP</option>
+            {% elif asset_kv_pair['assetMake'] == 'samsung' %}
+            <option value="samsung" selected >Samsung</option>
+            {% elif asset_kv_pair['assetMake'] == 'google' %}
+            <option value="google" selected >Google</option>
+
+            {% endif %}
+        </select>
+
+        <label for="assetStatus"><strong>Status:</strong></label>
+        <select id="assetStatus" name="assetStatus">
+            <option value="active" {% if asset_kv_pair['assetStatus'] =='active' %} selected {% endif %}>Active</option>
+            <option value="inrepair" {% if asset_kv_pair['assetStatus']=='inrepair' %} selected {% endif %}>In Repair</option>
+            <option value="condemned" {% if asset_kv_pair['assetStatus']=='condemned' %} selected {% endif %}>Condemned</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="assetName"><strong>Asset Name:</strong><input type="text" class="" name="assetName" value="{{asset_details[0][1]}}" /></label>
+        <label for="assetModel"><strong>Model:</strong><input type="text" class="" name="assetModel" value="{{ asset_kv_pair['assetModel'] }}" /></label>
+    </div>
+
+    <div>
+        <label for="assetAssigned"><strong>Assigned To:</strong><input type="text" class="" name="assetAssigned" value="" /></label>
+        <label for="assetDate"><strong>Purchase Date:</strong><input type="text" class="" name="assetDate" value="{{ asset_kv_pair['assetDate'] }}" /></label>
+    </div>
+
+
+    <br>
+    <h3>Mobile Asset Characteristics</h3>
+    <br>
+
+    <div>
+        <label for="assetMobileNo"><strong>Mobile Number:</strong><input type="number" class="" name="assetMobileNo" value="{{ asset_kv_pair['assetMobileNo'] }}" /></label>
+        <label for="assetIEMI"><strong>IEMI:</strong><input type="number" class="" name="assetIEMI" value="{{ asset_kv_pair['assetIEMI'] }}" /></label>
+        <label for="assetPin"><strong>PIN:</strong><input type="number" class="" name="assetPin" value="{{ asset_kv_pair['assetPin'] }}" /></label>
+    </div>
+
+    <br>
+    <h3>Additional Characteristics</h3>
+    <br>
+    <div>
+        <strong>Asset Specifications:</strong>
+        <br>
+
+        <textarea rows="5" cols="50" name="assetNotes" placeholder="Enter Additional Asset Specifications Here">{{ asset_kv_pair['assetNotes'] }}</textarea>
+        <br>
+        <br>
+    </div>
+
+    <div>
+        <div style="display:none;">
+            <input type="text" class="hidden" name="assetID" value="{{asset_details[0][0]}}"  />
+        </div>
+
+        <input type="Submit" value="Save">
+    </div>
+
+</form>
+
+{% endblock %}

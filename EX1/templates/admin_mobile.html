@@ -15,6 +15,11 @@
 {% endblock %}
 
 
+
+{% block scripts %}
+
+{% endblock %}
+
 {% block content %}
 
 <div class="jumbotron">
@@ -46,11 +51,15 @@
     </div>
 </div>
 <div class="container" style="overflow-x:auto;">
-    <h1>Mobile Phones :</h1>
+    <div class="row">
+        <div class="col-md-9">
+            <h1>Mobile Phones :</h1>
+        </div>
+    </div>
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="row"> </th>
+                <th scope="row"></th>
                 <th> Asset Name </th>
                 <th> Asset Type </th>
                 {%  for x in keys: %}
@@ -61,20 +70,20 @@
         {%  for row in range(rows|length): %}
         <tbody>
             <tr>
-                <th scope="row"></th>
-                <td>{{ rows[row][0] }}</td>
+                <th scope="row"><input type="checkbox" name="row-check" value="{{ rows[row][0] }}"></th>
                 <td>{{ rows[row][1] }}</td>
+                <td>{{ rows[row][2] }}</td>
                 {%  for x in res[row]: %}
                 <td>{{ x }}</td>
                 {% endfor %}
-                <td><a href="#" class="text-primary">Edit</a></td>
-                <td><a href="#" class="text-primary">Delete</a>
-                <td>
+                <td><a href="{{ url_for('update_assetsMobile')}}?id={{ rows[row][0] }}" class="text-primary">Edit</a></td>
+                <td><a href="{{ url_for('delete_assetsMobile')}}?id={{ rows[row][0] }}" class="text-primary">Delete</a><td>
             </tr>
         </tbody>
         {% endfor %}
     </table>
+
 </div>
 
 
-{% endblock %}
+    {% endblock %}

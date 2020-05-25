@@ -126,64 +126,60 @@ def adminview():
     
 @app.route('/adminview/mobile')
 def admin_mobile():
+
     # Check if user is loggedin
     if 'loggedin' in session:
-        
         types = dbHandler.getAssetType()
-
         conn = sqlite3.connect(r"diona.db")
         # Get name and type of an asset, and get key_value store as results
         cur = conn.cursor() 
-        name_types = cur.execute("SELECT a.asset_name , t.assetType_name, GROUP_CONCAT(d.key_value) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Mobile Phone' GROUP BY a.asset_id")
+        name_types = cur.execute("SELECT a.asset_id, a.asset_name , t.assetType_name, GROUP_CONCAT(d.key_value) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Mobile Phone' GROUP BY a.asset_name")
         rows = name_types.fetchall()
         results = [0 for x in range(len(rows))]
+
         for x in range(len(rows)):
-            results[x] = rows[x][2].split(',')      
-
+            results[x] = rows[x][3].split(',')      
         # Get key_name rows
+
         cur2 = conn.cursor() 
-        details_keys = cur2.execute("SELECT a.asset_name, GROUP_CONCAT(d.key_name) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Mobile Phone' GROUP BY a.asset_id")
+        details_keys = cur2.execute("SELECT a.asset_id, a.asset_name, GROUP_CONCAT(d.key_name) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Mobile Phone' GROUP BY a.asset_name")
 
-
-        return render_template('admin_mobile.html', 
-                                username=session['id'],   
+        return render_template('admin_mobile.html',
+                                username=session['id'],
                                 title='Admin View',
                                 rows = rows,
                                 res = results,
-                                keys = details_keys.fetchall()[0][1].split(','),
+                                keys = details_keys.fetchall()[0][2].split(','),
                                 type = types,
                                 year=datetime.now().year)
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))
 
-
-
 @app.route('/adminview/tablet')
 def admin_tablet():
-    if 'loggedin' in session:
-        
-        types = dbHandler.getAssetType()
 
+    if 'loggedin' in session:
+        types = dbHandler.getAssetType()
         conn = sqlite3.connect(r"diona.db")
         # Get name and type of an asset, and get key_value store as results
         cur = conn.cursor() 
-        name_types = cur.execute("SELECT a.asset_name , t.assetType_name, GROUP_CONCAT(d.key_value) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Tablet' GROUP BY a.asset_id")
+        name_types = cur.execute("SELECT a.asset_id, a.asset_name , t.assetType_name, GROUP_CONCAT(d.key_value) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Tablet' GROUP BY a.asset_name")
         rows = name_types.fetchall()
         results = [0 for x in range(len(rows))]
-        for x in range(len(rows)):
-            results[x] = rows[x][2].split(',')      
 
+        for x in range(len(rows)):
+            results[x] = rows[x][3].split(',')      
         # Get key_name rows
         cur2 = conn.cursor() 
-        details_keys = cur2.execute("SELECT a.asset_name, GROUP_CONCAT(d.key_name) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Tablet' GROUP BY a.asset_id")
-   
-       # """Renders the user page."""
+        details_keys = cur2.execute("SELECT a.asset_id, a.asset_name, GROUP_CONCAT(d.key_name) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Tablet' GROUP BY a.asset_name")
+
+        #"""Renders the user page."""
         return render_template('admin_tablet.html',
                                 username=session['id'],
                                 title='Admin View',
                                 rows = rows,
                                 res = results,
-                                keys = details_keys.fetchall()[0][1].split(','),
+                                keys = details_keys.fetchall()[0][2].split(','),
                                 type = types,
                                 year=datetime.now().year)
     # User is not loggedin redirect to login page
@@ -191,36 +187,34 @@ def admin_tablet():
 
 @app.route('/adminview/laptop')
 def admin_laptop():
-    if 'loggedin' in session:
-        
-        types = dbHandler.getAssetType()
 
+    if 'loggedin' in session:
+        types = dbHandler.getAssetType()
         conn = sqlite3.connect(r"diona.db")
         # Get name and type of an asset, and get key_value store as results
         cur = conn.cursor() 
-        name_types = cur.execute("SELECT a.asset_name , t.assetType_name, GROUP_CONCAT(d.key_value) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Laptop' GROUP BY a.asset_id")
+        name_types = cur.execute("SELECT a.asset_id, a.asset_name , t.assetType_name, GROUP_CONCAT(d.key_value) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Laptop' GROUP BY a.asset_name")
         rows = name_types.fetchall()
-        results = [0 for x in range(len(rows))]
-        for x in range(len(rows)):
-            results[x] = rows[x][2].split(',')      
 
+        results = [0 for x in range(len(rows))]
+
+        for x in range(len(rows)):
+            results[x] = rows[x][3].split(',')      
         # Get key_name rows
         cur2 = conn.cursor() 
-        details_keys = cur2.execute("SELECT a.asset_name, GROUP_CONCAT(d.key_name) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Laptop' GROUP BY a.asset_id")
-      
-    # """Renders the user page."""
+        details_keys = cur2.execute("SELECT a.asset_id, a.asset_name, GROUP_CONCAT(d.key_name) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Laptop' GROUP BY a.asset_name")
+
+        # """Renders the user page."""
         return render_template('admin_laptop.html',
                                 title='Admin View',
                                 username=session['id'],
                                 rows = rows,
                                 res = results,
-                                keys = details_keys.fetchall()[0][1].split(','),
+                                keys = details_keys.fetchall()[0][2].split(','),
                                 type = types,
                                 year=datetime.now().year)
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))
-    
-  
 
 @app.route('/userview')
 def userview():
@@ -354,7 +348,6 @@ def import_request():
                 data = row[2:]
                 keys = headers[2:]
                 new_dict = dict(zip(keys,data))
-                print(new_dict)
 
                 for key, value in new_dict.items():
                     new_assetDetails = (asset_id, key, value, datetime.today(), datetime.today())    
@@ -561,6 +554,8 @@ def site_details():
         year=datetime.now().year,
         message='Site Details')
 
+
+
 @app.route('/submit_site_details', methods=['POST', 'GET'])
 def submit_site_details():
     #if the form is submittied, declare the variable of new_siteDetails and
@@ -583,20 +578,212 @@ def submit_site_details():
 
 
 
-@app.route('/contact')
-def contact():
-    """Renders the contact page."""
-    return render_template('contact.html',
-                            title='Contact',
-                            year=datetime.now().year,
-                            message='hello.')
+#handle update asset POST request
+@app.route('/update_asset', methods=['POST', 'GET'])
+def update_asset():
+    #if the form is submittied, declare the variable of new_asset, asset_id and
+    #user_id
+    if request.method == 'POST':
+        new_asset = ''
+        asset_id = ''
+        user_id = ''
+        data = request.form.to_dict()
+        
+        #prepare asset from form data
+        if request.form['assetID']:
+            #update asset name
+            dbHandler.updateAssetName((request.form['assetName'],request.form['assetID']))
+            
+            #remove unnecessary key names
+            asset_id = request.form['assetID']
+            data.pop('assetType', None)
+            data.pop('assetName', None)
+            data.pop('assetID', None)
+            data.pop('assetAssigned', None)
+            
+            #loop through form data and update each asset values
+            for key, value in data.items():
+                new_assetDetails = (value, datetime.today(), asset_id, key)    
+                dbHandler.updateAssetDetails(new_assetDetails)
+                msg = "Asset details are updated successfully."
+        else:
+            msg = 'Enter all details'        
 
-@app.route('/about')
-def about():
-    """Renders the about page."""
-    return render_template('about.html',
-                            title='About',
+        menu = dbHandler.getAssetType()
+
+        return redirect(url_for('admin_mobile'))
+
+        # Show the form with message (if any)
+        # url = 'admin_mobile.html'
+        # return render_template(url,
+        #         title='Admin Mobile View',
+        #         year=datetime.now().year,
+        #         menu = menu,
+        #         msg = msg)
+    else:
+        return render_template('admin_mobile.html',
+                                username=session['id'],
+                                title='Admin Mobile View',
+                                year=datetime.now().year,
+                                message='',
+                                menu = menu)
+
+@app.route('/mobile_update')
+def update_assetsMobile():
+    """Renders the New Assets Mobile page."""
+    menu = dbHandler.getAssetType()
+    header = 'Update Asset - Mobile Phone'
+    title = 'Update Asset for Mobile'
+    submitURL = 'update_asset'
+    asset_details = ''
+    key_names = ''
+    key_values = ''
+    newdict = {}
+
+    #if asset is passed in URL parameter, use it to fetch its details and
+    #populate form data
+    if(request.args.get('id')):
+        #get asset key names and add into key_names list
+        keys = dbHandler.getAssetKeys(request.args.get('id'))
+        key_names = [0 for x in range(len(keys))]
+        for x in range(len(keys)):
+            key_names[x] = keys[x][0].split(',')
+
+        #get asset key values and add into key_values list
+        asset_details = dbHandler.getAssetValues(request.args.get('id'))
+        key_values = [0 for x in range(len(asset_details))]
+        for x in range(len(asset_details)):
+            key_values[x] = asset_details[x][2].split(',')
+        
+
+        #output = [0 for x in range(len(key_names))]
+        #combine key name and key value into key-value dictionary before
+        #sending back to form
+        asset_kv_pair = {}
+        asset_kv_pair = dict(zip(key_names[0], key_values[0]))
+
+    else:
+        header = 'Asset id is required.'
+
+    return render_template('update_mobile.html',
+                            username=session['id'],
+                            title=title,
+                            header=header,
                             year=datetime.now().year,
-                            message='Your application description page.')
+                            #message='New assets Mobile',
+                            menu = menu,
+                            submit_url = submitURL,
+                            asset_details = asset_details,
+                            asset_kv_pair = asset_kv_pair)
+
+
+#handle update asset POST request
+@app.route('/delete_asset', methods=['POST', 'GET'])
+def delete_asset():
+    #if the form is submittied, declare the variable of new_asset, asset_id and
+    #user_id
+    if request.method == 'POST':
+        new_asset = ''
+        asset_id = ''
+        user_id = ''
+        data = request.form.to_dict()
+        
+        #prepare asset from form data
+        if request.form['assetID']:
+            #update asset name
+            
+            
+            #remove unnecessary key names
+            asset_id = request.form['assetID']
+            data.pop('assetType', None)
+            data.pop('assetName', None)
+            data.pop('assetID', None)
+            data.pop('assetAssigned', None)
+            
+            #loop through form data and update each asset values
+
+            for key, value in data.items():
+                new_assetDetails = (value, asset_id, key)    
+                dbHandler.deleteAssetDetails(new_assetDetails)
+                msg = "Asset details are updated successfully."
+
+
+
+            dbHandler.deleteAsset(request.form['assetID'])
+        else:
+            msg = 'Enter all details'        
+
+        menu = dbHandler.getAssetType()
+
+        return redirect(url_for('admin_mobile'))
+
+        # Show the form with message (if any)
+        # url = 'admin_mobile.html'
+        # return render_template(url,
+        #         title='Admin Mobile View',
+        #         year=datetime.now().year,
+        #         menu = menu,
+        #         msg = msg)
+    else:
+        return render_template('admin_mobile.html',
+                                username=session['id'],
+                                title='Admin Mobile View',
+                                year=datetime.now().year,
+                                message='',
+                                menu = menu)
+
+
+
+
+@app.route('/delete_mobile')
+def delete_assetsMobile():
+    """Renders the New Assets Mobile page."""
+    menu = dbHandler.getAssetType()
+    header = 'Delete Asset - Mobile Phone'
+    title = 'Delete Asset for Mobile'
+    submitURL = 'delete_asset'
+    asset_details = ''
+    key_names = ''
+    key_values = ''
+    newdict = {}
+
+    #if asset is passed in URL parameter, use it to fetch its details and
+    #populate form data
+    if(request.args.get('id')):
+        #get asset key names and add into key_names list
+        keys = dbHandler.getAssetKeys(request.args.get('id'))
+        key_names = [0 for x in range(len(keys))]
+        for x in range(len(keys)):
+            key_names[x] = keys[x][0].split(',')
+
+        #get asset key values and add into key_values list
+        asset_details = dbHandler.getAssetValues(request.args.get('id'))
+        key_values = [0 for x in range(len(asset_details))]
+        for x in range(len(asset_details)):
+            key_values[x] = asset_details[x][2].split(',')
+        
+
+        #output = [0 for x in range(len(key_names))]
+        #combine key name and key value into key-value dictionary before
+        #sending back to form
+        asset_kv_pair = {}
+        asset_kv_pair = dict(zip(key_names[0], key_values[0]))
+
+    else:
+        header = 'Asset id is required.'
+
+    return render_template('delete_mobile.html',
+                            username=session['id'],
+                            title=title,
+                            header=header,
+                            year=datetime.now().year,
+                            #message='New assets Mobile',
+                            menu = menu,
+                            submit_url = submitURL,
+                            asset_details = asset_details,
+                            asset_kv_pair = asset_kv_pair)
+
+
+
 
 

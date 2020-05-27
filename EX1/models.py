@@ -182,7 +182,7 @@ def deleteAsset(asset):
     try:
         with con:
             cur = con.cursor()
-            cur.execute("DELETE FROM Asset WHERE asset_id = ?", (asset))
+            cur.execute("DELETE FROM Asset WHERE asset_id = ?", (asset,))
             return True
     except sqlite3.IntegrityError:
         print ("couldn't add data")
@@ -194,7 +194,7 @@ def deleteAssetDetails(asset):
     try:
         with con:
             cur = con.cursor()
-            cur.execute("DELETE FROM AssetDetails WHERE asset_id = ?",(asset))
+            cur.execute("DELETE FROM AssetDetails WHERE asset_id = ?",(asset,))
             return True
     except sqlite3.IntegrityError:
         print ("couldn't add data")

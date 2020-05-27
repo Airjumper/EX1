@@ -132,7 +132,7 @@ def admin_mobile():
         conn = sqlite3.connect(r"diona.db")
         # Get name and type of an asset, and get key_value store as results
         cur = conn.cursor() 
-        name_types = cur.execute("SELECT a.asset_id, a.asset_name , t.assetType_name, GROUP_CONCAT(d.key_value) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Mobile Phone' GROUP BY a.asset_name")
+        name_types = cur.execute("SELECT a.asset_id, a.asset_name , t.assetType_name, GROUP_CONCAT(d.key_value) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Mobile Phone' GROUP BY a.asset_id")
         rows = name_types.fetchall()
         results = [0 for x in range(len(rows))]
 
@@ -141,7 +141,7 @@ def admin_mobile():
         # Get key_name rows
 
         cur2 = conn.cursor() 
-        details_keys = cur2.execute("SELECT a.asset_id, a.asset_name, GROUP_CONCAT(d.key_name) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Mobile Phone' GROUP BY a.asset_name")
+        details_keys = cur2.execute("SELECT a.asset_id, a.asset_name, GROUP_CONCAT(d.key_name) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Mobile Phone' GROUP BY a.asset_id")
 
         return render_template('admin_mobile.html',
                                 username=session['id'],
@@ -162,7 +162,7 @@ def admin_tablet():
         conn = sqlite3.connect(r"diona.db")
         # Get name and type of an asset, and get key_value store as results
         cur = conn.cursor() 
-        name_types = cur.execute("SELECT a.asset_id, a.asset_name , t.assetType_name, GROUP_CONCAT(d.key_value) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Tablet' GROUP BY a.asset_name")
+        name_types = cur.execute("SELECT a.asset_id, a.asset_name , t.assetType_name, GROUP_CONCAT(d.key_value) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Tablet' GROUP BY a.asset_id")
         rows = name_types.fetchall()
         results = [0 for x in range(len(rows))]
 
@@ -170,7 +170,7 @@ def admin_tablet():
             results[x] = rows[x][3].split(',')      
         # Get key_name rows
         cur2 = conn.cursor() 
-        details_keys = cur2.execute("SELECT a.asset_id, a.asset_name, GROUP_CONCAT(d.key_name) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Tablet' GROUP BY a.asset_name")
+        details_keys = cur2.execute("SELECT a.asset_id, a.asset_name, GROUP_CONCAT(d.key_name) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Tablet' GROUP BY a.asset_id")
 
         #"""Renders the user page."""
         return render_template('admin_tablet.html',
@@ -192,7 +192,7 @@ def admin_laptop():
         conn = sqlite3.connect(r"diona.db")
         # Get name and type of an asset, and get key_value store as results
         cur = conn.cursor() 
-        name_types = cur.execute("SELECT a.asset_id, a.asset_name , t.assetType_name, GROUP_CONCAT(d.key_value) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Laptop' GROUP BY a.asset_name")
+        name_types = cur.execute("SELECT a.asset_id, a.asset_name , t.assetType_name, GROUP_CONCAT(d.key_value) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Laptop' GROUP BY a.asset_id")
         rows = name_types.fetchall()
 
         results = [0 for x in range(len(rows))]
@@ -201,7 +201,7 @@ def admin_laptop():
             results[x] = rows[x][3].split(',')      
         # Get key_name rows
         cur2 = conn.cursor() 
-        details_keys = cur2.execute("SELECT a.asset_id, a.asset_name, GROUP_CONCAT(d.key_name) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Laptop' GROUP BY a.asset_name")
+        details_keys = cur2.execute("SELECT a.asset_id, a.asset_name, GROUP_CONCAT(d.key_name) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name = 'Laptop' GROUP BY a.asset_id")
 
         # """Renders the user page."""
         return render_template('admin_laptop.html',
@@ -801,13 +801,12 @@ def delete_asset():
             
             #loop through form data and delete each asset values
 
-            for key, value in data.items():
-                new_assetDetails = (value, asset_id, key)    
-                dbHandler.deleteAssetDetails(new_assetDetails)
-                msg = "Asset details are updated successfully."
+            
+            dbHandler.deleteAssetDetails(asset_id)  
 
             #delete asset from Asset table 
-            dbHandler.deleteAsset(request.form['assetID'])
+            dbHandler.deleteAsset(asset_id)
+            msg = "Asset details are updated successfully."
         else:
             msg = 'Enter all details'        
 

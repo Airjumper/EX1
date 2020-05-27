@@ -10,7 +10,6 @@ from flask import request, redirect, url_for, session, jsonify
 from io import TextIOWrapper
 import csv
 
-import pandas
 import sqlite3
 from sqlite3 import Error
 
@@ -309,7 +308,7 @@ def laptop():
 
 @app.route('/import')
 def import_main():
-        templates = ["mobile.csv","laptop.csv","tablet.csv"]
+        templates = ["mobile_template.csv","laptop_template.csv","tablet_template.csv"]
         msg = ''
 
         return render_template('i_or_o_main.html', 
@@ -335,15 +334,19 @@ def import_request():
         headers = next(csv_reader, None)
  
         for row in csv_reader:
+
+            # get name and type of input asset
             name = row[0]
             type = row[1]
             assetType_id = dbHandler.retrieveAssetTypeID(type)
             
+            #create new row in Asset table
             if assetType_id:
                 new_asset = (assetType_id[0],name)
             if new_asset:
                 asset_id = dbHandler.create_newAsset(new_asset)
 
+            #insert details of new asset
             if asset_id:
                 data = row[2:]
                 keys = headers[2:]
@@ -488,30 +491,30 @@ def new_assetsMobile():
     """Renders the New Assets Mobile page."""
     menu = dbHandler.getAssetType()
     return render_template('new_assetsMobile.html',
-        title='New Assets for Mobile',
-        year=datetime.now().year,
-        message='New assets Mobile',
-        menu = menu)
+                            title='New Assets for Mobile',
+                            year=datetime.now().year,
+                            message='New assets Mobile',
+                            menu = menu)
 
 @app.route('/NewAsset_Tablet.html')
 def new_assetsTablet():
     """Renders the New Assets Tablet page."""
     menu = dbHandler.getAssetType()
     return render_template('new_assetsTablet.html',
-        title='New Assets for Tablet',
-        year=datetime.now().year,
-        message='New assets Tablet',
-        menu = menu)
+                            title='New Assets for Tablet',
+                            year=datetime.now().year,
+                            message='New assets Tablet',
+                            menu = menu)
 
 @app.route('/NewAsset_Laptop.html')
 def new_assetsLaptop():
     """Renders the New Assets Laptop page."""
     menu = dbHandler.getAssetType()
     return render_template('new_assetsLaptop.html',
-        title='New Assets for Laptop',
-        year=datetime.now().year,
-        message='New assets Laptop',
-        menu = menu)
+                            title='New Assets for Laptop',
+                            year=datetime.now().year,
+                            message='New assets Laptop',
+                            menu = menu)
 
 
 @app.route('/history')
@@ -677,6 +680,104 @@ def update_assetsMobile():
                             asset_kv_pair = asset_kv_pair)
 
 
+@app.route('/laptop_update')
+def update_assetsLaptop():
+    """Renders the New Assets Mobile page."""
+    menu = dbHandler.getAssetType()
+    header = 'Update Asset - Mobile Phone'
+    title = 'Update Asset for Mobile'
+    submitURL = 'update_asset'
+    asset_details = ''
+    key_names = ''
+    key_values = ''
+    newdict = {}
+
+    #if asset is passed in URL parameter, use it to fetch its details and
+    #populate form data
+    if(request.args.get('id')):
+        #get asset key names and add into key_names list
+        keys = dbHandler.getAssetKeys(request.args.get('id'))
+        key_names = [0 for x in range(len(keys))]
+        for x in range(len(keys)):
+            key_names[x] = keys[x][0].split(',')
+
+        #get asset key values and add into key_values list
+        asset_details = dbHandler.getAssetValues(request.args.get('id'))
+        key_values = [0 for x in range(len(asset_details))]
+        for x in range(len(asset_details)):
+            key_values[x] = asset_details[x][2].split(',')
+        
+
+        #output = [0 for x in range(len(key_names))]
+        #combine key name and key value into key-value dictionary before
+        #sending back to form
+        asset_kv_pair = {}
+        asset_kv_pair = dict(zip(key_names[0], key_values[0]))
+
+    else:
+        header = 'Asset id is required.'
+
+    return render_template('update_laptop.html',
+                            username=session['id'],
+                            title=title,
+                            header=header,
+                            year=datetime.now().year,
+                            #message='New assets Mobile',
+                            menu = menu,
+                            submit_url = submitURL,
+                            asset_details = asset_details,
+                            asset_kv_pair = asset_kv_pair)
+
+@app.route('/tablet_update')
+def update_assetsTablet():
+    """Renders the New Assets Mobile page."""
+    menu = dbHandler.getAssetType()
+    header = 'Update Asset - Mobile Phone'
+    title = 'Update Asset for Mobile'
+    submitURL = 'update_asset'
+    asset_details = ''
+    key_names = ''
+    key_values = ''
+    newdict = {}
+
+    #if asset is passed in URL parameter, use it to fetch its details and
+    #populate form data
+    if(request.args.get('id')):
+        #get asset key names and add into key_names list
+        keys = dbHandler.getAssetKeys(request.args.get('id'))
+        key_names = [0 for x in range(len(keys))]
+        for x in range(len(keys)):
+            key_names[x] = keys[x][0].split(',')
+
+        #get asset key values and add into key_values list
+        asset_details = dbHandler.getAssetValues(request.args.get('id'))
+        key_values = [0 for x in range(len(asset_details))]
+        for x in range(len(asset_details)):
+            key_values[x] = asset_details[x][2].split(',')
+        
+
+        #output = [0 for x in range(len(key_names))]
+        #combine key name and key value into key-value dictionary before
+        #sending back to form
+        asset_kv_pair = {}
+        asset_kv_pair = dict(zip(key_names[0], key_values[0]))
+
+    else:
+        header = 'Asset id is required.'
+
+    return render_template('update_tablet.html',
+                            username=session['id'],
+                            title=title,
+                            header=header,
+                            year=datetime.now().year,
+                            #message='New assets Mobile',
+                            menu = menu,
+                            submit_url = submitURL,
+                            asset_details = asset_details,
+                            asset_kv_pair = asset_kv_pair)
+
+
+
 #handle update asset POST request
 @app.route('/delete_asset', methods=['POST', 'GET'])
 def delete_asset():
@@ -690,8 +791,6 @@ def delete_asset():
         
         #prepare asset from form data
         if request.form['assetID']:
-            #update asset name
-            
             
             #remove unnecessary key names
             asset_id = request.form['assetID']
@@ -700,15 +799,14 @@ def delete_asset():
             data.pop('assetID', None)
             data.pop('assetAssigned', None)
             
-            #loop through form data and update each asset values
+            #loop through form data and delete each asset values
 
             for key, value in data.items():
                 new_assetDetails = (value, asset_id, key)    
                 dbHandler.deleteAssetDetails(new_assetDetails)
                 msg = "Asset details are updated successfully."
 
-
-
+            #delete asset from Asset table 
             dbHandler.deleteAsset(request.form['assetID'])
         else:
             msg = 'Enter all details'        
@@ -736,7 +834,7 @@ def delete_asset():
 
 
 @app.route('/delete_mobile')
-def delete_assetsMobile():
+def delete_main():
     """Renders the New Assets Mobile page."""
     menu = dbHandler.getAssetType()
     header = 'Delete Asset - Mobile Phone'

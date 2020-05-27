@@ -47,7 +47,18 @@
     </div>
 </div>
 <div class="container" style="overflow-x:auto;">
-    <h1>Laptops :</h1>
+    <div class="row">
+        <div class="col-md-8">
+            <h1>Laptops :</h1>
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-primary" onclick="makeCSV()">Make CSV</button>
+        </div>
+        <div class="col-md-2">
+            <div id="downloadLink"></div>
+        </div>
+    </div>
+  
     <table class="table table-striped">
         <thead>
             <tr>
@@ -62,14 +73,14 @@
         {%  for row in range(rows|length): %}
         <tbody>
             <tr>
-                <th scope="row"><input type="checkbox" name="row-check" value="{{ rows[row][0] }}"></th>
+                <td scope="row"><input type="checkbox" name="row-check" value="{{ rows[row][0] }}"></td>
                 <td>{{ rows[row][1] }}</td>
                 <td>{{ rows[row][2] }}</td>
                 {%  for x in res[row]: %}
                 <td>{{ x }}</td>
                 {% endfor %}
                 <td><a href="{{ url_for('update_assetsMobile')}}?id={{ rows[row][0] }}" class="text-primary">Edit</a></td>
-                <td><a href="{{ url_for('delete_assetsMobile')}}?id={{ rows[row][0] }}" class="text-primary">Delete</a><td>
+                <td><a href="{{ url_for('delete_main')}}?id={{ rows[row][0] }}" class="text-primary">Delete</a><td>
             </tr>
         </tbody>
         {% endfor %}

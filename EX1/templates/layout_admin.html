@@ -15,6 +15,35 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
+    <script>
+        function makeCSV() {
+            var values = "";
+            var sep = "";
+            $.each($("input[name='row-check']:checked"), function (index, value) {
+                var data = $(this).parents('tr:eq(0)');
+                if (index > 0)
+                    values = values + "\n";
+
+                $(data).find('td').slice(1, -3).each(function () {
+                    values += sep + $(this).text();
+                    sep = ",";
+                });
+            });
+            /* 
+             * $("#csv").text(values);   
+            */
+
+            window.URL = window.URL || window.webkiURL;
+            var blob = new Blob([values]);
+            var blobURL = window.URL.createObjectURL(blob);
+            $("#downloadLink").html("");
+            $("<a></a>").
+                attr("href", blobURL).
+                attr("download", "report.csv").
+                text("Download .CSV File").
+                appendTo('#downloadLink');
+        }
+    </script>
     {% block scripts %} {% endblock %}
 </head>
 <body>

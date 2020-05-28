@@ -8,7 +8,7 @@
             Hello! {{username}}
         </button>
         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-            <a class="dropdown-item" href="#">Log out</a>
+            <a class="dropdown-item" href="{{ url_for('logout') }}  ">Log out</a>
         </div>
     </div>
 </li>
@@ -36,7 +36,7 @@
                 {% elif value[0] == 'Laptop'%}
                 <option value="{{ url_for('admin_laptop') }}">{{ value[0]}} </option>
                 {% else %}
-                <option value="{{ url_for('adminview') }}">{{ value[0]}} </option>
+                <option value="{{ url_for('adminview') }}" disabled>{{ value[0]}} </option>
                 {% endif %}
 
 

@@ -7,7 +7,7 @@
             Hello! {{username}}
         </button>
         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-            <a class="dropdown-item" href="#">Log out</a>
+            <a class="dropdown-item" href="{{ url_for('logout') }}  ">Log out</a>
         </div>
     </div>
 </li>
@@ -18,7 +18,7 @@
 
 <h1>Create New Site Details</h1>
 <br>
-<div class="msg">{{ msg }}</div>
+<div class="text-info">{{ msg }}</div>
 <br>
 <div>
     <form action="submit_site_details" method="post" id="defaultassetform">

@@ -51,9 +51,9 @@
     <Content Include="EX1\templates\update_tablet.html" />
     <Content Include="EX1\templates\update_laptop.html" />
     <Content Include="EX1\templates\update_mobile.html" />
-    <Content Include="EX1\templates\i_or_o_confirm.html" />
+    <Content Include="EX1\templates\import_and_templates_confirm.html" />
     <Content Include="EX1\templates\confirmation.html" />
-    <Content Include="EX1\templates\admin_login.html" />
+    <Content Include="EX1\templates\admin_main.html" />
     <Content Include="EX1\templates\new_assetsDefault.html" />
     <Content Include="EX1\templates\new_asset_type.html" />
     <Content Include="EX1\templates\site_details.html" />
@@ -61,7 +61,7 @@
     <Content Include="EX1\templates\new_assets.html" />
     <Content Include="EX1\templates\new_assetsMobile.html" />
     <Content Include="EX1\templates\new_assetsTablet.html" />
-    <Content Include="EX1\templates\i_or_o_main.html" />
+    <Content Include="EX1\templates\import_and_templates.html" />
     <Content Include="EX1\templates\layout_user.html" />
     <Content Include="EX1\templates\layout_admin.html" />
     <Content Include="EX1\templates\adminview.html" />

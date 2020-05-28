@@ -54,7 +54,7 @@ def login_success():
 
      if 'loggedin' in session:
          #"""Renders the login page."""
-         return render_template('admin_login.html',
+         return render_template('admin_main.html',
                                  username=session['id'],
                                  title='Login',
                                  year=datetime.now().year,
@@ -311,7 +311,7 @@ def import_main():
         templates = ["mobile_template.csv","laptop_template.csv","tablet_template.csv"]
         msg = ''
 
-        return render_template('i_or_o_main.html', 
+        return render_template('import_and_templates.html', 
                                 username=session['id'],   
                                 title='Import/Export',  
                                 files = templates,
@@ -361,7 +361,7 @@ def import_request():
                 # Table doesnt exist.
                 msg = 'Error inserting into database.'
 
-        return render_template('i_or_o_confirm.html',
+        return render_template('import_and_templates_confirm.html',
                                username=session['id'],
                                msg = msg,
                                year=datetime.now().year)
@@ -472,7 +472,7 @@ def page_name(x):
                 'Mobile Phone': 'new_assetsMobile.html',
                 'Tablet': 'new_assetsTablet.html',
                 'Laptop': 'new_assetsLaptop.html'
-            }.get(x, 'admin_login.html')
+            }.get(x, 'admin_main.html')
 
 @app.route('/NewAsset_Default.html')
 def new_assetDefault():
@@ -879,6 +879,7 @@ def delete_main():
                             submit_url = submitURL,
                             asset_details = asset_details,
                             asset_kv_pair = asset_kv_pair)
+
 
 
 

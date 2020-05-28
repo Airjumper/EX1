@@ -18,15 +18,13 @@
     <script>
         function makeCSV() {
             var values = "";
-            var sep = "";
             $.each($("input[name='row-check']:checked"), function (index, value) {
                 var data = $(this).parents('tr:eq(0)');
                 if (index > 0)
                     values = values + "\n";
 
                 $(data).find('td').slice(1, -3).each(function () {
-                    values += sep + $(this).text();
-                    sep = ",";
+                    values += ',' + $(this).text();
                 });
             });
             /* 

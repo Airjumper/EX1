@@ -21,7 +21,7 @@
             Hello! {{username}}
         </button>
         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-            <a class="dropdown-item" href="#">Log out</a>
+            <a class="dropdown-item" href="{{ url_for('logout') }}  ">Log out</a>
         </div>
     </div>
 </li>
@@ -29,8 +29,6 @@
 
 
 {% block content %}
-
-
 
 
 <div class="container" style="overflow-x:auto;">

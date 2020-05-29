@@ -4,7 +4,7 @@
  {% block nav %}
 <li class="nav-item">
     <div class="btn-group" role="group">
-        <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Hello! {{username}}
         </button>
         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
@@ -16,14 +16,13 @@
 
 {% block content %}
 
+
 <div class="jumbotron">
-
-</div>
-
-<div>
     <div class=" row ">
         <div class="col-2">
+
             <label class="col-form-label col-form-label-lg" for="searchBox1">Asset Type : </label>
+
         </div>
         <div class="col-3">
             <select class="custom-select custom-select-lg mb-3" id="searchBox1" onchange="location = this.value;">
@@ -57,7 +56,7 @@
             <div id="downloadLink"></div>
         </div>
     </div>
-    
+
     <table class="table table-striped">
         <thead>
             <tr>
@@ -79,7 +78,8 @@
                 <td>{{ x }}</td>
                 {% endfor %}
                 <td><a href="{{ url_for('update_assetsMobile')}}?id={{ rows[row][0] }}" class="text-primary">Edit</a></td>
-                <td><a href="{{ url_for('delete_main')}}?id={{ rows[row][0] }}" class="text-primary">Delete</a><td>
+                <td><a href="{{ url_for('delete_main')}}?id={{ rows[row][0] }}" class="text-primary">Delete</a>
+                <td>
             </tr>
         </tbody>
         {% endfor %}

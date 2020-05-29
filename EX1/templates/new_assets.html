@@ -4,7 +4,7 @@
  {% block nav %}
 <li class="nav-item">
     <div class="btn-group" role="group">
-        <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Hello! {{username}}
         </button>
         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
@@ -18,33 +18,32 @@
 {% block content %}
 
 <div class="jumbotron">
-
-</div>
-
-<div>
     <h1>New Asset Item</h1>
     <br>
-
     <form action="#" method="post">
         <p>Select the Asset Type to create:</p>
-        <br>
-        <label for="assetType"><strong>Type:</strong></label>
-        <select onchange="location = this.value;">
-            <option value="Default">- Select a Type -</option>
-            {% for value in menu: %}
-            {% if value[0] == 'Tablet' %}
-            <option value="{{url_for('new_assetsTablet') }}">{{value[0]}}</option>
-            {% elif value[0] == 'Mobile Phone' %}
-            <option value="{{url_for('new_assetsMobile') }}">{{value[0]}}</option>
-            {% elif value[0] == 'Laptop' %}
-            <option value="{{url_for('new_assetsLaptop') }}">{{value[0]}}</option>
-            {% else %}
-            <option value="#">{{value[0]}}</option>
-            {% endif %}
+        <div class=" row ">
+            <div class="col-2">
+                <label class="col-form-label col-form-label-lg" for="searchBox1"><strong>Type:</strong></label>
+            </div>
+            <div class="col-3">
+                <select class="custom-select custom-select-lg mb-3" id="searchBox1" onchange="location = this.value;">
+                    {% for value in menu: %}
+                    {% if value[0] == 'Tablet' %}
+                    <option value="{{url_for('new_assetsTablet') }}">{{value[0]}}</option>
+                    {% elif value[0] == 'Mobile Phone' %}
+                    <option value="{{url_for('new_assetsMobile') }}">{{value[0]}}</option>
+                    {% elif value[0] == 'Laptop' %}
+                    <option value="{{url_for('new_assetsLaptop') }}">{{value[0]}}</option>
+                    {% else %}
+                    <option value="#">{{value[0]}}</option>
+                    {% endif %}
 
-            {% endfor %}
-        </select>
-
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        
     </form>
 </div>
 

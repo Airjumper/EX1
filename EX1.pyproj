@@ -46,6 +46,7 @@
     <Content Include="EX1\static\image\logo.png" />
     <Content Include="EX1\static\laptop_template.csv" />
     <Content Include="EX1\static\mobile_template.csv" />
+    <Content Include="EX1\static\styles.css" />
     <Content Include="EX1\static\tablet_template.csv" />
     <Content Include="EX1\templates\delete_mobile.html" />
     <Content Include="EX1\templates\update_tablet.html" />

@@ -6,6 +6,7 @@
     <title>{{ title }} - Assets Management System</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{url_for('static',filename = 'styles.css')}}">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
             integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
             crossorigin="anonymous"></script>
@@ -18,17 +19,18 @@
     <script>
         function makeCSV() {
             var values = "";
+            var lines = ''
             $.each($("input[name='row-check']:checked"), function (index, value) {
                 var data = $(this).parents('tr:eq(0)');
                 if (index > 0)
                     values = values + "\n";
 
                 $(data).find('td').slice(1, -3).each(function () {
-                    values += ',' + $(this).text();
+                    lines += ',' + $(this).text();
                 });
             });
-            /* 
-             * $("#csv").text(values);   
+            /*
+             * $("#csv").text(values);
             */
 
             window.URL = window.URL || window.webkiURL;
@@ -45,41 +47,43 @@
     {% block scripts %} {% endblock %}
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container body-content">
-            <a class="navbar-brand" href="{{ url_for('home')}}">Diona</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('import_main') }}" tabindex="-1">Import Spreadsheet</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('adminview') }}" tabindex="-1">View Data</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('new_assets') }}" tabindex="-1">New Asset</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('asset_type') }}" tabindex="-1">Asset Type</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('site_details') }}" tabindex="-1">Site Detials</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('view_history') }}" tabindex="-1">View History</a>
-                    </li>
-                    {% block nav %}{% endblock %}
-                </ul>
+            <div class="navbar-header col-xs-5 col-sm-2">
+                <img id="output" name="logo" alt="Logo" src="{{url_for('static',filename = 'image/logo.png')}}" />
+            </div>
+            <div class="navbar-header col-xs-7 col-sm-10">
+                <div class="row">
+                    <a class="navbar-brand navbar-left" href="{{ url_for('home')}}">Diona</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a class="nav-link text-light " href="{{ url_for('adminview') }}" tabindex="-1">View Assets</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-light" href="{{ url_for('new_assets') }}" tabindex="-1">Create Asset</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" href="{{ url_for('view_history') }}" tabindex="-1">View Asset History</a>
+                            </li>
+                            <li class="nav-item dropdown ">
+                                <a class="nav-link btn-primary dropdown-toggle text-light" id="navbarDropdownMenu" data-toggle="dropdown"  role="button" aria-haspopup="true" aria-expanded="false">Settings</a>
+                                <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenu">
+                                    <a class="dropdown-item text-secondary" href="{{ url_for('import_main') }}" tabindex="-1">Import Assets</a>
+                                    <a class="dropdown-item text-secondary" href="{{ url_for('asset_type') }}" tabindex="-1">Create Asset Type</a>
+                                    <a class="dropdown-item text-secondary" href="{{ url_for('site_details') }}" tabindex="-1">Create Site Details</a>
+                                </div>
+                            </li>
+                            {% block nav %}{% endblock %}
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
-
-    <div class="container">
-        <img id="output" name="logo" alt="Logo" src="{{url_for('static',filename = 'image/logo.png')}}" />
-    </div>
 
     <div class="container body-content">
         {% block content %}{% endblock %}
@@ -89,7 +93,7 @@
         </footer>
     </div>
 
-    
+
 
 </body>
 </html>

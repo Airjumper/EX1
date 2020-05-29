@@ -1,0 +1,21 @@
+.navbar-collapse.collapse .navbar-nav .nav-link{
+    color:white;
+}
+
+.navbar-collapse.collapsing .navbar-nav .nav-link{
+    color:white;
+}
+
+.row .navbar-nav .nav-link{
+    color:white;
+    }
+
+
+
+input:focus {
+    border: 2px solid #2699FB;
+  }
+  
+textarea:focus {
+    border: 2px solid #2699FB;
+}

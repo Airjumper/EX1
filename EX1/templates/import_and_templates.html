@@ -3,7 +3,7 @@
  {% block nav %}
     <li class="nav-item">
         <div class="btn-group" role="group">
-            <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Hello! {{username}}
             </button>
             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
@@ -20,7 +20,7 @@
 <div class="container">
     <hr>
     <div class="row">
-        <div class="col-md-2 mb-3">
+        <div class="col-md-4 mb-3">
             <ul class="nav nav-pills flex-column" id="myTab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#improt" role="tab" aria-controls="home" aria-selected="true">Import</a>
@@ -31,7 +31,7 @@
             </ul>
         </div>
         <!-- /.col-md-2 -->
-        <div class="col-md-10">
+        <div class="col-md-8">
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="improt" role="tabpanel" aria-labelledby="home-tab">
                     <div class="text-success">
@@ -40,12 +40,12 @@
                     <form action="/import_request" method="POST" enctype=multipart/form-data>
                         <div class=" row ">
                             <div class="col-md-10">
-                                <br>
-                                <br>
+
                                 <div class="form-group">
                                     <label for="uploadfile"><strong>Import file(.csv & .xlsx):</strong></label>
                                     <input type="file" accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="form-control-file" id="uploadfile" name="upload_file">
                                 </div>
+                                <br>
                                 <br>
                                 <button type="submit" class="btn btn-primary mb-2"> Upload </button>
                             </div>

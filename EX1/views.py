@@ -374,10 +374,11 @@ def new_assets():
     menu = dbHandler.getAssetType()
    
     return render_template('new_assets.html',
-        title='New Assets',
-        year=datetime.now().year,
-        message='New assets',
-        menu = menu)
+                            username=session['id'],
+                            title='New Assets',
+                            year=datetime.now().year,
+                            message='New assets',
+                            menu = menu)
 
 
 @app.route('/add_asset', methods=['POST', 'GET'])
@@ -545,17 +546,19 @@ def view_history():
 def asset_type():
     """Renders the Asset Type page."""
     return render_template('new_asset_type.html',
-        title='Asset Type',
-        year=datetime.now().year,
-        message='Asset type')
+                            username=session['id'],
+                            title='Asset Type',
+                            year=datetime.now().year,
+                            message='Asset type')
 
 @app.route('/site_details')
 def site_details():
     """Renders the Site Details page."""
     return render_template('site_details.html',
-        title='Site Details',
-        year=datetime.now().year,
-        message='Site Details')
+                            username=session['id'],
+                            title='Site Details',
+                            year=datetime.now().year,
+                            message='Site Details')
 
 
 

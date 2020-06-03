@@ -43,6 +43,7 @@
     <Folder Include="EX1\templates\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="EX1\static\image\header-logo.svg" />
     <Content Include="EX1\static\image\logo.png" />
     <Content Include="EX1\static\laptop_template.csv" />
     <Content Include="EX1\static\mobile_template.csv" />

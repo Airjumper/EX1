@@ -1,15 +1,13 @@
 ﻿{% extends "layout_admin.html" %}
 
 
- {% block nav %}
-<li class="nav-item">
-    <div class="btn-group" role="group">
-        <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Hello! {{username}}
-        </button>
-        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-            <a class="dropdown-item" href="{{ url_for('logout') }}  ">Log out</a>
-        </div>
+{% block nav %}
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenu"
+       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Hello! {{username}}</a>
+
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
+        <a class="dropdown-item" href="{{ url_for('logout') }}  ">Log out</a>
     </div>
 </li>
 {% endblock %}
@@ -43,7 +41,7 @@
                 </select>
             </div>
         </div>
-        
+
     </form>
 </div>
 

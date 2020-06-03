@@ -2,14 +2,12 @@
 
 
 {% block nav %}
-<li class="nav-item">
-    <div class="btn-group" role="group">
-        <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Hello! {{username}}
-        </button>
-        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-            <a class="dropdown-item" href="{{ url_for('logout') }}  ">Log out</a>
-        </div>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenu"
+       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Hello! {{username}}</a>
+
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
+        <a class="dropdown-item" href="{{ url_for('logout') }}  ">Log out</a>
     </div>
 </li>
 {% endblock %}
@@ -52,14 +50,12 @@
             <h1>Laptops :</h1>
         </div>
         <div class="col-md-2">
-            <button class="btn btn-primary" onclick="makeCSV()">Make CSV</button>
-        </div>
-        <div class="col-md-2">
             <div id="downloadLink"></div>
         </div>
     </div>
-
-    <table class="table table-striped">
+    <button class="btn btn-primary" onclick="printRecords()">Print Records</button>
+    <button class="btn btn-primary" onclick="makeCSV()">Export CSV</button>
+    <table class="view-table" id="tableView">
         <thead>
             <tr>
                 <th scope="row"> </th>
@@ -68,6 +64,9 @@
                 {%  for x in keys: %}
                 <th> {{ x }} </th>
                 {% endfor %}
+                <th> </th>
+                <th> </th>
+
             </tr>
         </thead>
         {%  for row in range(rows|length): %}

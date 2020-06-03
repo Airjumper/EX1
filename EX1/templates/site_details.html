@@ -1,14 +1,12 @@
 ﻿{% extends "layout_admin.html" %}
 
 {% block nav %}
-<li class="nav-item">
-    <div class="btn-group" role="group">
-        <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Hello! {{username}}
-        </button>
-        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-            <a class="dropdown-item" href="{{ url_for('logout') }}  ">Log out</a>
-        </div>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenu"
+       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Hello! {{username}}</a>
+
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
+        <a class="dropdown-item" href="{{ url_for('logout') }}  ">Log out</a>
     </div>
 </li>
 {% endblock %}
@@ -16,55 +14,157 @@
 
 {% block content %}
 
-<h1>Create New Site Details</h1>
-<br>
-<div class="text-info">{{ msg }}</div>
-<br>
-<div>
+<div class="formcontainer">
     <form action="submit_site_details" method="post" id="defaultassetform">
-        <h3>Asset Characteristics:</h3>
+
+        <div class="h1form">
+            <h1>Create - New Site Details</h1>
+        </div>
+
+        <div class="h3form">
+            <h3>Site Characteristics</h3>
+        </div>
+
+        <div class="msg">{{ msg }}</div>
+
+        <div class="row">
+            <div class="column-25">
+                <label for="siteLocation"><strong>Site Location:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="siteLocation" value="" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column-25">
+                <label for="siteAddress"><strong>Site Address:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="siteAddress" value="" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column-25">
+                <label for="siteDevice"><strong>Device: </strong></label>
+            </div>
+
+            <div class="column-50">
+                <input type="text" class="" name="siteDevice" value="" />
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="column-25">
+                <label for="siteDeviceName"><strong>Device Name:</strong></label>
+            </div>
+
+            <div class="column-50">
+                <input type="text" class="" name="siteDeviceName" value="" />
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="column-25">
+                <label for="siteDeviceSerial"><strong>Serial: </strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="siteDeviceSerial" value="" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column-25">
+                <label for="siteIpAddress"><strong>IP Address: </strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="siteIpAddress" value="" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column-25">
+                <label for="siteComputer"><strong>Computer:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="siteComputer" value="" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column-25">
+                <label for="sitePcUsername"><strong>PC Username:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="sitePcUsername" value="" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column-25">
+                <label for="sitePcPassword"><strong>PC Password: </strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="sitePcPassword" value="" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column-25">
+                <label for="sitePrinter"><strong>Printer:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="sitePrinter" value="" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column-25">
+                <label for="siteProjectMgr"><strong>Project Manager:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="siteProjectMgr" value="" />
+            </div>
+        </div>
         <br>
-        <div>
-            <label for="siteLocation"><strong>Site Location: </strong><input type="text" class="" name="siteLocation" value="" /></label>
-            <label for="siteAddress"><strong>Site Address: </strong><input type="text" class="" name="siteAddress" value="" /></label>
-            <label for="siteDevice"><strong>Device: </strong><input type="text" class="" name="siteDevice" value="" /></label>
+
+        <div class="h3form">
+            <h3>Additional Characteristics</h3>
         </div>
 
-        <div>
-            <label for="siteDeviceName"><strong>Device Name: </strong><input type="text" class="" name="siteDeviceName" value="" /></label>
-            <label for="siteDeviceSerial"><strong>Serial: </strong><input type="text" class="" name="siteDeviceSerial" value="" /></label>
-            <label for="siteIpAddress"><strong>IP Address: </strong><input type="text" class="" name="siteIpAddress" value="" /></label>
+        <div class="row">
+            <div class="column-25">
+                <label for="siteMobileNo"><strong>Mobile Number:</strong></label>
+            </div>
+
+            <div class="column-50">
+                <input type="text" class="" name="siteMobileNo" value="" />
+            </div>
         </div>
 
-        <div>
-            <label for="siteComputer"><strong>Computer: </strong><input type="text" class="" name="siteComputer" value="" /></label>
-            <label for="sitePcUsername"><strong>PC Username: </strong><input type="text" class="" name="sitePcUsername" value="" /></label>
-            <label for="sitePcPassword"><strong>PC Password: </strong><input type="text" class="" name="sitePcPassword" value="" /></label>
+        <div class="row">
+            <div class="column-25">
+                <label for="siteMobileSim"><strong>SIM:</strong></label>
+            </div>
 
+            <div class="column-50">
+                <input type="text" class="" name="siteMobileSim" value="" />
+            </div>
         </div>
 
-        <div>
-            <label for="sitePrinter"><strong>Printer: </strong><input type="text" class="" name="sitePrinter" value="" /></label>
-            <label for="siteProjectMgr"><strong>Project Manager: </strong><input type="text" class="" name="siteProjectMgr" value="" /></label>
-
-        </div>
-        <br>
-        <h3>Additional Characteristics</h3>
-        <br>
-
- 
-        <br>
-        <h3>Additional Characteristics</h3>
-        <br>
-        <div>
-            <label for="siteMobileNo"><strong>Mobile Number: </strong><input type="number" class="" name="siteMobileNo" value="" /></label>
-            <label for="siteMobileSim"><strong>SIM: </strong><input type="number" class="" name="siteMobileSim" value="" /></label>
+        <div class="row">
+            <div class="column-25">
+                <label for="assetMobileIEMI"><strong>IEMI:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="assetMobileIEMI" value="" />
+            </div>
         </div>
 
-        <div>
-            <input type="Submit" value="Save">
-        </div>
-
+        <p id="submitbutton"><input type="Submit" value="Save"></p>
     </form>
 </div>
 

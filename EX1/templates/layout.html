@@ -21,19 +21,20 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container body-content">
-            <div class="navbar-header col-xs-5 col-sm-2">
-                <img id="output" name="logo" alt="Logo" src="{{url_for('static',filename = 'image/logo.png')}}" />
-            </div>
-            <div class="navbar-header col-xs-7 col-sm-10">
-                <div class="row">
-                    <a class="navbar-brand navbar-left" href="{{ url_for('home')}}">Diona</a>
-                </div>
+    <div class="navcontainerwrapper">
+        <div class="topnavcontainer">
+            <div class="topnavlogo">
+                <a href="{{ url_for('home')}}">
+                    <img id="output" name="logo" alt="Logo" src="{{url_for('static',filename = 'image/logo.png')}}" />
+                </a>
             </div>
         </div>
-    </nav>
-
+        <div class="subnavcontainer">
+            <div class="subnavheader">
+                <span>Diona Asset Management</span>
+            </div>
+        </div>
+    </div>
 
     <div class="container body-content">
         {% block content %}{% endblock %}

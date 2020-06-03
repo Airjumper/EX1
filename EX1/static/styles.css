@@ -1,21 +1,271 @@
-.navbar-collapse.collapse .navbar-nav .nav-link{
-    color:white;
+.body {
+    font-family: Roboto, Arial, sans-serif;
 }
 
-.navbar-collapse.collapsing .navbar-nav .nav-link{
-    color:white;
+/* /// Navbar styling /// */
+
+.navbar-collapse.collapse .navbar-nav .nav-link {
+    color: white;
 }
 
-.row .navbar-nav .nav-link{
-    color:white;
+.navbar-collapse.collapsing .navbar-nav .nav-link {
+    color: white;
+}
+
+.navrow .navbar-nav .nav-link {
+    color: white;
+}
+
+.nav-link:hover {
+    background-color: white;
+    color: black;
+}
+
+
+.nav-item {
+    float: right;
+}
+
+.navcontainerwrapper {
+    box-sizing: border-box;
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.topnavcontainer {
+    background-color: #ADD8E6;
+    height: 150px;
+    overflow: auto;
+    margin-bottom: 0;
+}
+
+.topnavlogo {
+    margin-left: 15px;
+    position: relative;
+    float: left;
+    color: #fff;
+    font-size: 30px;
+    font-family: Roboto, Arial, sans-serif;
+    font-style: italic;
+}
+
+.subnavcontainer {
+    box-sizing: border-box;
+    background-color: #4682B4 !important;
+    height: 75px;
+    text-align: center;
+    font-size: 17px;
+}
+
+.subnavheader {
+    padding-top: 20px;
+    padding-bottom: 15px;
+    font-size: 25px;
+    margin-left: 15px;
+    display: inline-block;
+    text-align: center;
+    color: white;
+}
+
+/* /// Login Styling /// */
+
+.login-form {
+    width: 380px;
+    margin: 50px auto;
+}
+
+    .login-form form {
+        margin-bottom: 15px;
+        background: #f7f7f7;
+        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+        padding: 40px;
     }
 
+    .login-form h3 {
+        margin: 0 0 16px;
+    }
 
+.form-control {
+    padding: 20px;
+    height: 44px;
+    border-radius: 2px;
+}
+
+.btn {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.h1form {
+    text-align: center;
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 15px;
+    color: #4682B4;
+}
+
+.h3form {
+    text-align: left;
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 12px;
+    border-bottom: 1px solid #4682B4;
+    color: #4682B4;
+}
 
 input:focus {
     border: 2px solid #2699FB;
-  }
-  
+}
+
 textarea:focus {
     border: 2px solid #2699FB;
+}
+
+.formcontainer {
+    background-color: #F5F5F5;
+    padding: 20px;
+    margin-top: 15px;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 15);
+    border-radius: 12px;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+label {
+    padding-top: 12px;
+    padding-right: 12px;
+    padding-left: 12px;
+    display: inline-block;
+}
+
+input[type= text], select, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+input[type= date] {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+#submitbutton {
+    text-align: center;
+}
+
+input[type= Submit] {
+    width: 15%;
+    background-color: #4682B4;
+    color: white;
+    padding: 10px 16px;
+    margin: 5px 0;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+    input[type= Submit]:hover {
+        background-color: #4CAF50;
+    }
+
+/* Form Columns */
+
+.column-25 {
+    float: left;
+    width: 25%;
+    margin-top: 5px;
+    font-size: 18px;
+    font-family: Roboto, Arial, sans-serif;
+}
+
+.column-50 {
+    float: left;
+    width: 50%;
+    margin-top: 5px;
+}
+
+.column-70 {
+    float: left;
+    width: 70%;
+    margin-top: 5px;
+}
+
+
+/* tables */
+
+.view-table tbody tr:hover {
+    background-color: #ADD8E6;
+}
+
+.view-table {
+    border-collapse: collapse;
+    margin: 25px 0px;
+    font-size: 0.9em;
+    min-width: 400px;
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 15);
+    font-family: Calibri;
+}
+
+    .view-table thead tr {
+        background-color: #4682B4;
+        color: white;
+        font-weight: bold;
+    }
+
+    .view-table thead th {
+        text-align: left;
+    }
+
+    .view-table th, .view-table td {
+        padding: 10px 12px;
+    }
+
+    .view-table tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+
+
+    .view-table tbody:last-of-type {
+        border-bottom: 4px solid #4682B4;
+    }
+
+    .view-table tbody {
+        background-color: #f3f3f3;
+    }
+
+        .view-table tbody:nth-child(2n) {
+            background-color: white;
+        }
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #tableView * {
+        visibility: visible;
+    }
+
+    #tableView {
+        position: absolute;
+        top: 40px;
+        left: 30px;
+        color: #4CAF50;
+    }
+}
+
 }

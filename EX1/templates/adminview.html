@@ -1,45 +1,43 @@
 ﻿{% extends "layout_admin.html" %}
 
 {% block nav %}
-    <li class="nav-item">
-        <div class="btn-group" role="group">
-            <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Hello! {{username}}
-            </button>
-            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                <a class="dropdown-item" href="{{ url_for('logout') }}  ">Log out</a>
-            </div>
-        </div>
-    </li>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenu"
+       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Hello! {{username}}</a>
+
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
+        <a class="dropdown-item" href="{{ url_for('logout') }}  ">Log out</a>
+    </div>
+</li>
 {% endblock %}
 
 
 {% block content %}
-    <div class="jumbotron">
-        <div class=" row ">
-            <div class="col-2">
-                <label class="col-form-label col-form-label-lg" for="searchBox1">Asset Type : </label>
-            </div>
-            <div class="col-3">
-                <select class="custom-select custom-select-lg mb-3" id="searchBox1" onchange="location = this.value;">
-                    <option selected> choose asset type </option>
-                    {% for value in type: %}
-                
-                        {% if value[0] == 'Tablet' %}
-                        <option value="{{ url_for('admin_tablet') }}">{{ value[0]}} </option>
-                        {% elif value[0] == 'Mobile Phone'%}
-                        <option value="{{ url_for('admin_mobile') }}">{{ value[0]}} </option>
-                        {% elif value[0] == 'Laptop'%}
-                        <option value="{{ url_for('admin_laptop') }}">{{ value[0]}} </option>
-                        {% else %}
-                        <option value="{{ url_for('adminview') }}" disabled>{{ value[0]}} </option>
-                        {% endif %}
+<div class="jumbotron">
+    <div class=" row ">
+        <div class="col-2">
+            <label class="col-form-label col-form-label-lg" for="searchBox1">Asset Type : </label>
+        </div>
+        <div class="col-3">
+            <select class="custom-select custom-select-lg mb-3" id="searchBox1" onchange="location = this.value;">
+                <option selected> choose asset type </option>
+                {% for value in type: %}
 
-                    
-                    {% endfor %}
-                </select>
-            </div>
+                {% if value[0] == 'Tablet' %}
+                <option value="{{ url_for('admin_tablet') }}">{{ value[0]}} </option>
+                {% elif value[0] == 'Mobile Phone'%}
+                <option value="{{ url_for('admin_mobile') }}">{{ value[0]}} </option>
+                {% elif value[0] == 'Laptop'%}
+                <option value="{{ url_for('admin_laptop') }}">{{ value[0]}} </option>
+                {% else %}
+                <option value="{{ url_for('adminview') }}" disabled>{{ value[0]}} </option>
+                {% endif %}
+
+
+                {% endfor %}
+            </select>
         </div>
     </div>
+</div>
 
 {% endblock %}

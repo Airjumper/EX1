@@ -15,14 +15,12 @@
 
 
 {% block nav %}
-<li class="nav-item">
-    <div class="btn-group" role="group">
-        <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Hello! {{username}}
-        </button>
-        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-            <a class="dropdown-item" href="{{ url_for('logout') }}  ">Log out</a>
-        </div>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenu"
+       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Hello! {{username}}</a>
+
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
+        <a class="dropdown-item" href="{{ url_for('logout') }}  ">Log out</a>
     </div>
 </li>
 {% endblock %}
@@ -33,31 +31,31 @@
 <div class="jumbotron">
     <p>View User History :</p>
 </div>
-    <div class="container" style="overflow-x:auto;">
+<div class="container" style="overflow-x:auto;">
 
-        <input class="form-control mb-4" id="tableSearch" type="text" placeholder="Type something to search list items">
+    <input class="form-control mb-4" id="tableSearch" type="text" placeholder="Type something to search list items">
 
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="row"> </th>
-                    {%  for x in header: %}
-                    <th> {{ x }} </th>
-                    {% endfor %}
-                </tr>
-            </thead>
-            {%  for row in list: %}
-            <tbody id="myTable">
-                <tr>
-                    <th scope="row"></th>
-                    {%  for x in row: %}
-                    <td>{{ x }}</td>
-                    {% endfor %}
-                </tr>
-            </tbody>
-            {% endfor %}
-        </table>
-    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="row"> </th>
+                {%  for x in header: %}
+                <th> {{ x }} </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        {%  for row in list: %}
+        <tbody id="myTable">
+            <tr>
+                <th scope="row"></th>
+                {%  for x in row: %}
+                <td>{{ x }}</td>
+                {% endfor %}
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+</div>
 
     {% endblock %}
 

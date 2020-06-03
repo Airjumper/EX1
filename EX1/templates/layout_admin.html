@@ -6,6 +6,7 @@
     <title>{{ title }} - Assets Management System</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{url_for('static',filename = 'styles.css')}}">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
             integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
@@ -47,12 +48,14 @@
 
 
     <script>
+
+
         function printRecords() {
             var divToPrint = document.getElementById("tableView");
             launchPrintWindow = window.open("");
             launchPrintWindow.document.write(divToPrint.outerHTML);
             launchPrintWindow.print();
-            launchPrintWindow.close();
+           // launchPrintWindow.close();
         }
 
         $('button').on('click', function () {
@@ -81,19 +84,22 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-light" href="{{ url_for('new_assets') }}" tabindex="-1">Create Asset</a>
-                           
+
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-light" href="{{ url_for('view_history') }}" tabindex="-1">View Asset History</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{{ url_for('site_all_details') }}" tabindex="-1">Site Details</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenu"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Settings</a>
 
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
-                            <a class="dropdown-item text-secondary" href="{{ url_for('import_main') }}"tabindex="-1">Import Assets </a>
+                            <a class="dropdown-item text-secondary" href="{{ url_for('import_main') }}" tabindex="-1">Import Assets </a>
                             <a class="dropdown-item text-secondary" href="{{ url_for('asset_type') }}" tabindex="-1"> Create Asset Type</a>
-                            <a class="dropdown-item text-secondary" href="{{ url_for('site_details') }}"tabindex="-1">Create Site Details</a>
+                            <a class="dropdown-item text-secondary" href="{{ url_for('site_default') }}" tabindex="-1">Create Site Details</a>
                         </div>
                     </li>
                     {% block nav %}{% endblock %}

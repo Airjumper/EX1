@@ -30,7 +30,7 @@
 
                 {% if value[0] == 'Tablet' %}
                 <option value="{{ url_for('admin_tablet') }}">{{ value[0]}} </option>
-                {% elif value[0] == 'Mobile Phone'%}
+                {% elif value[0] == 'Mobile Phone'%} 
                 <option value="{{ url_for('admin_mobile') }}">{{ value[0]}} </option>
                 {% elif value[0] == 'Laptop'%}
                 <option value="{{ url_for('admin_laptop') }}" selected>{{ value[0]}} </option>
@@ -78,8 +78,8 @@
                 {%  for x in res[row]: %}
                 <td>{{ x }}</td>
                 {% endfor %}
-                <td><a href="{{ url_for('update_assetsMobile')}}?id={{ rows[row][0] }}" class="text-primary">Edit</a></td>
-                <td><a href="{{ url_for('delete_main')}}?id={{ rows[row][0] }}" class="text-primary">Delete</a>
+                <td><a href="{{ url_for('update_assetsLaptop')}}?id={{ rows[row][0] }}" class="text-primary">Edit</a></td>
+                <td><a href="{{ url_for('delete_laptop')}}?id={{ rows[row][0] }}" class="text-primary">Delete</a>
                 <td>
             </tr>
         </tbody>

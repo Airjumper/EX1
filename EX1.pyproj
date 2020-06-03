@@ -44,11 +44,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="EX1\static\image\header-logo.svg" />
+    <Content Include="EX1\static\image\lock.svg" />
     <Content Include="EX1\static\image\logo.png" />
+    <Content Include="EX1\static\image\user.svg" />
     <Content Include="EX1\static\laptop_template.csv" />
     <Content Include="EX1\static\mobile_template.csv" />
     <Content Include="EX1\static\styles.css" />
     <Content Include="EX1\static\tablet_template.csv" />
+    <Content Include="EX1\templates\site_all_details.html" />
+    <Content Include="EX1\templates\delete_laptop.html" />
+    <Content Include="EX1\templates\delete_tablet.html" />
     <Content Include="EX1\templates\delete_mobile.html" />
     <Content Include="EX1\templates\update_tablet.html" />
     <Content Include="EX1\templates\update_laptop.html" />
@@ -58,7 +63,7 @@
     <Content Include="EX1\templates\admin_main.html" />
     <Content Include="EX1\templates\new_assetsDefault.html" />
     <Content Include="EX1\templates\new_asset_type.html" />
-    <Content Include="EX1\templates\site_details.html" />
+    <Content Include="EX1\templates\site_default.html" />
     <Content Include="EX1\templates\new_assetsLaptop.html" />
     <Content Include="EX1\templates\new_assets.html" />
     <Content Include="EX1\templates\new_assetsMobile.html" />

@@ -33,14 +33,13 @@
             </div>
             <div class="column-50">
                 <select id="assetType" name="assetType" onchange="location = this.value;">
-                    <option value="#">Default</option>
                     {% for value in menu: %}
                     {% if value[0] == 'Tablet' %}
                     <option value="{{url_for('new_assetsTablet') }}">{{value[0]}}</option>
                     {% elif value[0] == 'Mobile Phone' %}
-                    <option value="{{value[0]}}" selected>{{value[0]}}</option>
+                    <option value="{{url_for('new_assetsMobile') }}">{{value[0]}}</option>
                     {% elif value[0] == 'Laptop' %}
-                    <option value="{{url_for('new_assetsLaptop') }}">{{value[0]}}</option>
+                    <option value="{{url_for('new_assetsLaptop') }}" selected>{{value[0]}}</option>
                     {% else %}
                     <option value="#">{{value[0]}}</option>
                     {% endif %}

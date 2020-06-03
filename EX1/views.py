@@ -3,6 +3,7 @@ Routes and views for the flask application.
 """
 
 from datetime import datetime
+from datetime import date
 from flask import render_template
 from EX1 import app
 from EX1 import models as dbHandler
@@ -112,7 +113,7 @@ def adminview():
     # Check if user is loggedin
     if 'loggedin' in session:
         
-        types = dbHandler.getAssetType()
+        types = dbHandler.getAllAssetType()
    
         return render_template('adminview.html', 
                                 username=session['id'],   
@@ -128,7 +129,7 @@ def admin_mobile():
 
     # Check if user is loggedin
     if 'loggedin' in session:
-        types = dbHandler.getAssetType()
+        types = dbHandler.getAllAssetType()
         conn = sqlite3.connect(r"diona.db")
         # Get name and type of an asset, and get key_value store as results
         cur = conn.cursor() 
@@ -158,7 +159,7 @@ def admin_mobile():
 def admin_tablet():
 
     if 'loggedin' in session:
-        types = dbHandler.getAssetType()
+        types = dbHandler.getAllAssetType()
         conn = sqlite3.connect(r"diona.db")
         # Get name and type of an asset, and get key_value store as results
         cur = conn.cursor() 
@@ -188,7 +189,7 @@ def admin_tablet():
 def admin_laptop():
 
     if 'loggedin' in session:
-        types = dbHandler.getAssetType()
+        types = dbHandler.getAllAssetType()
         conn = sqlite3.connect(r"diona.db")
         # Get name and type of an asset, and get key_value store as results
         cur = conn.cursor() 
@@ -218,7 +219,7 @@ def admin_laptop():
 @app.route('/userview')
 def userview():
 
-    types = dbHandler.getAssetType() 
+    types = dbHandler.getAllAssetType() 
    
     # """Renders the user page."""
     return render_template('userview.html',
@@ -228,7 +229,7 @@ def userview():
 
 @app.route('/userview/mobile')
 def mobile():
-        types = dbHandler.getAssetType()
+        types = dbHandler.getAllAssetType()
 
         conn = sqlite3.connect(r"diona.db")
         # Get name and type of an asset, and get key_value store as results
@@ -255,7 +256,7 @@ def mobile():
 
 @app.route('/userview/tablet')
 def tablet():
-        types = dbHandler.getAssetType()
+        types = dbHandler.getAllAssetType()
 
         conn = sqlite3.connect(r"diona.db")
         # Get name and type of an asset, and get key_value store as results
@@ -281,7 +282,7 @@ def tablet():
 
 @app.route('/userview/laptop')
 def laptop():
-        types = dbHandler.getAssetType()
+        types = dbHandler.getAllAssetType()
 
         conn = sqlite3.connect(r"diona.db")
         # Get name and type of an asset, and get key_value store as results
@@ -353,7 +354,7 @@ def import_request():
                 new_dict = dict(zip(keys,data))
 
                 for key, value in new_dict.items():
-                    new_assetDetails = (asset_id, key, value, datetime.today(), datetime.today())    
+                    new_assetDetails = (asset_id, key, value, date.today(), date.today())    
                     dbHandler.create_newAssetDetails(new_assetDetails)
 
                 msg = 'Successfully insert...'
@@ -371,7 +372,7 @@ def import_request():
 @app.route('/new_assets')
 def new_assets():
     """Renders the New Assets page."""
-    menu = dbHandler.getAssetType()
+    menu = dbHandler.getAllAssetType()
    
     return render_template('new_assets.html',
                             username=session['id'],
@@ -430,7 +431,7 @@ def add_asset():
             
             #add all details in data dictionary to asset details table
             for key, value in data.items():
-                new_assetDetails = (asset_id, key, value, datetime.today(), datetime.today())    
+                new_assetDetails = (asset_id, key, value, date.today(), date.today())    
                 dbHandler.create_newAssetDetails(new_assetDetails)
              #   new_list.append(value)
             
@@ -479,7 +480,7 @@ def page_name(x):
 def new_assetDefault():
     """Renders the New Assets Default page."""
     #to make all the asset types appear on the page
-    menu = dbHandler.getAssetType()
+    menu = dbHandler.getAllAssetType()
     return render_template('new_assetsDefault.html',
         title='New Assets for Mobile',
         year=datetime.now().year,
@@ -490,7 +491,7 @@ def new_assetDefault():
 @app.route('/NewAsset_Mobile.html')
 def new_assetsMobile():
     """Renders the New Assets Mobile page."""
-    menu = dbHandler.getAssetType()
+    menu = dbHandler.getAllAssetType()
     return render_template('new_assetsMobile.html',
                             title='New Assets for Mobile',
                             year=datetime.now().year,
@@ -500,7 +501,7 @@ def new_assetsMobile():
 @app.route('/NewAsset_Tablet.html')
 def new_assetsTablet():
     """Renders the New Assets Tablet page."""
-    menu = dbHandler.getAssetType()
+    menu = dbHandler.getAllAssetType()
     return render_template('new_assetsTablet.html',
                             title='New Assets for Tablet',
                             year=datetime.now().year,
@@ -510,7 +511,7 @@ def new_assetsTablet():
 @app.route('/NewAsset_Laptop.html')
 def new_assetsLaptop():
     """Renders the New Assets Laptop page."""
-    menu = dbHandler.getAssetType()
+    menu = dbHandler.getAllAssetType()
     return render_template('new_assetsLaptop.html',
                             title='New Assets for Laptop',
                             year=datetime.now().year,
@@ -526,7 +527,7 @@ def view_history():
 
         conn.row_factory = sqlite3.Row
             # Get name and type of an asset, and get key_value store as results
-        rows = conn.execute("SELECT u.user_name, a.asset_Name, r.date_rental, r.date_return FROM Rent r, Asset a INNER JOIN User u on u.user_id = r.user_id AND a.asset_id = r.asset_id ")
+        rows = conn.execute("SELECT u.user_name AS Username, a.asset_Name AS Asset, r.date_rental AS Start, r.date_return AS Return FROM Rent r, Asset a INNER JOIN User u on u.user_id = r.user_id AND a.asset_id = r.asset_id ")
         col_names = rows.fetchone()
         headers = col_names.keys()
 
@@ -551,17 +552,47 @@ def asset_type():
                             year=datetime.now().year,
                             message='Asset type')
 
-@app.route('/site_details')
-def site_details():
+@app.route('/site_info')
+def site_default():
     """Renders the Site Details page."""
-    return render_template('site_details.html',
+    return render_template('site_default.html',
                             username=session['id'],
                             title='Site Details',
                             year=datetime.now().year,
                             message='Site Details')
 
+@app.route('/site_details')
+def site_all_details():
+
+    # Check if user is loggedin
+    if 'loggedin' in session:
+        types = dbHandler.getAllAssetType()
+        conn = sqlite3.connect(r"diona.db")
+
+        conn.row_factory = sqlite3.Row
+        # Get name and type of an asset, and get key_value store as results
+        rows = conn.execute("SELECT * FROM Site")
+        col_names = rows.fetchone()
+        headers = col_names.keys()
+
+        
+        cur2 = conn.cursor() 
+        results = cur2.execute("SELECT * FROM Site")
+
+        """Renders the Site Details page."""
+        return render_template('site_all_details.html',
+                            username=session['id'],
+                            title='Site Details',
+                            year=datetime.now().year,
+                            message='Site Details',
+                            header = headers,
+                            rows = results.fetchall())
+    # User is not loggedin redirect to login page
+    return redirect(url_for('login'))
 
 
+
+    
 @app.route('/submit_site_details', methods=['POST', 'GET'])
 def submit_site_details():
     #if the form is submittied, declare the variable of new_siteDetails and
@@ -577,31 +608,65 @@ def submit_site_details():
             msg = 'Error'
 
         return render_template('site_details.html',
-                title='Site Details',
-                year=datetime.now().year,
-                message='Site Details',
-                msg=msg)
+                                title='Site Details',
+                                year=datetime.now().year,
+                                message='Site Details',
+                                msg=msg)
 
 
 
 #handle update asset POST request
 @app.route('/update_asset', methods=['POST', 'GET'])
 def update_asset():
-    #if the form is submittied, declare the variable of new_asset, asset_id and
-    #user_id
+    #if the form is submittied, declare the variable of new_asset, asset_id and user_id
     if request.method == 'POST':
         new_asset = ''
         asset_id = ''
         user_id = ''
+        type = ''
+        page_name = ''
         data = request.form.to_dict()
-        
+        dateTimeObj = datetime.now()
+
         #prepare asset from form data
         if request.form['assetID']:
+            asset_id = request.form['assetID']
+
+            type = dbHandler.getAssetType(request.form['assetID'])
             #update asset name
             dbHandler.updateAssetName((request.form['assetName'],request.form['assetID']))
+
+            #get current user email that has selected asset
+            current_user_email = dbHandler.retrieveUserEmailByAssetID(request.form['assetID'])
+            #print("Current user id " + current_user_email)
+
+            #handle email comparison
+            if request.form['assetAssigned']:
+                if current_user_email != request.form['assetAssigned']:
+                    #add return date on current rent record and create with new user details
+                    print("update user")
+                    
+                    timestampStr = dateTimeObj.strftime("%Y-%m-%d")
+                    print(timestampStr)
+                    record = (timestampStr,request.form['assetID'])
+                    dbHandler.updateRentRecord(record)
+                    user_id = dbHandler.retrieveUserID(request.form['assetAssigned'])
+                    if asset_id:
+                        if user_id:
+                            rent = (user_id[0],asset_id,date.today())
+                            dbHandler.create_newRentrecord(rent)
+
+                elif current_user_email == request.form['assetAssigned']:
+                    print("same user, don't do anything")
+            else:
+                #user is removed from current asset, adding return date on rent table
+                timestampStr = dateTimeObj.strftime("%Y-%m-%d")
+                print(timestampStr)
+                record = (timestampStr,request.form['assetID'])
+                dbHandler.updateRentRecord(record)
             
             #remove unnecessary key names
-            asset_id = request.form['assetID']
+            
             data.pop('assetType', None)
             data.pop('assetName', None)
             data.pop('assetID', None)
@@ -609,15 +674,24 @@ def update_asset():
             
             #loop through form data and update each asset values
             for key, value in data.items():
-                new_assetDetails = (value, datetime.today(), asset_id, key)    
+                new_assetDetails = (value, datetime.today(), asset_id, key)
                 dbHandler.updateAssetDetails(new_assetDetails)
                 msg = "Asset details are updated successfully."
         else:
-            msg = 'Enter all details'        
+            msg = 'Enter all details'
+        
+        menu = dbHandler.getAllAssetType()
+        
+        if (type[0] == 'Tablet'):
+            page_name = 'admin_tablet'
+        elif (type[0] == 'Mobile Phone'):
+            page_name = 'admin_mobile'
+        elif (type[0] == 'Laptop'):
+            page_name = 'admin_laptop'
+        else:
+            page_name = 'admin_view'
 
-        menu = dbHandler.getAssetType()
-
-        return redirect(url_for('admin_mobile'))
+        return redirect(url_for(page_name))
 
         # Show the form with message (if any)
         # url = 'admin_mobile.html'
@@ -628,16 +702,16 @@ def update_asset():
         #         msg = msg)
     else:
         return render_template('admin_mobile.html',
-                                username=session['id'],
                                 title='Admin Mobile View',
                                 year=datetime.now().year,
                                 message='',
-                                menu = menu)
+                                menu = menu
+                                )
 
 @app.route('/mobile_update')
 def update_assetsMobile():
     """Renders the New Assets Mobile page."""
-    menu = dbHandler.getAssetType()
+    menu = dbHandler.getAllAssetType()
     header = 'Update Asset - Mobile Phone'
     title = 'Update Asset for Mobile'
     submitURL = 'update_asset'
@@ -686,9 +760,9 @@ def update_assetsMobile():
 @app.route('/laptop_update')
 def update_assetsLaptop():
     """Renders the New Assets Mobile page."""
-    menu = dbHandler.getAssetType()
-    header = 'Update Asset - Mobile Phone'
-    title = 'Update Asset for Mobile'
+    menu = dbHandler.getAllAssetType()
+    header = 'Update Asset - Laptop'
+    title = 'Update Asset for Laptop'
     submitURL = 'update_asset'
     asset_details = ''
     key_names = ''
@@ -734,9 +808,9 @@ def update_assetsLaptop():
 @app.route('/tablet_update')
 def update_assetsTablet():
     """Renders the New Assets Mobile page."""
-    menu = dbHandler.getAssetType()
-    header = 'Update Asset - Mobile Phone'
-    title = 'Update Asset for Mobile'
+    menu = dbHandler.getAllAssetType()
+    header = 'Update Asset - Tablet'
+    title = 'Update Asset for Tablet'
     submitURL = 'update_asset'
     asset_details = ''
     key_names = ''
@@ -791,6 +865,9 @@ def delete_asset():
         asset_id = ''
         user_id = ''
         data = request.form.to_dict()
+
+
+        type = dbHandler.getAssetType(request.form['assetID'])
         
         #prepare asset from form data
         if request.form['assetID']:
@@ -813,9 +890,18 @@ def delete_asset():
         else:
             msg = 'Enter all details'        
 
-        menu = dbHandler.getAssetType()
+        menu = dbHandler.getAllAssetType()
+        
+        if (type[0] == 'Tablet'):
+            page_name = 'admin_tablet'
+        elif (type[0] == 'Mobile Phone'):
+            page_name = 'admin_mobile'
+        elif (type[0] == 'Laptop'):
+            page_name = 'admin_laptop'
+        else:
+            page_name = 'admin_view'
 
-        return redirect(url_for('admin_mobile'))
+        return redirect(url_for(page_name))
 
         # Show the form with message (if any)
         # url = 'admin_mobile.html'
@@ -836,9 +922,9 @@ def delete_asset():
 
 
 @app.route('/delete_mobile')
-def delete_main():
+def delete_mobile():
     """Renders the New Assets Mobile page."""
-    menu = dbHandler.getAssetType()
+    menu = dbHandler.getAllAssetType()
     header = 'Delete Asset - Mobile Phone'
     title = 'Delete Asset for Mobile'
     submitURL = 'delete_asset'
@@ -883,7 +969,101 @@ def delete_main():
                             asset_details = asset_details,
                             asset_kv_pair = asset_kv_pair)
 
+@app.route('/delete_laptop')
+def delete_laptop():
+    """Renders the New Assets Mobile page."""
+    menu = dbHandler.getAllAssetType()
+    header = 'Delete Asset - Laptop'
+    title = 'Delete Asset for Laptop'
+    submitURL = 'delete_asset'
+    asset_details = ''
+    key_names = ''
+    key_values = ''
+    newdict = {}
 
+    #if asset is passed in URL parameter, use it to fetch its details and
+    #populate form data
+    if(request.args.get('id')):
+        #get asset key names and add into key_names list
+        keys = dbHandler.getAssetKeys(request.args.get('id'))
+        key_names = [0 for x in range(len(keys))]
+        for x in range(len(keys)):
+            key_names[x] = keys[x][0].split(',')
+
+        #get asset key values and add into key_values list
+        asset_details = dbHandler.getAssetValues(request.args.get('id'))
+        key_values = [0 for x in range(len(asset_details))]
+        for x in range(len(asset_details)):
+            key_values[x] = asset_details[x][2].split(',')
+        
+
+        #output = [0 for x in range(len(key_names))]
+        #combine key name and key value into key-value dictionary before
+        #sending back to form
+        asset_kv_pair = {}
+        asset_kv_pair = dict(zip(key_names[0], key_values[0]))
+
+    else:
+        header = 'Asset id is required.'
+
+    return render_template('delete_laptop.html',
+                            username=session['id'],
+                            title=title,
+                            header=header,
+                            year=datetime.now().year,
+                            #message='New assets Mobile',
+                            menu = menu,
+                            submit_url = submitURL,
+                            asset_details = asset_details,
+                            asset_kv_pair = asset_kv_pair)
+
+@app.route('/delete_tablet')
+def delete_tablet():
+    """Renders the New Assets Mobile page."""
+    menu = dbHandler.getAllAssetType()
+    header = 'Delete Asset - Tablet'
+    title = 'Delete Asset for Tablet'
+    submitURL = 'delete_asset'
+    asset_details = ''
+    key_names = ''
+    key_values = ''
+    newdict = {}
+
+    #if asset is passed in URL parameter, use it to fetch its details and
+    #populate form data
+    if(request.args.get('id')):
+        #get asset key names and add into key_names list
+        keys = dbHandler.getAssetKeys(request.args.get('id'))
+        key_names = [0 for x in range(len(keys))]
+        for x in range(len(keys)):
+            key_names[x] = keys[x][0].split(',')
+
+        #get asset key values and add into key_values list
+        asset_details = dbHandler.getAssetValues(request.args.get('id'))
+        key_values = [0 for x in range(len(asset_details))]
+        for x in range(len(asset_details)):
+            key_values[x] = asset_details[x][2].split(',')
+        
+
+        #output = [0 for x in range(len(key_names))]
+        #combine key name and key value into key-value dictionary before
+        #sending back to form
+        asset_kv_pair = {}
+        asset_kv_pair = dict(zip(key_names[0], key_values[0]))
+
+    else:
+        header = 'Asset id is required.'
+
+    return render_template('delete_tablet.html',
+                            username=session['id'],
+                            title=title,
+                            header=header,
+                            year=datetime.now().year,
+                            #message='New assets Mobile',
+                            menu = menu,
+                            submit_url = submitURL,
+                            asset_details = asset_details,
+                            asset_kv_pair = asset_kv_pair)
 
 
 

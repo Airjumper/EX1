@@ -1,6 +1,8 @@
 #import sqlite3 as sql
 import sqlite3
 from sqlite3 import Error
+from datetime import datetime
+from datetime import date
 
 def create_connection(db_file):
     """ create a database connection to the SQLite database
@@ -75,26 +77,75 @@ def retrieveUserID(email):
     con.close()
     return userID
 
+#find user id by using email by user ID
+# def retrieveUserEmail(id):
+#     con = create_connection("diona.db")
+#     cur = con.cursor()
+#     cur.execute("SELECT user_email FROM User WHERE user_id = (?)", ([id[0]]))
+#     userEmail = cur.fetchone()
+#     con.close()
+#     return userEmail
+
+#find user id by using asset ID
+def retrieveUserEmailByAssetID(id):
+    con = create_connection("diona.db")
+    cur = con.cursor()
+    cur.execute("SELECT user_email FROM User u, Rent r WHERE r.user_id = u.user_id AND (r.date_return = '' or r.date_return IS NULL) AND r.asset_id = (?)", ([id[0]]))
+    userEmail = cur.fetchone()
+    #userEmail = retrieveUserEmail(user_id)
+    con.close()
+    return userEmail
+
+#add End date on Rent record
+def updateRentRecord(asset):
+    con = create_connection("diona.db")
+    
+    try:
+        with con:
+            cur = con.cursor()
+            cur.execute("UPDATE Rent SET date_return = ? WHERE asset_id = ?", (asset))
+            return True
+    except sqlite3.IntegrityError:
+        print ("couldn't add data")
+    con.close()
+
 #find asset type id by using asset type name
 def retrieveAssetTypeID(assetTypeName):
     con = create_connection("diona.db")
     cur = con.cursor()
     cur.execute("SELECT assetType_id FROM AssetType WHERE assetType_name = (?)", ([assetTypeName]))
     assetTypeID = cur.fetchone()
-    print('winter is coming')
-    print(assetTypeID)
     con.close()
     return assetTypeID
     
+#add End date on Rent record
+def getAssetType(asset):
+    con = create_connection("diona.db")
+    try:
+        with con:
+            cur = con.cursor()
+            cur.execute("SELECT AssetType.assetType_name from AssetType, Asset where Asset.assetType_id = AssetType.assetType_id AND Asset.asset_id = ?", ([asset]))
+            assetType = cur.fetchone()
+    
+    except sqlite3.IntegrityError:
+        print ("couldn't add data")
+
+    con.close()
+    return assetType
+    
 
 #to make the new asset type appear in the dropdown list
-def getAssetType():
+def getAllAssetType():
     con = create_connection("diona.db")
-    cur = con.cursor()
-    cur.execute("SELECT DISTINCT assetType_name FROM AssetType")
-    rows = cur.fetchall()
+    try:
+        with con:
+            cur = con.cursor()
+            cur.execute("SELECT DISTINCT assetType_name FROM AssetType")
+            rows = cur.fetchall()
+            return rows
+    except sqlite3.IntegrityError:
+        print ("couldn't add data")
     con.close()
-    return rows
 
 #to store the new asset type in the database
 def create_newAssetType(assetType):
@@ -123,7 +174,6 @@ def create_newSite(newSite):
         print ("couldn't add data")
     con.close()
 
-
 def getAssetValues(id):
     con = create_connection("diona.db")
     try:
@@ -136,8 +186,6 @@ def getAssetValues(id):
         print ("couldn't add data")
     
     con.close()
-
-
 
 def getAssetKeys(id):
     con = create_connection("diona.db")
@@ -152,13 +200,14 @@ def getAssetKeys(id):
     
     con.close()
 
-
 def updateAssetName(asset):
     con = create_connection("diona.db")
     try:
         with con:
             cur = con.cursor()
             cur.execute("UPDATE Asset SET asset_name = ? WHERE asset_id = ?", (asset))
+            #rows = cur.fetchall()
+            #return rows
             return True
     except sqlite3.IntegrityError:
         print ("couldn't add data")
@@ -171,11 +220,13 @@ def updateAssetDetails(asset):
         with con:
             cur = con.cursor()
             cur.execute("UPDATE AssetDetails SET key_value = ?, modified_date = ? WHERE asset_id = ? AND key_name = ?", (asset))
+            #rows = cur.fetchall()
             return True
     except sqlite3.IntegrityError:
         print ("couldn't add data")
     
     con.close()
+
 
 def deleteAsset(asset):
     con = create_connection("diona.db")

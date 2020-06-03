@@ -27,13 +27,13 @@
         <select id="assetType" name="assetType" onchange="location = this.value;" disabled>
             {% for value in menu: %}
             {% if value[0] == 'Tablet' %}
-            <option value="{{value[0]}}">{{value[0]}}</option>
-            {% elif value[0] == 'Mobile Phone' %}
             <option value="{{value[0]}}" selected>{{value[0]}}</option>
+            {% elif value[0] == 'Mobile Phone' %}
+            <option value="{{value[0]}}" >{{value[0]}}</option>
             {% elif value[0] == 'Laptop' %}
             <option value="{{value[0]}}">{{value[0]}}</option>
             {% else %}
-            <option value="{{value[0]}}" disabled>{{value[0]}}</option>
+            <option value="{{url_for('asset_type') }}" disabled>{{value[0]}}</option>
             {% endif %}
 
             {% endfor %}
@@ -88,7 +88,7 @@
 </form>
 
 <div>
-    <a class="btn btn-primary" href="{{ url_for('admin_mobile') }}">Cancel</a>
+    <a class="btn btn-primary" href="{{ url_for('admin_tablet') }}">Cancel</a>
 </div>
 
 {% endblock %}

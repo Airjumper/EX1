@@ -15,37 +15,12 @@
 {% block content %}
 
 
-<div class="jumbotron">
-    <div class=" row ">
-        <div class="col-2">
-
-            <label class="col-form-label col-form-label-lg" for="searchBox1">Asset Type : </label>
-
-        </div>
-        <div class="col-3">
-            <select class="custom-select custom-select-lg mb-3" id="searchBox1" onchange="location = this.value;">
-                {% for value in type: %}
-
-                {% if value[0] == 'Tablet' %}
-                <option value="{{ url_for('admin_tablet') }}" selected>{{ value[0]}} </option>
-                {% elif value[0] == 'Mobile Phone'%}
-                <option value="{{ url_for('admin_mobile') }}">{{ value[0]}} </option>
-                {% elif value[0] == 'Laptop'%}
-                <option value="{{ url_for('admin_laptop') }}">{{ value[0]}} </option>
-                {% else %}
-                <option value="{{ url_for('adminview') }}" disabled>{{ value[0]}} </option>
-                {% endif %}
 
 
-                {% endfor %}
-            </select>
-        </div>
-    </div>
-</div>
 <div class="container" style="overflow-x:auto;">
     <div class="row">
         <div class="col-md-8">
-            <h1>Tablets :</h1>
+            <h1>Site Details:</h1>
         </div>
         <div class="col-md-2">
             <div id="downloadLink"></div>
@@ -57,9 +32,7 @@
         <thead>
             <tr>
                 <th scope="row"></th>
-                <th> Asset Name </th>
-                <th> Asset Type </th>
-                {%  for x in keys: %}
+                {%  for x in header: %}
                 <th> {{ x }} </th>
                 {% endfor %}
                 <th> </th>
@@ -72,11 +45,11 @@
                 <td><input type="checkbox" name="row-check" value="{{ rows[row][0] }}"></td>
                 <td>{{ rows[row][1] }}</td>
                 <td>{{ rows[row][2] }}</td>
-                {%  for x in res[row]: %}
+                {%  for x in rows[row]: %}
                 <td>{{ x }}</td>
                 {% endfor %}
-                <td><a href="{{ url_for('update_assetsTablet')}}?id={{ rows[row][0] }}" class="text-primary">Edit</a></td>
-                <td><a href="{{ url_for('delete_tablet')}}?id={{ rows[row][0] }}" class="text-primary">Delete</a>
+                <td><a href="{{ url_for('update_assetsMobile')}}?id={{ rows[row][0] }}" class="text-primary">Edit</a></td>
+                <td><a href="{{ url_for('delete_mobile')}}?id={{ rows[row][0] }}" class="text-primary">Delete</a>
                 <td>
             </tr>
         </tbody>
@@ -86,4 +59,4 @@
 </div>
 
 
-{% endblock %}
+    {% endblock %}

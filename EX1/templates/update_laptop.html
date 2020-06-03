@@ -41,27 +41,14 @@
         </select>
 
         <label for="assetMake"><strong>Make:</strong></label>
-        <select id="assetMake" name="assetMake">
-            <option value="allTypes">All Types</option>
-            {% if asset_kv_pair['assetMake'] == 'apple' %}
-            <option value="apple" selected>Apple</option>
-            {% elif asset_kv_pair['assetMake'] == 'microsoft' %}
-            <option value="microsoft" selected>Microsoft</option>
-            {% elif asset_kv_pair['assetMake'] == 'hp' %}
-            <option value="hp" selected>HP</option>
-            {% elif asset_kv_pair['assetMake'] == 'samsung' %}
-            <option value="samsung" selected>Samsung</option>
-            {% elif asset_kv_pair['assetMake'] == 'google' %}
-            <option value="google" selected>Google</option>
-
-            {% endif %}
-        </select>
+        <input type="text" name="assetMake" value="{{asset_kv_pair['assetMake']}}" />
+       
 
         <label for="assetStatus"><strong>Status:</strong></label>
         <select id="assetStatus" name="assetStatus">
-            <option value="active" {% if asset_kv_pair['assetStatus']= ='active' %} selected {% endif %}>Active</option>
-            <option value="inrepair" {% if asset_kv_pair['assetStatus']= ='inrepair' %} selected {% endif %}>In Repair</option>
-            <option value="condemned" {% if asset_kv_pair['assetStatus']= ='condemned' %} selected {% endif %}>Condemned</option>
+            <option value="active" {% if asset_kv_pair['assetStatus']=='active' %} selected {% endif %}>Active</option>
+            <option value="inrepair" {% if asset_kv_pair['assetStatus']=='inrepair' %} selected {% endif %}>In Repair</option>
+            <option value="condemned" {% if asset_kv_pair['assetStatus']=='condemned' %} selected {% endif %}>Condemned</option>
         </select>
     </div>
 

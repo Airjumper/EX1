@@ -73,7 +73,7 @@
                 {%  for x in res[row]: %}
                 <td>{{ x }}</td>
                 {% endfor %}
-                <td><a href="{{ url_for('update_assetsMobile')}}?id={{ rows[row][0] }}" class="text-primary">Edit</a></td>
+                <td id= " "><a href="{{ url_for('update_assetsMobile')}}?id={{ rows[row][0] }}" class="text-primary">Edit</a></td>
                 <td><a href="{{ url_for('delete_mobile')}}?id={{ rows[row][0] }}" class="text-primary">Delete</a>
                 <td>
             </tr>

@@ -37,12 +37,7 @@
             window.URL = window.URL || window.webkiURL;
             var blob = new Blob([values]);
             var blobURL = window.URL.createObjectURL(blob);
-            $("#downloadLink").html("");
-            $("<a></a>").
-                attr("href", blobURL).
-                attr("download", "report.csv").
-                text("Download .CSV File").
-                appendTo('#downloadLink');
+       
         }
     </script>
 

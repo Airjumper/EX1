@@ -13,11 +13,11 @@ jQuery.fn.tableToCSV = function() {
 
 			$(this).find('tr').each(function(){
 				var data = [];
-				$(this).find('th').each(function(){
+				$(this).find('th').slice(1, -2).each(function(){
                     var text = clean_text($(this).text());
 					title.push(text);
 					});
-				$(this).find('td').each(function(){
+				$(this).has(':checkbox:checked').find('td').slice(1, -3).each(function(){
                     var text = clean_text($(this).text());
 					data.push(text);
 					});

@@ -29,7 +29,7 @@
             {% if value[0] == 'Tablet' %}
             <option value="{{value[0]}}" selected>{{value[0]}}</option>
             {% elif value[0] == 'Mobile Phone' %}
-            <option value="{{value[0]}}" >{{value[0]}}</option>
+            <option value="{{value[0]}}">{{value[0]}}</option>
             {% elif value[0] == 'Laptop' %}
             <option value="{{value[0]}}">{{value[0]}}</option>
             {% else %}
@@ -83,12 +83,13 @@
         <div style="display:none;">
             <input type="text" class="hidden" name="assetID" value="{{asset_details[0][0]}}" />
         </div>
+    </div>
+    <div class="row">
+        <div class="column-25"></div>
         <input class="btn btn-primary" type="Submit" value="Confirm">
+        <div class="col-1"></div>
+        <button class="btn btn-primary" id="cancelButton" href="{{ url_for('admin_tablet') }}"> Cancel</button>
     </div>
 </form>
-
-<div>
-    <a class="btn btn-primary" href="{{ url_for('admin_tablet') }}">Cancel</a>
-</div>
 
 {% endblock %}

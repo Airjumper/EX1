@@ -384,29 +384,26 @@ def new_assets():
 
 @app.route('/add_asset', methods=['POST', 'GET'])
 def add_asset():
-    #if the form is submittied, declare the variable of new_asset, asset_id and
-    #user_id
+    #if the form is submittied, declare the variable of new_asset, asset_id and user_id
     if request.method == 'POST':
         new_asset = ''
         asset_id = ''
         user_id = ''
-        print('hello')
-        #get the asset type from the form to get assetTypeID
+        #get the asset type from the form to get assetTypeID    
         if request.form['assetType']:
             assetType_id = dbHandler.retrieveAssetTypeID(request.form['assetType'])
         else:
             msg = 'Enter all details'
         
-        #prepare new asset from form data, to get the asset record (name and
-        #type) first
-        if request.form['assetName']:
+        #prepare new asset from form data, to get the asset record (name and type) first
+        if request.form['Name']:
             if assetType_id:
-                new_asset = (assetType_id[0], request.form['assetName'])
+                new_asset = (assetType_id[0], request.form['Name'])
             else:
                 #add to assess type and continue creating asset
-                print(request.form['assetType'])
+                #print(request.form['assetType'])
                 assetType_id = dbHandler.create_newAssetType(request.form['assetType'])
-                new_asset = (assetType_id, request.form['assetName'])
+                new_asset = (assetType_id, request.form['Name'])
         else:
             msg = 'Enter all details'        
         
@@ -418,7 +415,20 @@ def add_asset():
         
         #get the email from the form to get userID
         user_id = dbHandler.retrieveUserID(request.form['assetAssigned'])
-        
+
+        if user_id: 
+            if asset_id:
+                if user_id:
+                    rent = (user_id[0],asset_id,date.today())
+                    dbHandler.create_newRentrecord(rent)
+        else:
+            #create new user
+            user_id = dbHandler.createnewUser(request.form['assetAssigned'])
+            if asset_id:
+                if user_id:
+                    rent = (user_id,asset_id,date.today())
+                    dbHandler.create_newRentrecord(rent)
+            
         #Continue adding into Asset Details if asset is added in Asset table
         if asset_id:
             #convert form data into dictionary
@@ -433,40 +443,32 @@ def add_asset():
             for key, value in data.items():
                 new_assetDetails = (asset_id, key, value, date.today(), date.today())    
                 dbHandler.create_newAssetDetails(new_assetDetails)
-             #   new_list.append(value)
-            
-            #convert list to dictionary before inserting into database
-            #AssetDetails = tuple()
-            
-            if asset_id:
-                if user_id:
-                    rent = (user_id[0],asset_id,datetime.today())
-                    dbHandler.create_newRentrecord(rent)
-                    msg = "Inserted data successfully"
-                else:
-                    msg = 'Error! Cannot create new asset'
-            else:
-                msg = 'Error! Cannot create new asset'
+ 
+            msg = "Inserted data successfully"
         else:
             # Table doesnt exist.
             msg = 'Error inserting into database.'
+        #print(user_id)
         pageName = page_name(request.form['assetType'])
 
-        menu = dbHandler.getAssetType()
+        menu = dbHandler.getAllAssetType()
 
         # Show the form with message (if any)
-        return render_template('confirmation.html',
-                title='Confirmation Message',
-                year=datetime.now().year,
-                msg=msg)
+        return render_template( pageName,
+                                title='New Assets',
+                                year=datetime.now().year,
+                                message='New Assets',
+                                menu = menu,
+                                msg=msg)
     else:
         return render_template('new_assets.html',
-            title='New Assets',
-            year=datetime.now().year,
-            message='New Assets',
-            menu = menu,
-            error=True,
-            msg='')
+                                title='New Assets',
+                                year=datetime.now().year,
+                                message='New Assets',
+                                menu = menu,
+                                error=True,
+                                msg=''
+                                )
 
 
 def page_name(x):
@@ -476,19 +478,20 @@ def page_name(x):
                 'Laptop': 'new_assetsLaptop.html'
             }.get(x, 'admin_main.html')
 
-@app.route('/NewAsset_Default.html')
+
+@app.route('/newAsset_Default.html')
 def new_assetDefault():
     """Renders the New Assets Default page."""
     #to make all the asset types appear on the page
     menu = dbHandler.getAllAssetType()
     return render_template('new_assetsDefault.html',
-        title='New Assets for Mobile',
-        year=datetime.now().year,
-        message='New assets Mobile',
-        menu = menu)
+                            title='New Assets for Mobile',
+                            year=datetime.now().year,
+                            message='New assets Mobile',
+                            menu = menu)
 
 
-@app.route('/NewAsset_Mobile.html')
+@app.route('/newAsset_Mobile')
 def new_assetsMobile():
     """Renders the New Assets Mobile page."""
     menu = dbHandler.getAllAssetType()
@@ -498,7 +501,7 @@ def new_assetsMobile():
                             message='New assets Mobile',
                             menu = menu)
 
-@app.route('/NewAsset_Tablet.html')
+@app.route('/newAsset_Tablet')
 def new_assetsTablet():
     """Renders the New Assets Tablet page."""
     menu = dbHandler.getAllAssetType()
@@ -508,7 +511,7 @@ def new_assetsTablet():
                             message='New assets Tablet',
                             menu = menu)
 
-@app.route('/NewAsset_Laptop.html')
+@app.route('/newAsset_Laptop')
 def new_assetsLaptop():
     """Renders the New Assets Laptop page."""
     menu = dbHandler.getAllAssetType()
@@ -517,6 +520,128 @@ def new_assetsLaptop():
                             year=datetime.now().year,
                             message='New assets Laptop',
                             menu = menu)
+
+
+@app.route('/view_users')
+def view_users():
+    """Renders the View Users page."""
+
+    if 'loggedin' in session:
+
+        conn = sqlite3.connect(r"diona.db")
+        cur = conn.cursor() 
+
+        # Get all user details from user table
+        query = cur.execute("SELECT * FROM User")
+
+        rows = query.fetchall()
+
+        return render_template('view_users.html',
+                                username=session['id'],
+                                title='Admin View',
+                                rows = rows,
+                                year=datetime.now().year)
+
+
+
+@app.route('/add_users')
+def add_users():
+    """Renders the Add Users page."""
+
+    user_details = ''
+    submit_url = ''
+
+    #if asset is passed in URL parameter, use it to fetch its details and populate form data
+    if(request.args.get('id')):
+        #get asset key names and add into key_names list
+        user_details = dbHandler.getUserDetails(request.args.get('id'))
+        submit_url = "submit_update_user"
+    else:
+        submit_url = 'submit_add_users'
+
+    return render_template('new_user_details.html',
+                            title='Add Users',
+                            user = user_details,
+                            submit_url = submit_url,
+                            year=datetime.now().year,
+                            message='Add Users page. Nice.')
+
+@app.route('/update_users')
+def update_users():
+    """Renders the Add Users page."""
+
+    user_details = ''
+    submit_url = ''
+
+    #if asset is passed in URL parameter, use it to fetch its details and populate form data
+    if(request.args.get('id')):
+        #get asset key names and add into key_names list
+        user_details = dbHandler.getUserDetails(request.args.get('id'))
+        submit_url = "submit_update_user"
+    else:
+        submit_url = 'submit_add_users'
+
+    return render_template('update_user.html',
+                            title='Add Users',
+                            user = user_details,
+                            submit_url = submit_url,
+                            year=datetime.now().year)
+
+
+@app.route('/submit_update_user', methods=['POST', 'GET'])
+def submit_update_user():
+    #if the form is submittied, declare the variable of new_users and user_id 
+    if request.method == 'POST':
+        user = (request.form['userName'],request.form['userEmail'],request.form['userPhone'],request.form['user_id'])
+        user_id = dbHandler.updateUser(user)
+
+        if user_id:
+            # Show the form with message (if any)
+            msg = 'user table has been updated'
+        else:
+            msg = 'Error'
+
+
+    types = dbHandler.getAllAssetType()
+
+    conn = sqlite3.connect(r"diona.db")
+        
+        # Get name and type of an asset, and get key_value store as results
+
+    cur = conn.cursor() 
+
+    query = cur.execute("SELECT * FROM User")
+
+    rows = query.fetchall()
+
+    return render_template('view_users.html',
+                            username=session['id'],
+                            title='View users',
+                            rows = rows,
+                            msg = msg,
+                            year=datetime.now().year)
+
+
+@app.route('/submit_add_users', methods=['POST', 'GET'])
+def submit_add_users():
+    #if the form is submittied, declare the variable of new_users and user_id 
+    if request.method == 'POST':
+        new_users = (request.form['userName'],request.form['userEmail'],request.form['userPhone'])
+        user_id = dbHandler.create_newUsers(new_users)
+
+        if user_id:
+            # Show the form with message (if any)
+            msg = 'new user is created successfully'
+        else:
+            msg = 'Error'
+
+        return render_template('new_user_details.html',
+                                title='Add Users',
+                                year=datetime.now().year,
+                                message='Add Users',
+                                msg=msg)
+
+
 
 
 @app.route('/history')
@@ -566,11 +691,9 @@ def site_all_details():
 
     # Check if user is loggedin
     if 'loggedin' in session:
-        types = dbHandler.getAllAssetType()
         conn = sqlite3.connect(r"diona.db")
 
         conn.row_factory = sqlite3.Row
-        # Get name and type of an asset, and get key_value store as results
         rows = conn.execute("SELECT * FROM Site")
         col_names = rows.fetchone()
         headers = col_names.keys()
@@ -911,9 +1034,9 @@ def delete_asset():
         #         menu = menu,
         #         msg = msg)
     else:
-        return render_template('admin_mobile.html',
+        return render_template('adminview.html',
                                 username=session['id'],
-                                title='Admin Mobile View',
+                                title='Admin View',
                                 year=datetime.now().year,
                                 message='',
                                 menu = menu)
@@ -1065,6 +1188,52 @@ def delete_tablet():
                             asset_details = asset_details,
                             asset_kv_pair = asset_kv_pair)
 
+
+
+
+
+@app.route('/delete_user_request', methods=['POST', 'GET'])
+def delete_user_request():
+
+
+ 
+    if request.method == 'POST':
+        user_id = request.form['user_id']
+        dbHandler.deleteUser(user_id)
+
+    
+    types = dbHandler.getAllAssetType()
+
+    conn = sqlite3.connect(r"diona.db")
+    cur = conn.cursor() 
+
+    query = cur.execute("SELECT * FROM User")
+
+    rows = query.fetchall()
+
+
+    return render_template('view_users.html',
+                            username=session['id'],
+                            title='View users',
+                            rows = rows,
+                            year=datetime.now().year)
+
+
+
+@app.route('/delete_user')
+def delete_users():
+    #if the form is submittied, declare the variable of new_asset, asset_id and
+    #user_id
+   if(request.args.get('id')):
+        #get asset key names and add into key_names list
+        user_details = dbHandler.getUserDetails(request.args.get('id'))
+    
+ 
+   return render_template('delete_user.html',
+                           username=session['id'],
+                           title='View users',
+                           user = user_details,
+                           year=datetime.now().year)
 
 
 

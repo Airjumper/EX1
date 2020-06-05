@@ -71,7 +71,7 @@
 /* /// Login Styling /// */
 
 .login-form {
-    width: 380px;
+    width: 500px;
     margin: 50px auto;
 }
 
@@ -181,6 +181,24 @@ input[type= Submit] {
         background-color: #4CAF50;
     }
 
+
+
+#cancelButton {
+    text-align: center;
+    width: 15%;
+    background-color: #4682B4;
+    color: white;
+    padding: 10px 16px;
+    margin: 5px 0;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+    #cancelButton:hover {
+        background-color: #4CAF50;
+    }
+
+
 /* Form Columns */
 
 .column-25 {
@@ -266,6 +284,4 @@ input[type= Submit] {
         left: 30px;
         color: #4CAF50;
     }
-}
-
 }

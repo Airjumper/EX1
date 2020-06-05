@@ -26,6 +26,7 @@
             </div>
             <div class="col-3">
                 <select class="custom-select custom-select-lg mb-3" id="searchBox1" onchange="location = this.value;">
+                    <option value="#" selected>Selete a type: </option>
                     {% for value in menu: %}
                     {% if value[0] == 'Tablet' %}
                     <option value="{{url_for('new_assetsTablet') }}">{{value[0]}}</option>

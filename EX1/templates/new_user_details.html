@@ -1,0 +1,90 @@
+﻿{% extends "layout_admin.html" %}
+
+
+{% block nav %}
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenu"
+       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Hello! {{username}}</a>
+
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
+        <a class="dropdown-item" href="{{ url_for('logout') }}  ">Log out</a>
+    </div>
+</li>
+{% endblock %}
+
+{% block content %}
+
+<div class="formcontainer">
+    <form action="{{ submit_url }}" method="post" id="defaultassetform">
+        <h1>Create New Users</h1>
+        <br>
+        <div class="text_danger">{{ msg }}</div>
+        <br>
+        {% if user %}
+        <div id="hiddenFields">
+            <input type="text" class="hidden" name="user_id" value="{{ user[0] }}" hidden />
+        </div>
+        <div class="row">
+            <div class="column-25">
+                <label for="Name"><strong>User Name: </strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="Name"  value="{{ user[1] }}" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column-25">
+                <label for="Email"><strong>User Email: </strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="Email" value="{{ user[2] }}" />
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="column-25">
+                <label for="Phone"><strong>User Phone No: </strong>></label>
+
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="Phone" value="{{ user[3] }}" />
+            </div>
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="column-25">
+                <label for="Name"><strong>User Name: </strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="Name" placeholder="Full Name" value="" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column-25">
+                <label for="Email"><strong>User Email: </strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="Email" value="" formnovalidate/>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="column-25">
+                <label for="Phone"><strong>User Phone No: </strong></label>
+
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="Phone" value="" />
+            </div>
+        </div>
+        {% endif %}
+
+        <p id="submitbutton"><input type="Submit" value="Save"></p>
+    </form>
+</div>
+
+{% endblock %}

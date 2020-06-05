@@ -20,7 +20,7 @@
         </div>
         <div class="col-3">
             <select class="custom-select custom-select-lg mb-3" id="searchBox1" onchange="location = this.value;">
-                <option selected> choose asset type </option>
+                <option value="{{ url_for('adminview') }}" selected> choose asset type </option>
                 {% for value in type: %}
 
                 {% if value[0] == 'Tablet' %}

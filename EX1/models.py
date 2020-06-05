@@ -18,6 +18,27 @@ def create_connection(db_file):
 
     return conn
 
+#for updating user details 
+def updateUser(user):
+    con = create_connection("diona.db")
+    
+    try:
+        with con:
+            cur = con.cursor()
+            cur.execute("UPDATE User SET user_name = ?, user_email = ?, user_phone = ? WHERE user_id = ?", (user))
+            return True
+    except sqlite3.IntegrityError:
+        print ("couldn't add data")
+    con.close()
+
+def getUserDetails(id):
+    con = create_connection("diona.db")
+    cur = con.cursor()
+    cur.execute("SELECT * FROM User WHERE user_id = (?)", ([id]))
+    userID = cur.fetchone()
+    con.close()
+    return userID
+
 #for login page
 def retrieveAccount(id, password):
     con = create_connection("diona.db")
@@ -77,24 +98,30 @@ def retrieveUserID(email):
     con.close()
     return userID
 
-#find user id by using email by user ID
-# def retrieveUserEmail(id):
-#     con = create_connection("diona.db")
-#     cur = con.cursor()
-#     cur.execute("SELECT user_email FROM User WHERE user_id = (?)", ([id[0]]))
-#     userEmail = cur.fetchone()
-#     con.close()
-#     return userEmail
+#for adding new assets to rent table
+def createnewUser(email):
+    con = create_connection("diona.db")
+    try:
+        with con:
+            sql = '''INSERT INTO User(user_email) VALUES(?)'''
+            cur = con.cursor()
+            cur.execute(sql,[email])
+            con.commit() #to finanlise the changes in the database
+            return cur.lastrowid
+    except sqlite3.IntegrityError:
+        print ("couldn't add data")
+    con.close()
 
 #find user id by using asset ID
 def retrieveUserEmailByAssetID(id):
     con = create_connection("diona.db")
     cur = con.cursor()
-    cur.execute("SELECT user_email FROM User u, Rent r WHERE r.user_id = u.user_id AND (r.date_return = '' or r.date_return IS NULL) AND r.asset_id = (?)", ([id[0]]))
+    cur.execute("SELECT user_email FROM User u, Rent r WHERE r.user_id = u.user_id AND (r.date_return = '' or r.date_return IS NULL) AND r.asset_id = (?)", ([id]))
     userEmail = cur.fetchone()
     #userEmail = retrieveUserEmail(user_id)
     con.close()
-    return userEmail
+    if userEmail:
+        return userEmail[0]
 
 #add End date on Rent record
 def updateRentRecord(asset):
@@ -174,6 +201,19 @@ def create_newSite(newSite):
         print ("couldn't add data")
     con.close()
 
+#for adding new users to User table
+def create_newUsers(new_users):
+    con = create_connection("diona.db")
+    try:
+        with con:
+            sql = '''INSERT INTO User (user_name, user_email, user_phone) VALUES(?,?,?)'''
+            cur = con.cursor()
+            cur.execute(sql,new_users)
+            return cur.lastrowid
+    except sqlite3.IntegrityError:
+        print ("couldn't add data")
+    con.close()
+
 def getAssetValues(id):
     con = create_connection("diona.db")
     try:
@@ -227,6 +267,26 @@ def updateAssetDetails(asset):
     
     con.close()
 
+def getSiteDetails(id):
+    con = create_connection("diona.db")
+    cur = con.cursor()
+    cur.execute("SELECT * FROM Site WHERE site_id = (?)", ([id]))
+    siteID = cur.fetchone()
+    con.close()
+    return siteID
+
+def updateSite(site):
+    con = create_connection("diona.db")
+    print("updating site")
+    try:
+        with con:
+            cur = con.cursor()
+            cur.execute("UPDATE Site SET site_location = ?, site_address = ?, site_device = ?, device_name = ?, serial = ?, ip_address = ?, mobile_no = ?, sim = ?, computer = ?, PC_username = ?, PC_password = ?, printer = ?, projectManager = ? WHERE site_id = ?", (site))
+            return True
+    except sqlite3.IntegrityError:
+        print ("couldn't add data")
+    con.close()
+
 
 def deleteAsset(asset):
     con = create_connection("diona.db")
@@ -239,6 +299,21 @@ def deleteAsset(asset):
         print ("couldn't add data")
     
     con.close()
+
+
+
+def deleteUser(user):
+    con = create_connection("diona.db")
+    try:
+        with con:
+            cur = con.cursor()
+            cur.execute("DELETE FROM User WHERE user_id = ?", (user,))
+            return True
+    except sqlite3.IntegrityError:
+        print ("couldn't add data")
+    
+    con.close()
+
 
 def deleteAssetDetails(asset):
     con = create_connection("diona.db")

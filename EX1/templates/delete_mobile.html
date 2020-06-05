@@ -83,12 +83,13 @@
         <div style="display:none;">
             <input type="text" class="hidden" name="assetID" value="{{asset_details[0][0]}}" />
         </div>
+    </div>
+    <div class="row">
+        <div class="column-25"></div>
         <input class="btn btn-primary" type="Submit" value="Confirm">
+        <div class="col-1"></div>
+        <button class="btn btn-primary" id="cancelButton" href="{{ url_for('admin_mobile') }}"> Cancel</button>
     </div>
 </form>
-
-<div>
-    <a class="btn btn-primary" href="{{ url_for('admin_mobile') }}">Cancel</a>
-</div>
 
 {% endblock %}

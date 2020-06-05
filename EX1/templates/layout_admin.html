@@ -17,7 +17,17 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
+    <script src="/static/js/jquery.tabletoCSV.js" type="text/javascript" charset="utf-8"></script>
     <script>
+        $(function () {
+            $("#export").click(function () {
+                $("#tableView").tableToCSV();
+            });
+        });
+    </script>
+
+    /*
+  
         function makeCSV() {
             var values = "";
             var lines = ''
@@ -37,10 +47,15 @@
             window.URL = window.URL || window.webkiURL;
             var blob = new Blob([values]);
             var blobURL = window.URL.createObjectURL(blob);
-       
+            $("#downloadLink").html("");
+            $(" <  a><  /a>").
+                attr("href", blobURL).
+                attr("download", "report.csv").
+                text("Download .CSV File").
+                appendTo('#downloadLink');
         }
-    </script>
-
+    
+    */
 
     <script>
 
@@ -50,7 +65,7 @@
             launchPrintWindow = window.open("");
             launchPrintWindow.document.write(divToPrint.outerHTML);
             launchPrintWindow.print();
-           // launchPrintWindow.close();
+            // launchPrintWindow.close();
         }
 
         $('button').on('click', function () {
@@ -78,11 +93,10 @@
                         <a class="nav-link text-light " href="{{ url_for('adminview') }}" tabindex="-1">View Assets</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-light" href="{{ url_for('new_assets') }}" tabindex="-1">Create Asset</a>
-
+                        <a class="nav-link text-light" href="{{ url_for('view_history') }}" tabindex="-1">View Asset History</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-light" href="{{ url_for('view_history') }}" tabindex="-1">View Asset History</a>
+                        <a class="nav-link text-light" href="{{ url_for('view_users') }}" tabindex="-1">User details</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-light" href="{{ url_for('site_all_details') }}" tabindex="-1">Site Details</a>
@@ -90,10 +104,11 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenu"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Settings</a>
-
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
-                            <a class="dropdown-item text-secondary" href="{{ url_for('import_main') }}" tabindex="-1">Import Assets </a>
+                            <a class="dropdown-item text-secondary" href="{{ url_for('import_main') }}" tabindex="-1">Import Data </a>
+                            <a class="dropdown-item text-secondary" href="{{ url_for('new_assets') }}" tabindex="-1">Add New Assets</a>
                             <a class="dropdown-item text-secondary" href="{{ url_for('asset_type') }}" tabindex="-1"> Create Asset Type</a>
+                            <a class="dropdown-item text-secondary" href="{{ url_for('add_users') }}" tabindex="-1">Create New User</a>
                             <a class="dropdown-item text-secondary" href="{{ url_for('site_default') }}" tabindex="-1">Create Site Details</a>
                         </div>
                     </li>

@@ -1,0 +1,66 @@
+﻿{% extends "layout_admin.html" %}
+
+
+{% block nav %}
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenu"
+       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Hello! {{username}}</a>
+
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
+        <a class="dropdown-item" href="{{ url_for('logout') }}  ">Log out</a>
+    </div>
+</li>
+{% endblock %}
+
+{% block content %}
+
+<div class="formcontainer">
+    <form action=" {{ url_for ('delete_user_request')}}" method="POST" id="defaultassetform">
+        <h1>Delete User: </h1>
+        
+        {% if user %}
+        <div id="hiddenFields">
+            <input type="text" class="hidden" name="user_id" value="{{ user[0] }}" hidden />
+        </div>
+        <div class="row">
+            <div class="column-25">
+                <label for="userName"><strong>User Name: </strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="userName" value="{{ user[1] }}" disabled />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column-25">
+                <label for="userEmail"><strong>User Email: </strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="userEmail" value="{{ user[2] }}" disabled />
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="column-25">
+                <label for="userPhone"><strong>User Phone No: </strong></label>
+
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="userPhone" value="{{ user[3] }}" disabled />
+            </div>
+        </div>
+
+        {% endif %}
+        <div class="row">
+            <div class="column-25"></div>
+            <input class="btn btn-primary" type="Submit" value="Confirm">
+            <div class="col-1"></div>
+            <button class="btn btn-primary" id="cancelButton" href="{{ url_for('view_users') }}"> Cancel</button>
+        </div>
+
+
+    </form>
+</div>
+
+{% endblock %}

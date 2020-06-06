@@ -1,0 +1,162 @@
+﻿{% extends "layout_admin.html" %}
+
+{% block nav %}
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenu"
+       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Hello! {{username}}</a>
+
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
+        <a class="dropdown-item" href="{{ url_for('logout') }}  ">Log out</a>
+    </div>
+</li>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="formcontainer">
+    <form action="/submit_site_details" method="post" id="defaultassetform">
+
+        <div class="h1form">
+            <h1>Create - New Site Details</h1>
+        </div>
+
+        <div class="h3form">
+            <h3>Site Characteristics</h3>
+        </div>
+
+        <div class="msg">{{ msg }}</div>
+
+        <div class="row">
+            <div class="column-25">
+                <label for="Site Location"><strong>Site Location:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="Site Location" value="" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column-25">
+                <label for="Site Address"><strong>Site Address:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="Site Address" value="" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column-25">
+                <label for="Site Device"><strong>Device: </strong></label>
+            </div>
+
+            <div class="column-50">
+                <input type="text" class="" name="Site Device" value="" />
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="column-25">
+                <label for="Device Name"><strong>Device Name:</strong></label>
+            </div>
+
+            <div class="column-50">
+                <input type="text" class="" name="Device Name" value="" />
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="column-25">
+                <label for="Device Serial"><strong>Serial: </strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="Device Serial" value="" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column-25">
+                <label for="IP Address"><strong>IP Address: </strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="IP Address" value="" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column-25">
+                <label for="Site Computer"><strong>Computer:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="Site Computer" value="" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column-25">
+                <label for="PC Username"><strong>PC Username:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="PC Username" value="" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column-25">
+                <label for="PC Password"><strong>PC Password: </strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="PC Password" value="" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column-25">
+                <label for="Printer"><strong>Printer:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="Printer" value="" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column-25">
+                <label for="Project Manager"><strong>Project Manager:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="Project Manager" value="" />
+            </div>
+        </div>
+        <br>
+
+        <div class="h3form">
+            <h3>Additional Characteristics</h3>
+        </div>
+
+        <div class="row">
+            <div class="column-25">
+                <label for="Mobile No"><strong>Mobile Number:</strong></label>
+            </div>
+
+            <div class="column-50">
+                <input type="text" class="" name="Mobile No" value="" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column-25">
+                <label for="Mobile Sim"><strong>SIM:</strong></label>
+            </div>
+
+            <div class="column-50">
+                <input type="text" class="" name="Mobile Sim" value="" />
+            </div>
+        </div>
+
+        <p id="submitbutton"><input type="Submit" value="Save"></p>
+    </form>
+</div>
+
+{% endblock %}

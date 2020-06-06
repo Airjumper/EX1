@@ -1,33 +1,24 @@
 ﻿{% extends "layout_admin.html" %}
 
-
-{% block nav %}
-<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenu"
-       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Hello! {{username}}</a>
-
-    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
-        <a class="dropdown-item" href="{{ url_for('logout') }}  ">Log out</a>
-    </div>
-</li>
-{% endblock %}
-
 {% block content %}
 
-
-<div class="jumbotron">
-    <div class=" row ">
-        <div class="col-2">
-
-            <label class="col-form-label col-form-label-lg" for="searchBox1">Asset Type : </label>
-
+<div class="viewContainer">
+    <div class="siteHeader">
+        <h2>View Assets</h2>
+    </div>
+    <br>
+    <p>Select the Assets you wish to view.</p>
+    <br>
+    <div class="row">
+        <div class="col-3" style="justify-content: center;">
+            <label class="col-form-label col-form-label-lg" for="searchBox1"><strong>Asset Type:</strong></label>
         </div>
-        <div class="col-3">
+        <div class="col-5" style="justify-content: center;">
             <select class="custom-select custom-select-lg mb-3" id="searchBox1" onchange="location = this.value;">
+                <option selected>Choose Asset Type</option>
                 {% for value in type: %}
-
                 {% if value[0] == 'Tablet' %}
-                <option value="{{ url_for('admin_tablet') }}" selected>{{ value[0]}} </option>
+                <option value="{{ url_for('admin_tablet') }}">{{ value[0]}} </option>
                 {% elif value[0] == 'Mobile Phone'%}
                 <option value="{{ url_for('admin_mobile') }}">{{ value[0]}} </option>
                 {% elif value[0] == 'Laptop'%}
@@ -41,18 +32,20 @@
             </select>
         </div>
     </div>
-</div>
-<div class="container" style="overflow-x:auto;">
-    <div class="row">
-        <div class="col-md-8">
-            <h1>Tablets :</h1>
+    <br>
+    <br>
+    <div id="loginUserview"></div>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="siteHeader">
+                <h3>Tablets:</h3>
+            </div>
         </div>
-        <div class="col-md-2">
-            <div id="downloadLink"></div>
-        </div>
+        <br>
+        <button class="btn btn-primary" onclick="printRecords()">Print Records</button>
+        <button id="export" class="btn btn-primary" data-export="export">Export CSV</button>
     </div>
-    <button class="btn btn-primary" onclick="printRecords()">Print Records</button>
-    <button id="export" class="btn btn-primary" data-export="export">Export CSV</button>
     <table class="view-table" id="tableView">
         <thead>
             <tr>
@@ -69,15 +62,18 @@
         {%  for row in range(rows|length): %}
         <tbody>
             <tr>
-                <td><input type="checkbox" name="row-check" value="{{ rows[row][0] }}"></td>
+                <td><input type="checkbox" id="checkBx" name="row-check" value="{{ rows[row][0] }}"></td>
                 <td>{{ rows[row][1] }}</td>
                 <td>{{ rows[row][2] }}</td>
                 {%  for x in res[row]: %}
                 <td>{{ x }}</td>
                 {% endfor %}
-                <td><a href="{{ url_for('update_assetsTablet')}}?id={{ rows[row][0] }}" class="text-primary">Edit</a></td>
-                <td><a href="{{ url_for('delete_tablet')}}?id={{ rows[row][0] }}" class="text-primary">Delete</a>
                 <td>
+                    <a href="{{ url_for('update_assetsTablet')}}?id={{ rows[row][0] }}" class="text-primary">Edit</a>
+                </td>
+                <td>
+                    <a href="{{ url_for('delete_tablet')}}?id={{ rows[row][0] }}" class="text-primary">Delete</a>
+                </td>
             </tr>
         </tbody>
         {% endfor %}

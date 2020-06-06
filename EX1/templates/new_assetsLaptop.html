@@ -22,11 +22,11 @@
             <h1>Create New Asset - Laptop</h1>
         </div>
         <br>
+        <div class="text-success">{{ msg }}</div>
+        <br>
         <div class="h3form">
             <h3>Asset Characteristics</h3>
         </div>
-        <div class="msg">{{ msg }}</div>
-
         <div class="row">
             <div class="column-25">
                 <label for="assetType"><strong>Type:</strong></label>
@@ -39,7 +39,7 @@
                     {% elif value[0] == 'Mobile Phone' %}
                     <option value="{{url_for('new_assetsMobile') }}">{{value[0]}}</option>
                     {% elif value[0] == 'Laptop' %}
-                    <option value="{{url_for('new_assetsLaptop') }}" selected>{{value[0]}}</option>
+                    <option value="{{value[0]}}" selected>{{value[0]}}</option>
                     {% else %}
                     <option value="#">{{value[0]}}</option>
                     {% endif %}
@@ -132,7 +132,7 @@
                 <label for="PuchaseDate"><strong>Purchase Date:</strong></label>
             </div>
             <div class="column-50">
-                <input type="date" class="" name="PuchaseDate" value="" />
+                <input type="text" class="" name="PuchaseDate" placeholder="YYYY-MM-DD" value="" />
             </div>
         </div>
         <br>
@@ -144,7 +144,7 @@
                 <label for="Notes"><strong>Asset Notes:</strong></label>
             </div>
             <div class="column-70">
-                <textarea rows="5" cols="50" name="aNotes"
+                <textarea rows="5" cols="50" name="Notes"
                           placeholder="Enter Additional Asset Specifications Here"></textarea>
             </div>
         </div>

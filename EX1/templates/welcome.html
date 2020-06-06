@@ -1,22 +1,28 @@
 ﻿{% extends "layout.html" %}
-
 {% block content %}
-<div class="jumbotron">
-    <div style="text-align:center">
-        <h2>Welcome to Assets Management System</h2>
-        <p> ***   Select your user type   ***</p>
+<body>
+    <div class="welcomecontainer">
+        <div style="text-align:center">
+            <h2>Diona Asset Management System</h2>
+            <p>Select User Type</p>
+        </div>
+        <br>
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <i class="fa fa-users fa-5x" style="padding-bottom:10px;"></i>
+                <br>
+                <a class="btn btn-secondary" href="{{ url_for('userview')}}" role="button">Employees</a>
+            </div>
+
+            <div class="col-3">
+                <div class="iconcontainer">
+                    <i class="fa fa-user fa-5x"></i>
+                </div>
+                <p>
+                    <a class="btn btn-secondary" href="{{ url_for('login_request')}}" role="button">Administrator</a>
+                </p>
+            </div>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-lg-3 offset-md-2">
-        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-        <h2>General User</h2>
-        <p><a class="btn btn-secondary" href="{{ url_for('userview')}}" role="button">User View »</a></p>
-    </div>
-    <div class="col-lg-3 offset-md-2">
-        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
-        <h2>Administrator</h2>
-        <p><a class="btn btn-secondary" href="{{ url_for('login_request')}}" role="button">Admin View »</a></p>
-    </div>
-</div>
+</body>
 {% endblock %}

@@ -1,37 +1,31 @@
 ﻿{% extends "layout_admin.html" %}
 
-
-{% block nav %}
-<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenu"
-       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Hello! {{username}}</a>
-
-    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
-        <a class="dropdown-item" href="{{ url_for('logout') }}  ">Log out</a>
-    </div>
-</li>
-{% endblock %}
-
-
 {% block content %}
 
-<div class="container" style="overflow-x:auto;">
-    <h1>Users :</h1>
+<div class="viewContainer">
+
+    <div class="siteHeader">
+        <h2>Users :</h2>
+    </div>
+
+
     <br>
     {% if msg == 'Error'  %}
-        <div class="text-danger">{{ msg }}</div>
+    <div class="text-danger">{{ msg }}</div>
     {% else %}
-        <div class="text-success">{{ msg }}</div>
+    <div class="text-success">{{ msg }}</div>
     {% endif %}
 
     <br>
-    <table class="view-table">
+    <table class="view-table" id="tableView">
         <thead>
             <tr>
                 <th scope="row"> </th>
                 <th> User Name </th>
                 <th> User Email </th>
                 <th> User Phone No </th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
 
@@ -51,6 +45,5 @@
     </table>
 </div>
 
-    
 {% endblock %}
 

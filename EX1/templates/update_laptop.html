@@ -22,76 +22,137 @@
 <form action="{{ submit_url }}" method="post" id="mobileform">
     <h3>Asset Characteristics:</h3>
     <br>
-    <div>
-        <label for="assetType"><strong>Type:</strong></label>
-        <select id="assetType" name="assetType" onchange="location = this.value;" disabled="disabled">
-            <option value="{{url_for('asset_type') }}">Default</option>
-            {% for value in menu: %}
-            {% if value[0] == 'Tablet' %}
-            <option value="{{url_for('new_assetsTablet') }}">{{value[0]}}</option>
-            {% elif value[0] == 'Mobile Phone' %}
-            <option value="{{value[0]}}" selected>{{value[0]}}</option>
-            {% elif value[0] == 'Laptop' %}
-            <option value="{{url_for('new_assetsLaptop') }}">{{value[0]}}</option>
-            {% else %}
-            <option value="{{url_for('asset_type') }}" disabled>{{value[0]}}</option>
-            {% endif %}
+    <div class="row">
+        <div class="column-25">
+            <label for="assetType"><strong>Type:</strong></label>
+        </div>
+        <div class="column-50">
+            <select id="assetType" name="assetType" onchange="location = this.value;" disabled="disabled" ;>
+                {% for value in menu: %}
+                {% if value[0] == 'Tablet' %}
+                <option value="{{url_for('new_assetsTablet') }}">{{value[0]}}</option>
+                {% elif value[0] == 'Mobile Phone' %}
+                <option value="{{url_for('new_assetsMobile') }}">{{value[0]}}</option>
+                {% elif value[0] == 'Laptop' %}
+                <option value="{{url_for('new_assetsLaptop') }}" selected>{{value[0]}}</option>
+                {% else %}
+                <option value="#">{{value[0]}}</option>
+                {% endif %}
 
-            {% endfor %}
-        </select>
-
-        <label for="assetMake"><strong>Make:</strong></label>
-        <input type="text" name="assetMake" value="{{asset_kv_pair['assetMake']}}" />
-       
-
-        <label for="assetStatus"><strong>Status:</strong></label>
-        <select id="assetStatus" name="assetStatus">
-            <option value="active" {% if asset_kv_pair['assetStatus']=='active' %} selected {% endif %}>Active</option>
-            <option value="inrepair" {% if asset_kv_pair['assetStatus']=='inrepair' %} selected {% endif %}>In Repair</option>
-            <option value="condemned" {% if asset_kv_pair['assetStatus']=='condemned' %} selected {% endif %}>Condemned</option>
-        </select>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column-25">
+            <label for="Status"><strong>Status:</strong></label>
+        </div>
+        <div class="column-50">
+            <select id="assetStatus" name="assetStatus">
+                <option value="active" {% if asset_kv_pair['Status'] =='active' %} selected {% endif %}>Active</option>
+                <option value="inrepair" {% if asset_kv_pair['Status'] =='inrepair' %} selected {% endif %}>In Repair </option>
+                <option value="condemned" {% if asset_kv_pair['Status'] =='condemned' %} selected {% endif %}>Condemned</option>
+            </select>
+        </div>
     </div>
 
-    <div>
-        <label for="assetName"><strong>Asset Name:</strong><input type="text" class="" name="assetName" value="{{asset_details[0][1]}}" /></label>
-        <label for="assetModel"><strong>Model:</strong><input type="text" class="" name="assetModel" value="{{ asset_kv_pair['assetModel'] }}" /></label>
+    <div class="row">
+        <div class="column-25">
+            <label for="Manufacturer"><strong>Manufacturer:</strong></label>
+        </div>
+        <div class="column-50">
+            <input type="text" name="Manufacturer" value="{{asset_kv_pair['Manufacturer']}}" required />
+        </div>
     </div>
 
-    <div>
-        <label for="assetAssigned"><strong>Assigned To:</strong><input type="text" class="" name="assetAssigned" value="" /></label>
-        <label for="assetDate"><strong>Purchase Date:</strong><input type="text" class="" name="assetDate" value="{{ asset_kv_pair['assetDate'] }}" /></label>
+    <div class="row">
+        <div class="column-25">
+            <label for="Name"><strong>Asset Name:</strong></label>
+        </div>
+        <div class="column-50">
+            <input type="text" class="" name="Name" value="{{asset_details[0][1]}}" required />
+        </div>
     </div>
 
-
-    <br>
-    <h3>Mobile Asset Characteristics</h3>
-    <br>
-
-    <div>
-        <label for="assetMobileNo"><strong>Mobile Number:</strong><input type="number" class="" name="assetMobileNo" value="{{ asset_kv_pair['assetMobileNo'] }}" /></label>
-        <label for="assetIEMI"><strong>IEMI:</strong><input type="number" class="" name="assetIEMI" value="{{ asset_kv_pair['assetIEMI'] }}" /></label>
-        <label for="assetPin"><strong>PIN:</strong><input type="number" class="" name="assetPin" value="{{ asset_kv_pair['assetPin'] }}" /></label>
+    <div class="row">
+        <div class="column-25">
+            <label for="Model"><strong>Model:</strong></label>
+        </div>
+        <div class="column-50">
+            <input type="text" class="" name="Model" value="{{ asset_kv_pair['Model'] }}" required />
+        </div>
     </div>
 
-    <br>
-    <h3>Additional Characteristics</h3>
-    <br>
-    <div>
-        <strong>Asset Specifications:</strong>
-        <br>
+    <div class="row">
+        <div class="column-25">
+            <label for="Hardware"><strong>Asset Hardware:</strong></label>
+        </div>
+        <div class="column-50">
+            <input type="text" class="" name="Hardware" value="{{ asset_kv_pair['Hardware'] }}"
+                   required />
+        </div>
+    </div>
 
-        <textarea rows="5" cols="50" name="assetNotes" placeholder="Enter Additional Asset Specifications Here">{{ asset_kv_pair['assetNotes'] }}</textarea>
-        <br>
-        <br>
+    <div class="row">
+        <div class="column-25">
+            <label for="Device"><strong>Device:</strong></label>
+        </div>
+        <div class="column-50">
+            <input type="text" class="" name="Device" value="{{ asset_kv_pair['Device'] }}" required />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column-25">
+            <label for="Serial"><strong>Serial:</strong></label>
+        </div>
+        <div class="column-50">
+            <input type="text" class="" name="Serial" value="{{ asset_kv_pair['Serial'] }}" required />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column-25">
+            <label for="assetAssigned"><strong>Assigned To:</strong></label>
+        </div>
+        <div class="column-50">
+            <input type="text" class="" name="assetAssigned" value="{{ asset_kv_pair['assetAssigned'] }}" required/>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column-25">
+            <label for="PurchaseDate"><strong>Purchase Date:</strong></label>
+        </div>
+        <div class="column-50">
+            <input type="text" class="" name="PurchaseDate" placeholder="YYYY-MM-DD"  value="{{ asset_kv_pair['PurchaseDate'] }}" required/>
+        </div>
+    </div>
+    <br>
+
+    <div class="h3form">
+        <h3>Additional Characteristics</h3>
+    </div>
+
+    <div class="row">
+        <div class="column-25">
+            <label for="Notes"><strong>Asset Notes:</strong></label>
+            <br>
+        </div>
+        <div class="column-50">
+            <textarea rows="5" cols="50" name="Notes"
+                      placeholder="Enter Additional Asset Specifications Here">{{ asset_kv_pair['Notes'] }}</textarea>
+            <br>
+        </div>
     </div>
 
     <div>
         <div style="display:none;">
             <input type="text" class="hidden" name="assetID" value="{{asset_details[0][0]}}" />
         </div>
-
-        <input type="Submit" value="Save">
     </div>
+
+    <p id="submitbutton"><input type="Submit" value="Save"></p>
 
 </form>
 

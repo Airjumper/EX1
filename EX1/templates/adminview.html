@@ -1,28 +1,23 @@
 ﻿{% extends "layout_admin.html" %}
 
-{% block nav %}
-<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenu"
-       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Hello! {{username}}</a>
-
-    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
-        <a class="dropdown-item" href="{{ url_for('logout') }}  ">Log out</a>
-    </div>
-</li>
-{% endblock %}
-
 
 {% block content %}
-<div class="jumbotron">
-    <div class=" row ">
-        <div class="col-2">
-            <label class="col-form-label col-form-label-lg" for="searchBox1">Asset Type : </label>
-        </div>
-        <div class="col-3">
-            <select class="custom-select custom-select-lg mb-3" id="searchBox1" onchange="location = this.value;">
-                <option value="{{ url_for('adminview') }}" selected> choose asset type </option>
-                {% for value in type: %}
+<div class="viewContainer">
+    <div class="siteHeader">
+        <h2>View Assets</h2>
+    </div>
+    <br>
+    <p>Select the Assets you wish to view.</p>
+    <br>
 
+    <div class="row">
+        <div class="col-3" style="justify-content: center;">
+            <label class="col-form-label col-form-label-lg" for="searchBox1"><strong>Asset Type:</strong></label>
+        </div>
+        <div class="col-5" style="justify-content: center;">
+            <select class="custom-select custom-select-lg mb-3" id="searchBox1" onchange="location = this.value;">
+                <option selected>Choose Asset Type</option>
+                {% for value in type: %}
                 {% if value[0] == 'Tablet' %}
                 <option value="{{ url_for('admin_tablet') }}">{{ value[0]}} </option>
                 {% elif value[0] == 'Mobile Phone'%}

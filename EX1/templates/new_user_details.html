@@ -18,7 +18,7 @@
     <form action="{{ submit_url }}" method="post" id="defaultassetform">
         <h1>Create New Users</h1>
         <br>
-        <div class="text_danger">{{ msg }}</div>
+        <div class="text_success">{{ msg }}</div>
         <br>
         {% if user %}
         <div id="hiddenFields">
@@ -26,59 +26,59 @@
         </div>
         <div class="row">
             <div class="column-25">
-                <label for="Name"><strong>User Name: </strong></label>
+                <label for="userName"><strong>User Name: </strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="Name"  value="{{ user[1] }}" />
+                <input type="text" class="" name="userName"  value="{{ user[1] }}" />
             </div>
         </div>
 
         <div class="row">
             <div class="column-25">
-                <label for="Email"><strong>User Email: </strong></label>
+                <label for="userEmail"><strong>User Email: </strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="Email" value="{{ user[2] }}" />
+                <input type="text" class="" name="userEmail" value="{{ user[2] }}" />
             </div>
         </div>
 
 
         <div class="row">
             <div class="column-25">
-                <label for="Phone"><strong>User Phone No: </strong>></label>
+                <label for="userPhone"><strong>User Phone No: </strong>></label>
 
             </div>
             <div class="column-50">
-                <input type="text" class="" name="Phone" value="{{ user[3] }}" />
+                <input type="text" class="" name="userPhone" value="{{ user[3] }}" />
             </div>
         </div>
         {% else %}
         <div class="row">
             <div class="column-25">
-                <label for="Name"><strong>User Name: </strong></label>
+                <label for="userName"><strong>User Name: </strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="Name" placeholder="Full Name" value="" />
+                <input type="text" class="" name="userName" placeholder="Full Name" value="" />
             </div>
         </div>
 
         <div class="row">
             <div class="column-25">
-                <label for="Email"><strong>User Email: </strong></label>
+                <label for="userEmail"><strong>User Email: </strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="Email" value="" formnovalidate/>
+                <input type="email" class="" name="userEmail" value="" formnovalidate/>
             </div>
         </div>
 
 
         <div class="row">
             <div class="column-25">
-                <label for="Phone"><strong>User Phone No: </strong></label>
+                <label for="userPhone"><strong>User Phone No: </strong></label>
 
             </div>
             <div class="column-50">
-                <input type="text" class="" name="Phone" value="" />
+                <input type="text" class="" name="userPhone" value="" />
             </div>
         </div>
         {% endif %}

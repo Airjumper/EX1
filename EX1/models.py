@@ -315,6 +315,19 @@ def deleteUser(user):
     con.close()
 
 
+def deleteSite(site):
+    con = create_connection("diona.db")
+    try:
+        with con:
+            cur = con.cursor()
+            cur.execute("DELETE FROM Site WHERE site_id = ?", (site,))
+            return True
+    except sqlite3.IntegrityError:
+        print ("couldn't add data")
+    
+    con.close()
+
+
 def deleteAssetDetails(asset):
     con = create_connection("diona.db")
     try:

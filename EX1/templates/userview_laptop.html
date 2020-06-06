@@ -2,56 +2,73 @@
 
 {% block content %}
 
-<div class="jumbotron">
-
-    <div class=" row ">
-        <div class="col-2">
-            <label class="col-form-label col-form-label-lg" for="searchBox1">Asset Type : </label>
+<div class="viewContainer">
+    <div class="siteHeader">
+        <h2>View Assets</h2>
+    </div>
+    <br>
+    <p>Select the Assets you wish to view.</p>
+    <br>
+    <div class="row">
+        <div class="col-3" style="justify-content: center;">
+            <label class="col-form-label col-form-label-lg" for="searchBox1"><strong>Asset Type:</strong></label>
         </div>
-        <div class="col-3">
+        <div class="col-5" style="justify-content: center;">
             <select class="custom-select custom-select-lg mb-3" id="searchBox1" onchange="location = this.value;">
+                <option selected>Choose Asset Type</option>
                 {% for value in type: %}
                 {% if value[0] == 'Tablet' %}
                 <option value="{{ url_for('tablet') }}">{{ value[0]}} </option>
                 {% elif value[0] == 'Mobile Phone'%}
                 <option value="{{ url_for('mobile') }}">{{ value[0]}} </option>
                 {% elif value[0] == 'Laptop'%}
-                <option value="{{ url_for('laptop') }}" selected>{{ value[0]}} </option>
+                <option value="{{ url_for('laptop') }}">{{ value[0]}} </option>
                 {% else %}
                 <option value="{{ url_for('userview') }}" disabled>{{ value[0]}} </option>
                 {% endif %}
+
                 {% endfor %}
             </select>
         </div>
     </div>
+    <br>
+    <br>
+    <div id="loginUserview"></div>
+    <br>
+    <div class="container" style="overflow-x:auto;">
+        <div class="row">
+            <div class="siteHeader">
+                <h3>Laptops:</h3>
+            </div>
+        </div>
+        <br>
+        <table class="view-table">
+            <thead>
+                <tr>
+                    <th scope="row"> </th>
+                    <th> Asset Name </th>
+                    <th> Asset Type </th>
+                    {%  for x in keys: %}
+                    <th> {{ x }} </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            {%  for row in range(rows|length): %}
+            <tbody>
+                <tr>
+                    <th scope="row"></th>
+                    <td>{{ rows[row][0] }}</td>
+                    <td>{{ rows[row][1] }}</td>
+                    {%  for x in res[row]: %}
+                    <td>{{ x }}</td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
 </div>
-<div class="container" style="overflow-x:auto;">
-    <h1>Laptops :</h1>
-    <table class="view-table">
-        <thead>
-            <tr>
-                <th scope="row"> </th>
-                <th> Asset Name </th>
-                <th> Asset Type </th>
-                {%  for x in keys: %}
-                <th> {{ x }} </th>
-                {% endfor %}
-            </tr>
-        </thead>
-        {%  for row in range(rows|length): %}
-        <tbody>
-            <tr>
-                <th scope="row"></th>
-                <td>{{ rows[row][0] }}</td>
-                <td>{{ rows[row][1] }}</td>
-                {%  for x in res[row]: %}
-                <td>{{ x }}</td>
-                {% endfor %}
-            </tr>
-        </tbody>
-        {% endfor %}
-    </table>
-</div>
+
 
 
 {% endblock %}

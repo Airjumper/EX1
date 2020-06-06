@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,9 +18,7 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
     {% block scripts %}{% endblock %}
-
 </head>
-
 <body>
     <div class="navcontainerwrapper">
         <div class="topnavcontainer">
@@ -31,12 +29,11 @@
             </div>
         </div>
         <div class="subnavcontainer">
-            <div class="subnavheader">
-                <span>Diona Asset Management</span>
+            <div class="nav justify-content-center">
+                <span style="color: white; font-size: large;">Diona Asset Management</span>
             </div>
         </div>
     </div>
-
     <div class="container body-content">
         {% block content %}{% endblock %}
         <hr />
@@ -44,7 +41,5 @@
             <p>&copy; {{ year }} - Diona LTD</p>
         </footer>
     </div>
-
 </body>
-
 </html>

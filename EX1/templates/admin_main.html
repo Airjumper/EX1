@@ -1,25 +1,25 @@
 ﻿{% extends "layout_admin.html" %}
 
-{% block nav %}
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenu"
-           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Hello! {{username}}</a>
-
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
-            <a class="dropdown-item" href="{{ url_for('logout') }}  ">Log out</a>   
-        </div>
-    </li>
-{% endblock %}
-
 
 {% block content %}
-    <div class="jumbotron">
-
-        <div style="text-align:center">
-            <h2>Hello, {{username}} </h2>
-            <p> ***   Click nav bar to select the operation you would like  ***</p>
-        </div>
-
+<div class="adminMainContainer">
+    <div class="homeHeader">
+        <h2>Welcome to Asset Management Home</h2>
     </div>
+    <br>
+    <h3 style="text-align:center">System Directory:</h3>
+    <br>
+    <ul>
+        <li>View Assets</li>
+        <li>Create New Assets</li>
+        <li>Create Asset Types</li>
+        <li>View Asset History</li>
+        <li>Import Assets</li>
+        <li>View Site Details</li>
+        <li>Create Site Details</li>
+    </ul>
+    <br>
+    <p><i>Please use the navigation bar to browse this application.</i></p>
+</div>
 
 {% endblock %}

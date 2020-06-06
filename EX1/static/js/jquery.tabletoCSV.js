@@ -17,7 +17,7 @@ jQuery.fn.tableToCSV = function() {
                     var text = clean_text($(this).text());
 					title.push(text);
 					});
-				$(this).has(':checkbox:checked').find('td').slice(1, -3).each(function(){
+				$(this).has(':checkbox:checked').find('td').slice(1, -2).each(function(){
                     var text = clean_text($(this).text());
 					data.push(text);
 					});

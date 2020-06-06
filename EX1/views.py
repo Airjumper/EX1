@@ -309,7 +309,7 @@ def laptop():
 
 @app.route('/import')
 def import_main():
-        templates = ["mobile_template.csv","laptop_template.csv","tablet_template.csv"]
+        templates = ["template_mobile.csv","template_laptop.csv","template_tablet.csv"]
         msg = ''
 
         return render_template('import_and_templates.html', 

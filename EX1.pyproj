@@ -50,10 +50,10 @@
     <Content Include="EX1\static\image\logo.png" />
     <Content Include="EX1\static\image\user.svg" />
     <Content Include="EX1\static\js\jquery.tabletoCSV.js" />
-    <Content Include="EX1\static\laptop_template.csv" />
-    <Content Include="EX1\static\mobile_template.csv" />
     <Content Include="EX1\static\styles.css" />
-    <Content Include="EX1\static\tablet_template.csv" />
+    <Content Include="EX1\static\template_laptop.csv" />
+    <Content Include="EX1\static\template_mobile.csv" />
+    <Content Include="EX1\static\template_tablet.csv" />
     <Content Include="EX1\templates\delete_user.html" />
     <Content Include="EX1\templates\delete_site.html" />
     <Content Include="EX1\templates\update_site.html" />

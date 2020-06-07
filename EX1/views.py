@@ -1241,7 +1241,7 @@ def delete_asset():
         elif (type[0] == 'Laptop'):
             page_name = 'admin_laptop'
         else:
-            page_name = 'admin_view'
+            page_name = 'adminview'
 
         return redirect(url_for(page_name))
 

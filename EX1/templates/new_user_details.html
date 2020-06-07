@@ -16,7 +16,10 @@
 
 <div class="formcontainer">
     <form action="{{ submit_url }}" method="post" id="defaultassetform">
-        <h1>Create New Users</h1>
+        <div class="siteHeader">
+            <h2>Create New Users :</h2>
+        </div>
+        
         <br>
         <div class="text_success">{{ msg }}</div>
         <br>
@@ -29,7 +32,7 @@
                 <label for="userName"><strong>User Name: </strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="userName"  value="{{ user[1] }}" />
+                <input type="text" class="" name="userName" value="{{ user[1] }}" />
             </div>
         </div>
 
@@ -67,7 +70,7 @@
                 <label for="userEmail"><strong>User Email: </strong></label>
             </div>
             <div class="column-50">
-                <input type="email" class="" name="userEmail" value="" formnovalidate/>
+                <input type="email" class="" name="userEmail" value="" formnovalidate />
             </div>
         </div>
 

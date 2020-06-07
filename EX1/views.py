@@ -216,6 +216,40 @@ def admin_laptop():
     # User is not loggedin redirect to login page
     return redirect(url_for('login'))
 
+
+@app.route('/adminview/asset_type')
+def admin_asset_type():
+
+    if 'loggedin' in session:
+        types = dbHandler.getAllAssetType()
+
+        conn = sqlite3.connect(r"diona.db")
+        # Get name and type of an asset, and get key_value store as results
+        cur = conn.cursor() 
+        name_types = cur.execute("SELECT a.asset_id, a.asset_name , t.assetType_name, GROUP_CONCAT(d.key_value) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name != 'Laptop' AND t.assetType_name != 'Mobile Phone'  AND t.assetType_name != 'Tablet' GROUP BY a.asset_id ORDER BY  t.assetType_name" )
+        rows = name_types.fetchall()
+
+        results = [0 for x in range(len(rows))]
+
+        for x in range(len(rows)):
+            results[x] = rows[x][3].split(',')      
+        # Get key_name rows
+        cur2 = conn.cursor() 
+        details_keys = cur2.execute("SELECT a.asset_id, a.asset_name, GROUP_CONCAT(d.key_name) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name != 'Laptop' AND t.assetType_name != 'Mobile Phone'  AND t.assetType_name != 'Tablet' GROUP BY a.asset_id ORDER BY t.assetType_name")
+
+        # """Renders the user page."""
+        return render_template('admin_asset_type.html',
+                                title='Admin View',
+                                username=session['id'],
+                                rows = rows,
+                                res = results,
+                                keys = details_keys.fetchall()[0][2].split(','),
+                                type = types,
+                                year=datetime.now().year)
+    # User is not loggedin redirect to login page
+    return redirect(url_for('login'))
+
+
 @app.route('/userview')
 def userview():
 
@@ -437,7 +471,7 @@ def add_asset():
             data = request.form.to_dict()
             #remove type and name before adding to asset details table
             data.pop('assetType', None)
-            data.pop('assetName', None)
+            data.pop('Name', None)
             data.pop('assetAssigned', None)
             
             
@@ -460,7 +494,7 @@ def add_asset():
                                 title='New Assets',
                                 year=datetime.now().year,
                                 message='New Assets',
-                                menu = menu,
+                                type = menu,
                                 msg=msg)
     else:
         return render_template('new_assets.html',
@@ -477,7 +511,7 @@ def page_name(x):
                 'Mobile Phone': 'new_assetsMobile.html',
                 'Tablet': 'new_assetsTablet.html',
                 'Laptop': 'new_assetsLaptop.html'
-            }.get(x, 'admin_main.html')
+            }.get(x, 'adminview.html')
 
 
 @app.route('/newAsset_Default.html')
@@ -675,6 +709,100 @@ def asset_type():
                             title='Asset Type',
                             year=datetime.now().year,
                             message='Asset type')
+
+
+
+
+
+
+
+@app.route('/update_asset_type')
+def update_asset_type():
+
+    if(request.args.get('id')):
+        #get asset key names and add into key_names list
+        keys = dbHandler.getAssetKeys(request.args.get('id'))
+        key_names = [0 for x in range(len(keys))]
+        for x in range(len(keys)):
+            key_names[x] = keys[x][0].split(',')
+
+        #get asset key values and add into key_values list
+        asset_details = dbHandler.getAssetValues(request.args.get('id'))
+        key_values = [0 for x in range(len(asset_details))]
+        for x in range(len(asset_details)):
+            key_values[x] = asset_details[x][2].split(',')
+        
+
+        #output = [0 for x in range(len(key_names))]
+        #combine key name and key value into key-value dictionary before
+        #sending back to form
+        asset_kv_pair = {}
+        asset_kv_pair = dict(zip(key_names[0], key_values[0]))
+
+
+        type = dbHandler.getAssetType(request.args.get('id'))
+        #retrieve email by using asset id and populate the assigned to field
+        email = dbHandler.retrieveUserEmailByAssetID(request.args.get('id'))
+        if email:
+            asset_kv_pair['assetAssigned'] = email
+            #print(asset_kv_pair)
+
+    else:
+        header = 'Asset id is required.'
+
+    return render_template('update_asset_type.html',
+                            username=session['id'],
+                            year=datetime.now().year,
+                            #message='New assets Mobile',
+                            type = type[0],
+                            asset_details = asset_details,
+                            asset_kv_pair = asset_kv_pair)
+
+
+
+@app.route('/delete_asset_type' , methods=['POST', 'GET'])
+def delete_asset_type():
+
+
+    if(request.args.get('id')):
+        #get asset key names and add into key_names list
+        keys = dbHandler.getAssetKeys(request.args.get('id'))
+        key_names = [0 for x in range(len(keys))]
+        for x in range(len(keys)):
+            key_names[x] = keys[x][0].split(',')
+
+        #get asset key values and add into key_values list
+        asset_details = dbHandler.getAssetValues(request.args.get('id'))
+        key_values = [0 for x in range(len(asset_details))]
+        for x in range(len(asset_details)):
+            key_values[x] = asset_details[x][2].split(',')
+        
+
+        #output = [0 for x in range(len(key_names))]
+        #combine key name and key value into key-value dictionary before
+        #sending back to form
+        asset_kv_pair = {}
+        asset_kv_pair = dict(zip(key_names[0], key_values[0]))
+
+
+        type = dbHandler.getAssetType(request.args.get('id'))
+        #retrieve email by using asset id and populate the assigned to field
+        email = dbHandler.retrieveUserEmailByAssetID(request.args.get('id'))
+        if email:
+            asset_kv_pair['assetAssigned'] = email
+            #print(asset_kv_pair)
+
+    else:
+        header = 'Asset id is required.'
+
+    return render_template('delete_asset_type.html',
+                            username=session['id'],
+                            year=datetime.now().year,
+                            #message='New assets Mobile',
+                            type = type[0],
+                            asset_details = asset_details,
+                            asset_kv_pair = asset_kv_pair)
+
 
 
 
@@ -906,6 +1034,7 @@ def update_asset():
                                 year=datetime.now().year,
                                 message='',
                                 menu = menu)
+
 
 @app.route('/mobile_update')
 def update_assetsMobile():

@@ -15,7 +15,7 @@
         </div>
         <div class="col-5" style="justify-content: center;">
             <select class="custom-select custom-select-lg mb-3" id="searchBox1" onchange="location = this.value;">
-                <option selected>Choose Asset Type</option>
+                <option selected>Choose Asset Type</option>W
                 {% for value in type: %}
                 {% if value[0] == 'Tablet' %}
                 <option value="{{ url_for('admin_tablet') }}">{{ value[0]}} </option>
@@ -36,10 +36,10 @@
     <br>
     <div id="loginUserview"></div>
     <br>
-    <div class="container">
+    <div class="container" style="overflow-x:auto;">
         <div class="row">
             <div class="siteHeader">
-                <h3>Tablets:</h3>
+                <h3>Mobile Phones:</h3>
             </div>
         </div>
         <br>
@@ -68,18 +68,14 @@
                 {%  for x in res[row]: %}
                 <td>{{ x }}</td>
                 {% endfor %}
-                <td>
-                    <a href="{{ url_for('update_assetsTablet')}}?id={{ rows[row][0] }}" class="text-primary">Edit</a>
-                </td>
-                <td>
-                    <a href="{{ url_for('delete_tablet')}}?id={{ rows[row][0] }}" class="text-primary">Delete</a>
-                </td>
+                <td><a href="{{ url_for('update_asset_type')}}?id={{ rows[row][0] }}" class="text-primary">Edit</a></td>
+                <td><a href="{{ url_for('delete_asset_type')}}?id={{ rows[row][0] }}" class="text-primary">Delete</a></td>
             </tr>
         </tbody>
         {% endfor %}
     </table>
-
 </div>
+
 
 
 {% endblock %}

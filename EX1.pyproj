@@ -54,8 +54,11 @@
     <Content Include="EX1\static\template_laptop.csv" />
     <Content Include="EX1\static\template_mobile.csv" />
     <Content Include="EX1\static\template_tablet.csv" />
+    <Content Include="EX1\templates\admin_asset_type.html" />
     <Content Include="EX1\templates\delete_user.html" />
     <Content Include="EX1\templates\delete_site.html" />
+    <Content Include="EX1\templates\new_asset_type.html" />
+    <Content Include="EX1\templates\delete_asset_type.html" />
     <Content Include="EX1\templates\update_site.html" />
     <Content Include="EX1\templates\new_user_details.html" />
     <Content Include="EX1\templates\admin_site.html" />
@@ -70,7 +73,7 @@
     <Content Include="EX1\templates\confirmation.html" />
     <Content Include="EX1\templates\admin_main.html" />
     <Content Include="EX1\templates\new_assetsDefault.html" />
-    <Content Include="EX1\templates\new_asset_type.html" />
+    <Content Include="EX1\templates\update_asset_type.html" />
     <Content Include="EX1\templates\new_site.html" />
     <Content Include="EX1\templates\new_assetsLaptop.html" />
     <Content Include="EX1\templates\new_assets.html" />

@@ -941,6 +941,13 @@ def update_assetsMobile():
         asset_kv_pair = {}
         asset_kv_pair = dict(zip(key_names[0], key_values[0]))
 
+
+        #retrieve email by using asset id and populate the assigned to field
+        email = dbHandler.retrieveUserEmailByAssetID(request.args.get('id'))
+        if email:
+            asset_kv_pair['assetAssigned'] = email
+            #print(asset_kv_pair)
+
     else:
         header = 'Asset id is required.'
 
@@ -990,6 +997,12 @@ def update_assetsLaptop():
         asset_kv_pair = {}
         asset_kv_pair = dict(zip(key_names[0], key_values[0]))
 
+        #retrieve email by using asset id and populate the assigned to field
+        email = dbHandler.retrieveUserEmailByAssetID(request.args.get('id'))
+        if email:
+            asset_kv_pair['assetAssigned'] = email
+            #print(asset_kv_pair)
+
     else:
         header = 'Asset id is required.'
 
@@ -1037,6 +1050,13 @@ def update_assetsTablet():
         #sending back to form
         asset_kv_pair = {}
         asset_kv_pair = dict(zip(key_names[0], key_values[0]))
+
+
+        #retrieve email by using asset id and populate the assigned to field
+        email = dbHandler.retrieveUserEmailByAssetID(request.args.get('id'))
+        if email:
+            asset_kv_pair['assetAssigned'] = email
+            #print(asset_kv_pair)
 
     else:
         header = 'Asset id is required.'

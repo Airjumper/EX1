@@ -30,8 +30,11 @@
                 <label for="assetType"><strong>Type:</strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="assetType" value="{{type}}" />
+                <input type="text" class="" name="assetType" value="{{type}}" disabled/>
             </div>
+        </div>
+        <div>
+            <input type="text" class="" name="assetID" value="{{ asset_details [0][0] }}" hidden />
         </div>
 
         <div class="row">
@@ -39,7 +42,7 @@
                 <label for="Manufacturer"><strong>Manufacturer:</strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="Manufacturer" value="{{asset_kv_pair['Manufacturer']}}" />
+                <input type="text" class="" name="Manufacturer" value="{{asset_kv_pair['Manufacturer']}}" disabled/>
             </div>
         </div>
 
@@ -48,10 +51,14 @@
                 <label for="Status"><strong>Status:</strong></label>
             </div>
             <div class="column-50">
-                <select id="assetStatus" name="Status">
-                    <option value="active" {% if asset_kv_pair['Status'] =='active' %} selected {% endif %}>Active</option>
-                    <option value="inrepair" {% if asset_kv_pair['Status'] =='inrepair' %} selected {% endif %}>In Repair </option>
-                    <option value="condemned" {% if asset_kv_pair['Status'] =='condemned' %} selected {% endif %}>Condemned</option>
+                <select id="assetStatus" name="Status" disabled>
+                    {% if asset_kv_pair['Status'] =='active' %}
+                    <option value="active" selected>Active</option>
+                    {% elif asset_kv_pair['Status'] =='inrepair' %}
+                    <option value="inrepair" selected>In Repair </option>
+                    {% if asset_kv_pair['Status'] =='condemned' %}
+                    <option value="condemned" selected>Condemned</option>
+                    {% endif %}
                 </select>
             </div>
         </div>
@@ -61,7 +68,7 @@
                 <label for="Name"><strong>Name:</strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="Name" value="{{ site_details[0][1]}} " />
+                <input type="text" class="" name="Name" value="{{ site_details[0][1]}} " disabled/>
             </div>
         </div>
 
@@ -71,7 +78,7 @@
                 <label for="Asset Tag"><strong>Asset Tag:</strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="Asset Tag" value="{{asset_kv_pair['Asset Tag']}}" />
+                <input type="text" class="" name="Asset Tag" value="{{asset_kv_pair['Asset Tag']}}" disabled/>
             </div>
         </div>
         <div class="row">
@@ -79,7 +86,7 @@
                 <label for="Model"><strong>Model:</strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="Model" value="{{asset_kv_pair['Model']}}" />
+                <input type="text" class="" name="Model" value="{{asset_kv_pair['Model']}}" disabled/>
             </div>
         </div>
 
@@ -89,7 +96,7 @@
                 <label for="Hardware"><strong>Asset Hardware:</strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="Hardware" value="{{asset_kv_pair['Hardware']}}" />
+                <input type="text" class="" name="Hardware" value="{{asset_kv_pair['Hardware']}}" disabled/>
             </div>
         </div>
 
@@ -98,7 +105,7 @@
                 <label for="Device"><strong>Device:</strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="Device" value="{{asset_kv_pair['Device']}}" />
+                <input type="text" class="" name="Device" value="{{asset_kv_pair['Device']}}" disabled/>
             </div>
         </div>
 
@@ -107,7 +114,7 @@
                 <label for="Serial"><strong>Serial:</strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="Serial" value="{{asset_kv_pair['Serial']}}" />
+                <input type="text" class="" name="Serial" value="{{asset_kv_pair['Serial']}}" disabled/>
             </div>
         </div>
 
@@ -116,7 +123,7 @@
                 <label for="assetAssigned"><strong>Assigned To:</strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="assetAssigned" value="{{asset_kv_pair['assetAssigned']}}" />
+                <input type="text" class="" name="assetAssigned" value="{{asset_kv_pair['assetAssigned']}}" disabled/>
             </div>
         </div>
 
@@ -125,7 +132,7 @@
                 <label for="PurchaseDate"><strong>Purchase Date:</strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="PurchaseDate" placeholder="YYYY-MM-DD" value="{{asset_kv_pair['PurchaseDate']}}" />
+                <input type="text" class="" name="PurchaseDate" placeholder="YYYY-MM-DD" value="{{asset_kv_pair['PurchaseDate']}}" disabled />
             </div>
         </div>
         <br>
@@ -139,7 +146,7 @@
             </div>
             <div class="column-50">
                 <textarea rows="5" cols="50" name="Notes"
-                          placeholder="Enter Additional Asset Specifications Here">{{asset_kv_pair['Notes']}}</textarea>
+                          placeholder="Enter Additional Asset Specifications Here" disabled>{{asset_kv_pair['Notes']}}</textarea>
             </div>
         </div>
 

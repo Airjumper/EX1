@@ -54,7 +54,7 @@
                 <option value="active" selected>Active</option>
                 {% elif asset_kv_pair['Status'] =='inrepair' %}
                 <option value="inrepair" selected>In Repair </option>
-                {% if asset_kv_pair['Status'] =='condemned' %}
+                {% elif asset_kv_pair['Status'] =='condemned' %}
                 <option value="condemned" selected>Condemned</option>
                 {% endif %}
             </select>

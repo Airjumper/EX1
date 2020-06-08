@@ -924,7 +924,8 @@ def update_site_details():
 
         
     cur2 = conn.cursor() 
-    results = cur2.execute("SELECT * FROM Site")
+    results = cur2.execute("SELECT site_id, site_location, site_address, site_device, device_name, serial, ip_address, computer, PC_username, PC_password, printer, projectManager, mobile_no, sim FROM Site")
+
  
     return render_template('admin_site.html',
                                 username=session['id'],

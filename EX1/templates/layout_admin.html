@@ -30,10 +30,11 @@
 
         function printRecords() {
             var divToPrint = document.getElementById("tableView");
-            launchPrintWindow = window.open("");
-            launchPrintWindow.document.write(divToPrint.outerHTML);
-            launchPrintWindow.print();
-            launchPrintWindow.close();
+            var WindowObject = window.open();
+            WindowObject.document.write(divToPrint.outerHTML);
+            WindowObject.focus();
+            WindowObject.print();
+            WindowObject.close();
         }
 
         $('button').on('click', function () {

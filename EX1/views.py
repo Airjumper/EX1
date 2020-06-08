@@ -710,7 +710,14 @@ def asset_type():
                             year=datetime.now().year,
                             message='Asset type')
 
-
+@app.route('/asset_type_default')
+def new_asset_default():
+    """Renders the Asset Type page."""
+    return render_template('new_assetsDefault.html',
+                            username=session['id'],
+                            title='Asset Type',
+                            year=datetime.now().year,
+                            message='Asset type')
 
 
 

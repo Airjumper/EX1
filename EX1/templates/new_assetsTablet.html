@@ -1,4 +1,4 @@
-﻿{% extends "layout_admin.html" %}
+{% extends "layout_admin.html" %}
 
 
 {% block nav %}
@@ -40,7 +40,7 @@
                     {% elif value[0] == 'Laptop' %}
                     <option value="{{url_for('new_assetsLaptop') }}">{{value[0]}}</option>
                     {% else %}
-                    <option value="#">{{value[0]}}</option>
+                    <option value="{{url_for('new_asset_default') }}">{{value[0]}}</option>
                     {% endif %}
 
                     {% endfor %}

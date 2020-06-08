@@ -1,4 +1,4 @@
-﻿{% extends "layout_admin.html" %}
+{% extends "layout_admin.html" %}
 
 {% block nav %}
 <li class="nav-item dropdown">
@@ -14,90 +14,139 @@
 
 {% block content %}
 
-<h1>Create New Asset - Default</h1>
-<div>
+<div class="formcontainer">
     <form action="add_asset" method="post" id="defaultassetform">
-        <h3>Asset Characteristics:</h3>
-        <br>
-        <div>
-
-            <label for="assetType"><strong>Type:</strong></label>
-            <select onchange="location = this.value;">
-                {% for value in menu: %}
-                {% if value[0] == 'Tablet' %}
-                <option value="{{url_for('new_assetsTablet') }}">{{value[0]}}</option>
-                {% elif value[0] == 'Mobile Phone' %}
-                <option value="{{url_for('new_assetsMobile') }}">{{value[0]}}</option>
-                {% elif value[0] == 'Laptop' %}
-                <option value="{{url_for('new_assetsLaptop') }}">{{value[0]}}</option>
-                {% else %}
-                <option value="#">{{value[0]}}</option>
-                {% endif %}
-
-                {% endfor %}
-            </select>
-
-            <label for="assetMake"><strong>Make:</strong></label>
-            <select id="assetManufacturer" name="assetManufacturer">
-                <option value="allTypes">All Types</option>
-                <option value="apple">Apple</option>
-                <option value="microsoft">Microsoft</option>
-                <option value="hp">HP</option>
-                <option value="samsung">Samsung</option>
-            </select>
-
-            <label for="assetStatus"><strong>Status:</strong></label>
-            <select id="assetStatus" name="assetStatus">
-                <option value="active">Active</option>
-                <option value="inrepair">In Repair</option>
-                <option value="condemned">Condemned</option>
-            </select>
-
-        </div>
-
-        <div>
-
-            <label for="assetName"><strong>Asset Name:</strong><input type="text" class="" name="assetName" value="" /></label>
-            <label for="assetModel"><strong>Model:</strong><input type="text" class="" name="assetModel" value="" /></label>
-            <label for="assetSerial"><strong>Serial:</strong><input type="text" class="" name="assetSerial" value="" /></label>
-        </div>
-        <div>
-            <label for="assetNo"><strong>Asset Number:</strong><input type="number" class="" name="assetNo" value="" /></label>
-            <label for="assetAssigned"><strong>Assigned To:</strong><input type="text" class="" name="assetAssigned" value="" /></label>
-            <label for="assetAssigned"><strong>State:</strong><input type="text" class="" name="assetAssigned" value="" /></label>
-        </div>
-
-        <div>
-            <label for="assetDate"><strong>Purchase Date:</strong><input type="text" class="" name="assetDate" value="" /></label>
-            <label for="assetWarranty"><strong>Warranty Expiry:</strong><input type="text" class="" name="assetWarranty" value="" /></label>
-            <!-- DatePicker input type needed. -->
-
+        <div class="h1form">
+            <h1>Create New Asset - Default</h1>
         </div>
         <br>
-        <h3>Mobile Asset Characteristics</h3>
-        <br>
+        <div class="h3form">
+            <h3>Define Asset Characteristics</h3>
+        </div>
+        <div class="msg">{{ msg }}</div>
 
-        <div>
-            <label for="assetMobileNo"><strong>Mobile Number:</strong><input type="number" class="" name="assetMobileNo" value="" /></label>
-            <label for="assetMobileIEMI"><strong>IEMI:</strong><input type="number" class="" name="assetMobileIEMI" value="" /></label>
-            <label for="assetMobilePin"><strong>PIN:</strong><input type="number" class="" name="assetMobilePin" value="" /></label>
+        <div class="row">
+            <div class="column-25">
+                <label for="assetType"><strong>Type:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="assetType" value="" />
+            </div>
         </div>
 
-        <br>
-        <h3>Additional Characteristics</h3>
-        <br>
-        <div>
-            <strong>Asset Specifications:</strong>
-            <br>
-            <textarea rows="5" cols="50" name="assetNotes" placeholder="Enter Additional Asset Specifications Here"></textarea>
-            <br>
-            <br>
+
+        <div class="row">
+            <div class="column-25">
+                <label for="Manufacturer"><strong>Manufacturer:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="Manufacturer" value="" />
+            </div>
         </div>
 
-        <div>
-            <input type="Submit" value="Save">
+        <div class="row">
+            <div class="column-25">
+                <label for="Status"><strong>Status:</strong></label>
+            </div>
+            <div class="column-50">
+                <select id="assetStatus" name="Status">
+                    <option value="active">Active</option>
+                    <option value="inrepair">In Repair</option>
+                    <option value="condemned">Condemned</option>
+                </select>
+            </div>
         </div>
 
+        <div class="row">
+            <div class="column-25">
+                <label for="Name"><strong>Name:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="Name" value="" />
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="column-25">
+                <label for="Asset Tag"><strong>Asset Tag:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="Asset Tag" value="" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column-25">
+                <label for="Model"><strong>Model:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="Model" value="" />
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="column-25">
+                <label for="Hardware"><strong>Asset Hardware:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="Hardware" value="" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column-25">
+                <label for="Device"><strong>Device:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="Device" value="" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column-25">
+                <label for="Serial"><strong>Serial:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="Serial" value="" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column-25">
+                <label for="assetAssigned"><strong>Assigned To:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="assetAssigned" value="" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column-25">
+                <label for="PurchaseDate"><strong>Purchase Date:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="PurchaseDate" placeholder="YYYY-MM-DD" value="" />
+            </div>
+        </div>
+        <br>
+
+
+        <div class="h3form">
+            <h3>Additional Characteristics</h3>
+        </div>
+        <div class="row">
+            <div class="column-25">
+                <label for="Notes"><strong>Asset Notes:</strong></label>
+            </div>
+            <div class="column-50">
+                <textarea rows="5" cols="50" name="Notes"
+                          placeholder="Enter Additional Asset Specifications Here"></textarea>
+            </div>
+        </div>
+
+        <p id="submitbutton"><input type="Submit" value="Save"></p>
     </form>
 </div>
 

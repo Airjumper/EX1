@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -20,21 +20,30 @@
 </head>
 
 <body>
-    <div class="navcontainerwrapper">
-        <div class="topnavcontainer">
-            <div class="topnavlogo">
-                <a href="{{ url_for('home')}}">
-                    <img id="output" name="logo" alt="Logo" src="{{url_for('static',filename = 'image/logo.png')}}" />
-                </a>
+    <div class="topnavcontainer">
+        <div class="container">
+            <div class="row ">
+                <div class="col-md-3  col-sm-2 align-self-center">
+                    <a href="{{ url_for('home')}}">
+                        <img id="output" name="logo" alt="Logo" src="{{url_for('static',filename = 'image/logo.png')}}" />
+                    </a>
+                </div>
+                <div class="col-md-9  col-sm-10 align-self-end">
+                    <div class="row justify-content-end">                    
+                        <span class="text-dark"> Welcome! Today is {{ weekday }} ,{{ day }} </span>                   
+                    </div>
+                    <div class="row justify-content-end">
+                        <div class="subnavcontainer">
+                            <div class="justify-content-center">
+                                <span class="name">Diona Asset Management</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
-        <div class="subnavcontainer">
-            <ul class="nav justify-content-center">
-                <span style="color: white; font-size: large;">Diona Asset Management</span>
-            </ul>
-        </div>
     </div>
-
     <div class="container body-content">
         {% block content %}{% endblock %}
         <hr />

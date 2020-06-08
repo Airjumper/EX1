@@ -54,6 +54,7 @@
     <Content Include="EX1\static\template_laptop.csv" />
     <Content Include="EX1\static\template_mobile.csv" />
     <Content Include="EX1\static\template_tablet.csv" />
+    <Content Include="EX1\templates\user_asset_type.html" />
     <Content Include="EX1\templates\admin_asset_type.html" />
     <Content Include="EX1\templates\delete_user.html" />
     <Content Include="EX1\templates\delete_site.html" />

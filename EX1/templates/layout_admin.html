@@ -45,67 +45,66 @@
 </head>
 <body>
 
-    <div class="navcontainerwrapper">
-        <div class="topnavcontainer">
-            <div class="row">
-                <div class="col-md-5 col-sm-2">
+    <div class="topnavcontainer">
+        <div class="container">
+            <div class="row ">
+                <div class="col-md-3  col-sm-2 align-self-center">
                     <a href="{{ url_for('home')}}">
                         <img id="output" name="logo" alt="Logo" src="{{url_for('static',filename = 'image/logo.png')}}" />
                     </a>
                 </div>
-                <div class="col-md-7 col-sm-10">
+                <div class="col-md-9  col-sm-10 align-self-end">
 
-                    <div class="row" hidden>
-                        <h1> Hidden line</h1>>
+                    <div class="row justify-content-end">
+                        <ul class="nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenu" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false"> Hello! {{username}}</a>
+
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
+                                    <a class="dropdown-item text-secondary" href="{{ url_for('logout') }}  ">Log Out</a>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="row">
-                        <div class="subnavcontainer">
-                            <div class="subnavheader">
-                                <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup"></div>
-                                <ul class="nav">
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light " href="{{ url_for('adminview') }}" tabindex="-1">View Assets</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light" href="{{ url_for('view_history') }}" tabindex="-1">View Asset History</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light" href="{{ url_for('view_users') }}" tabindex="-1">User details</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light" href="{{ url_for('site_all_details') }}" tabindex="-1">Site Details</a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenu"
-                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Settings</a>
-                                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
-                                            <a class="dropdown-item text-secondary" href="{{ url_for('import_main') }}" tabindex="-1">Import Data </a>
-                                            <a class="dropdown-item text-secondary" href="{{ url_for('new_assets') }}" tabindex="-1">Add New Assets</a>
-                                            <a class="dropdown-item text-secondary" href="{{ url_for('asset_type') }}" tabindex="-1"> Create Asset Type</a>
-                                            <a class="dropdown-item text-secondary" href="{{ url_for('add_users') }}" tabindex="-1">Create New User</a>
-                                            <a class="dropdown-item text-secondary" href="{{ url_for('site_default') }}" tabindex="-1">Create Site Details</a>
-                                        </div>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenu" data-toggle="dropdown"
-                                           aria-haspopup="true" aria-expanded="false"> Hello! {{username}}</a>
+                    <div class="row justify-content-end">
 
-                                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
-                                            <a class="dropdown-item text-secondary" href="{{ url_for('logout') }}  ">Log Out</a>
+                        <div class="subnavheader">
+                            <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup"></div>
+                            <ul class="nav" name="navbarNavAltMarkup">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url_for('adminview') }}" tabindex="-1">View Assets</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url_for('view_history') }}" tabindex="-1">View Asset History</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url_for('view_users') }}" tabindex="-1">User details</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url_for('site_all_details') }}" tabindex="-1">Site Details</a>
+                                </li>
+                                <li class="nav-item">
+                                    <div class="subnav">
+                                        <button class="subnavbtn"> Settings <i class="fa fa-caret-down"></i></button>
+                                        <div class="subnav-content">
+                                            <a href="{{ url_for('import_main') }}" tabindex="-1">Import Data </a>
+                                            <a href="{{ url_for('new_assets') }}" tabindex="-1">Add New Assets</a>
+                                            <a href="{{ url_for('asset_type') }}" tabindex="-1"> Create Asset Type</a>
+                                            <a href="{{ url_for('add_users') }}" tabindex="-1">Create New User</a>
+                                            <a href="{{ url_for('site_default') }}" tabindex="-1">Create Site Details</a>
                                         </div>
-                                    </li>
-                                </ul>
-                            </div>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
+
                     </div>
-
                 </div>
-
             </div>
-
-
         </div>
     </div>
+
 
     <div class="container body-content">
         {% block content %}{% endblock %}

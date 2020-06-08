@@ -259,7 +259,10 @@ def userview():
     return render_template('userview.html',
                             title='User View',
                             type = types,
-                            year=datetime.now().year)
+                            year= datetime.now().year,
+                            weekday = datetime.today().strftime('%A'),
+                            day = date.today())
+
 
 @app.route('/userview/mobile')
 def mobile():
@@ -285,7 +288,9 @@ def mobile():
                                 res = results,
                                 keys = details_keys.fetchall()[0][1].split(','),
                                 type = types,
-                                year=datetime.now().year)
+                                year= datetime.now().year,
+                                weekday = datetime.today().strftime('%A'),
+                                day = date.today())
 
 
 @app.route('/userview/tablet')
@@ -312,7 +317,9 @@ def tablet():
                                 res = results,
                                 keys = details_keys.fetchall()[0][1].split(','),
                                 type = types,
-                                year=datetime.now().year)
+                                year= datetime.now().year,
+                                weekday = datetime.today().strftime('%A'),
+                                day = date.today())
 
 @app.route('/userview/laptop')
 def laptop():
@@ -337,7 +344,40 @@ def laptop():
                                 res = results,
                                 keys = details_keys.fetchall()[0][1].split(','),
                                 type = types,
-                                year=datetime.now().year)
+                                year= datetime.now().year,
+                                weekday = datetime.today().strftime('%A'),
+                                day = date.today())
+
+@app.route('/userview/asset_type')
+def user_asset_type():
+
+    if 'loggedin' in session:
+        types = dbHandler.getAllAssetType()
+
+        conn = sqlite3.connect(r"diona.db")
+        # Get name and type of an asset, and get key_value store as results
+        cur = conn.cursor() 
+        name_types = cur.execute("SELECT a.asset_id, a.asset_name , t.assetType_name, GROUP_CONCAT(d.key_value) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name != 'Laptop' AND t.assetType_name != 'Mobile Phone'  AND t.assetType_name != 'Tablet' GROUP BY a.asset_id ORDER BY  t.assetType_name" )
+        rows = name_types.fetchall()
+
+        results = [0 for x in range(len(rows))]
+
+        for x in range(len(rows)):
+            results[x] = rows[x][3].split(',')      
+        # Get key_name rows
+        cur2 = conn.cursor() 
+        details_keys = cur2.execute("SELECT a.asset_id, a.asset_name, GROUP_CONCAT(d.key_name) FROM AssetDetails d, AssetType t INNER JOIN Asset a on a.asset_id = d.asset_id AND a.assetType_id = t.assetType_id WHERE t.assetType_name != 'Laptop' AND t.assetType_name != 'Mobile Phone'  AND t.assetType_name != 'Tablet' GROUP BY a.asset_id ORDER BY t.assetType_name")
+
+        # """Renders the user page."""
+        return render_template('user_asset_type.html',
+                                title='Admin View',                              
+                                rows = rows,
+                                res = results,
+                                keys = details_keys.fetchall()[0][2].split(','),
+                                type = types,
+                                year= datetime.now().year,
+                                weekday = datetime.today().strftime('%A'),
+                                day = date.today())
 
 
 

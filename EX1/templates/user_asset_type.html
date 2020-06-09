@@ -1,4 +1,4 @@
-{% extends "layout_admin.html" %}
+{% extends "layout_user.html" %}
 
 {% block content %}
 
@@ -43,10 +43,8 @@
             </div>
         </div>
         <br>
-        <button class="btn btn-primary" onclick="printRecords()">Print Records</button>
-        <button id="export" class="btn btn-primary" data-export="export">Export CSV</button>
     </div>
-    <table class="view-table" id="tableView">
+    <table class="view-table">
         <thead>
             <tr>
                 <th scope="row"></th>

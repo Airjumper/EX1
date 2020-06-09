@@ -1,16 +1,5 @@
 {% extends "layout_admin.html" %}
 
-{% block nav %}
-<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenu"
-       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Hello! {{username}}</a>
-
-    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
-        <a class="dropdown-item" href="{{ url_for('logout') }}  ">Log out</a>
-    </div>
-</li>
-{% endblock %}
-
 
 {% block content %}
 
@@ -40,7 +29,7 @@
 
                                 <div class="form-group">
                                     <label for="uploadfile"><strong>Import file(.csv & .xlsx):</strong></label>
-                                    <input type="file" accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="form-control-file" id="uploadfile" name="upload_file">
+                                    <input type="file" accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="form-control-file" id="uploadfile" name="upload_file" required>
                                 </div>
                                 <br>
                                 <br>

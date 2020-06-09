@@ -71,7 +71,6 @@
     <Content Include="EX1\templates\update_laptop.html" />
     <Content Include="EX1\templates\update_mobile.html" />
     <Content Include="EX1\templates\import_and_templates_confirm.html" />
-    <Content Include="EX1\templates\confirmation.html" />
     <Content Include="EX1\templates\admin_main.html" />
     <Content Include="EX1\templates\new_assetsDefault.html" />
     <Content Include="EX1\templates\update_asset_type.html" />

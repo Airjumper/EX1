@@ -427,7 +427,7 @@ def import_request():
                 new_dict = dict(zip(keys,data))
 
                 for key, value in new_dict.items():
-                    new_assetDetails = (asset_id, key, value, date.today(), date.today())    
+                    new_assetDetails = (asset_id, key.strip(), value, date.today(), date.today())    
                     dbHandler.create_newAssetDetails(new_assetDetails)
 
                 msg = 'Successfully insert...'

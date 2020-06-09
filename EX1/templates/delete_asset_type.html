@@ -1,16 +1,5 @@
 {% extends "layout_admin.html" %}
 
-{% block nav %}
-<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenu"
-       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Hello! {{username}}</a>
-
-    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
-        <a class="dropdown-item" href="{{ url_for('logout') }}  ">Log out</a>
-    </div>
-</li>
-{% endblock %}
-
 
 {% block content %}
 
@@ -42,7 +31,7 @@
                 <label for="Manufacturer"><strong>Manufacturer:</strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="Manufacturer" value="{{asset_kv_pair['Manufacturer']}}" disabled/>
+                <input type="text" class="" name="Manufacturer" value="{{asset_kv_pair['Manufacturer']}}" disabled />
             </div>
         </div>
 
@@ -68,7 +57,7 @@
                 <label for="Name"><strong>Name:</strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="Name" value="{{ asset_details[0][1]}} " disabled/>
+                <input type="text" class="" name="Name" value="{{ asset_details[0][1]}} " disabled />
             </div>
         </div>
 
@@ -78,7 +67,7 @@
                 <label for="Asset Tag"><strong>Asset Tag:</strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="Asset Tag" value="{{asset_kv_pair['Asset Tag']}}" disabled/>
+                <input type="text" class="" name="Asset Tag" value="{{asset_kv_pair['Asset Tag']}}" disabled />
             </div>
         </div>
         <div class="row">
@@ -86,7 +75,7 @@
                 <label for="Model"><strong>Model:</strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="Model" value="{{asset_kv_pair['Model']}}" disabled/>
+                <input type="text" class="" name="Model" value="{{asset_kv_pair['Model']}}" disabled />
             </div>
         </div>
 
@@ -96,7 +85,7 @@
                 <label for="Hardware"><strong>Asset Hardware:</strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="Hardware" value="{{asset_kv_pair['Hardware']}}" disabled/>
+                <input type="text" class="" name="Hardware" value="{{asset_kv_pair['Hardware']}}" disabled />
             </div>
         </div>
 
@@ -105,7 +94,7 @@
                 <label for="Device"><strong>Device:</strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="Device" value="{{asset_kv_pair['Device']}}" disabled/>
+                <input type="text" class="" name="Device" value="{{asset_kv_pair['Device']}}" disabled />
             </div>
         </div>
 
@@ -114,7 +103,7 @@
                 <label for="Serial"><strong>Serial:</strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="Serial" value="{{asset_kv_pair['Serial']}}" disabled/>
+                <input type="text" class="" name="Serial" value="{{asset_kv_pair['Serial']}}" disabled />
             </div>
         </div>
 
@@ -123,7 +112,7 @@
                 <label for="assetAssigned"><strong>Assigned To:</strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="assetAssigned" value="{{asset_kv_pair['assetAssigned']}}" disabled/>
+                <input type="text" class="" name="assetAssigned" value="{{asset_kv_pair['assetAssigned']}}" disabled />
             </div>
         </div>
 

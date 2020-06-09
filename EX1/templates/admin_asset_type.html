@@ -24,7 +24,7 @@
                 {% elif value[0] == 'Laptop'%}
                 <option value="{{ url_for('admin_laptop') }}">{{ value[0]}} </option>
                 {% else %}
-                <option value="{{ url_for('admin_asset_type') }}" >{{ value[0]}} </option>
+                <option value="{{ url_for('admin_asset_type') }}">{{ value[0]}} </option>
                 {% endif %}
 
 
@@ -39,43 +39,44 @@
     <div class="container" style="overflow-x:auto;">
         <div class="row">
             <div class="siteHeader">
-                <h3>Mobile Phones:</h3>
+                <h3>Default Assets:</h3>
             </div>
         </div>
         <br>
         <button class="btn btn-primary" onclick="printRecords()">Print Records</button>
         <button id="export" class="btn btn-primary" data-export="export">Export CSV</button>
     </div>
-    <table class="view-table" id="tableView">
-        <thead>
-            <tr>
-                <th scope="row"></th>
-                <th> Asset Name </th>
-                <th> Asset Type </th>
-                {%  for x in keys: %}
-                <th> {{ x }} </th>
-                {% endfor %}
-                <th> </th>
-                <th> </th>
-            </tr>
-        </thead>
-        {%  for row in range(rows|length): %}
-        <tbody>
-            <tr>
-                <td><input type="checkbox" id="checkBx" name="row-check" value="{{ rows[row][0] }}"></td>
-                <td>{{ rows[row][1] }}</td>
-                <td>{{ rows[row][2] }}</td>
-                {%  for x in res[row]: %}
-                <td>{{ x }}</td>
-                {% endfor %}
-                <td><a href="{{ url_for('update_asset_type')}}?id={{ rows[row][0] }}" class="text-primary">Edit</a></td>
-                <td><a href="{{ url_for('delete_asset_type')}}?id={{ rows[row][0] }}" class="text-primary">Delete</a></td>
-            </tr>
-        </tbody>
-        {% endfor %}
-    </table>
+    <div class="extendedTable">
+        <table class="view-table" id="tableView">
+            <thead>
+                <tr>
+                    <th scope="row"></th>
+                    <th> Asset Name </th>
+                    <th> Asset Type </th>
+                    {%  for x in keys: %}
+                    <th> {{ x }} </th>
+                    {% endfor %}
+                    <th> </th>
+                    <th> </th>
+                </tr>
+            </thead>
+            {%  for row in range(rows|length): %}
+            <tbody>
+                <tr>
+                    <td><input type="checkbox" id="checkBx" name="row-check" value="{{ rows[row][0] }}"></td>
+                    <td>{{ rows[row][1] }}</td>
+                    <td>{{ rows[row][2] }}</td>
+                    {%  for x in res[row]: %}
+                    <td>{{ x }}</td>
+                    {% endfor %}
+                    <td><a href="{{ url_for('update_asset_type')}}?id={{ rows[row][0] }}" class="text-primary">Edit</a></td>
+                    <td><a href="{{ url_for('delete_asset_type')}}?id={{ rows[row][0] }}" class="text-primary">Delete</a></td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
 </div>
 
 
-
-{% endblock %}
+        {% endblock %}

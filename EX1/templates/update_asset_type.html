@@ -40,7 +40,7 @@
             </div>
             <div class="column-50">
              
-                    <select id="assetStatus" name="Status" disabled>
+                    <select id="assetStatus" name="Status" >
                         {% if asset_kv_pair['Status'] =='active' %}
                         <option value="active" selected>Active</option>
                         {% elif asset_kv_pair['Status'] =='inrepair' %}
@@ -58,7 +58,7 @@
                 <label for="Name"><strong>Name:</strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="Name" value="{{ asset_details [0][1] }}" />
+                <input type="text" class="" name="Name" value="{{ asset_details [0][1] }}" required />
             </div>
         </div>
 
@@ -68,7 +68,7 @@
                 <label for="Asset Tag"><strong>Asset Tag:</strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="Asset Tag" value="{{asset_kv_pair['Asset Tag']}}" />
+                <input type="text" class="" name="Asset Tag" value="{{asset_kv_pair['Asset Tag']}}" required />
             </div>
         </div>
         <div class="row">
@@ -76,7 +76,7 @@
                 <label for="Model"><strong>Model:</strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="Model" value="{{asset_kv_pair['Model']}}" />
+                <input type="text" class="" name="Model" value="{{asset_kv_pair['Model']}}" required />
             </div>
         </div>
 
@@ -86,7 +86,7 @@
                 <label for="Hardware"><strong>Asset Hardware:</strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="Hardware" value="{{asset_kv_pair['Hardware']}}" />
+                <input type="text" class="" name="Hardware" value="{{asset_kv_pair['Hardware']}}" required />
             </div>
         </div>
 
@@ -95,7 +95,7 @@
                 <label for="Device"><strong>Device:</strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="Device" value="{{asset_kv_pair['Device']}}" />
+                <input type="text" class="" name="Device" value="{{asset_kv_pair['Device']}}" required />
             </div>
         </div>
 
@@ -104,7 +104,7 @@
                 <label for="Serial"><strong>Serial:</strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="Serial" value="{{asset_kv_pair['Serial']}}" />
+                <input type="text" class="" name="Serial" value="{{asset_kv_pair['Serial']}}" required />
             </div>
         </div>
 
@@ -113,7 +113,7 @@
                 <label for="assetAssigned"><strong>Assigned To:</strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="assetAssigned" value="{{asset_kv_pair['assetAssigned']}}" />
+                <input type="text" class="" name="assetAssigned" value="{{asset_kv_pair['assetAssigned']}}"  />
             </div>
         </div>
 
@@ -122,7 +122,7 @@
                 <label for="PurchaseDate"><strong>Purchase Date:</strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="PurchaseDate" placeholder="YYYY-MM-DD" value="{{asset_kv_pair['PurchaseDate']}}" />
+                <input type="text" class="" name="PurchaseDate" placeholder="YYYY-MM-DD" value="{{asset_kv_pair['PurchaseDate']}}" pattern="^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$" title="Please use the following format: YYYY-MM-DD." required />
             </div>
         </div>
         <br>

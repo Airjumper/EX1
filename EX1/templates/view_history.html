@@ -21,42 +21,43 @@
     <div class="siteHeader">
         <h2>View User History :</h2>
     </div>
+    <div class="extendedTable">
+        <div class="container" style="overflow-x:auto;">
 
-    <div class="container" style="overflow-x:auto;">
+            <div class="row">
 
-        <div class="row">
+                <div class="col">
+                    <input class="form-control mb-4" id="tableSearch" type="text" placeholder="Type something to search list items">
+                </div>
+                <div class="col">
 
-            <div class="col">
-                <input class="form-control mb-4" id="tableSearch" type="text" placeholder="Type something to search list items">
+                </div>
+                <div class="col">
+
+                </div>
             </div>
-            <div class="col">
 
-            </div>
-            <div class="col">
-
-            </div>
+            <table class="view-table" id="tableView">
+                <thead>
+                    <tr>
+                        <th scope="row"> </th>
+                        {%  for x in header: %}
+                        <th> {{ x }} </th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                {%  for row in list: %}
+                <tbody id="myTable">
+                    <tr>
+                        <th scope="row"></th>
+                        {%  for x in row: %}
+                        <td>{{ x }}</td>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
         </div>
-
-        <table class="view-table" id="tableView">
-            <thead>
-                <tr>
-                    <th scope="row"> </th>
-                    {%  for x in header: %}
-                    <th> {{ x }} </th>
-                    {% endfor %}
-                </tr>
-            </thead>
-            {%  for row in list: %}
-            <tbody id="myTable">
-                <tr>
-                    <th scope="row"></th>
-                    {%  for x in row: %}
-                    <td>{{ x }}</td>
-                    {% endfor %}
-                </tr>
-            </tbody>
-            {% endfor %}
-        </table>
     </div>
 </div>
 

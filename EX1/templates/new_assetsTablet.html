@@ -131,7 +131,7 @@
                 <label for="PurchaseDate"><strong>Purchase Date:</strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="PurchaseDate" placeholder="YYYY-MM-DD" value="" />
+                <input type="text" class="" name="PurchaseDate" placeholder="YYYY-MM-DD" value="" pattern="^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$" title="Please use the following format: YYYY-MM-DD." required />
             </div>
         </div>
         <br>
@@ -176,7 +176,7 @@
             <div class="column-25">
                 <label for="Notes"><strong>Asset Notes:</strong></label>
             </div>
-            <div class="column-70">
+            <div class="column-50">
                 <textarea rows="5" cols="50" name="Notes"
                           placeholder="Enter Additional Asset Specifications Here"></textarea>
             </div>

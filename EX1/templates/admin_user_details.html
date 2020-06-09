@@ -17,33 +17,37 @@
     {% endif %}
 
     <br>
-    <table class="view-table" id="tableView">
-        <thead>
-            <tr>
-                <th scope="row"> </th>
-                <th> User Name </th>
-                <th> User Email </th>
-                <th> User Phone No </th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
+    <div class="extendedTable">
+        <table class="view-table" id="tableView">
+            <thead>
+                <tr>
+                    <th scope="row"> </th>
+                    <th> User Name </th>
+                    <th> User Email </th>
+                    <th> User Phone No </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
 
-        {%  for row in range(rows|length): %}
-        <tbody>
-            <tr>
-                <th scope="row"></th>
-                <td>{{ rows[row][1] }}</td>
-                <td>{{ rows[row][2] }}</td>
-                <td>{{ rows[row][3] }}</td>
-                <td><a href="{{ url_for('update_users') }}?id={{ rows[row][0] }}" class="text-primary">Edit</a></td>
-                <td><a href="{{ url_for('delete_users') }}?id={{ rows[row][0] }}" class="text-primary">Delete</a>
-                <td>
-            </tr>
-        </tbody>
-        {% endfor %}
-    </table>
+            {%  for row in range(rows|length): %}
+            <tbody>
+                <tr>
+                    <th scope="row"></th>
+                    <td>{{ rows[row][1] }}</td>
+                    <td>{{ rows[row][2] }}</td>
+                    <td>{{ rows[row][3] }}</td>
+                    <td><a href="{{ url_for('update_users') }}?id={{ rows[row][0] }}" class="text-primary">Edit</a></td>
+                    <td>
+                        <a href="{{ url_for('delete_users') }}?id={{ rows[row][0] }}" class="text-primary">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
 </div>
 
-{% endblock %}
+
+        {% endblock %}
 

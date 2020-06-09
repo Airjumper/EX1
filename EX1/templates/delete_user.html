@@ -1,23 +1,11 @@
 {% extends "layout_admin.html" %}
 
-
-{% block nav %}
-<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenu"
-       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Hello! {{username}}</a>
-
-    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
-        <a class="dropdown-item" href="{{ url_for('logout') }}  ">Log out</a>
-    </div>
-</li>
-{% endblock %}
-
 {% block content %}
 
 <div class="formcontainer">
     <form action=" {{ url_for ('delete_user_request')}}" method="POST" id="defaultassetform">
-        <div class="siteHeader">
-            <h2>Delete User: :</h2>
+        <div class="h1form">
+            <h1>Delete User:</h1>
         </div>
 
         {% if user %}

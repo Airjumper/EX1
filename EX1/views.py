@@ -351,7 +351,6 @@ def laptop():
 @app.route('/userview/asset_type')
 def user_asset_type():
 
-    if 'loggedin' in session:
         types = dbHandler.getAllAssetType()
 
         conn = sqlite3.connect(r"diona.db")
@@ -511,7 +510,7 @@ def add_asset():
             data = request.form.to_dict()
             #remove type and name before adding to asset details table
             data.pop('assetType', None)
-            data.pop('Name', None)
+            data.pop('assetName', None)
             data.pop('assetAssigned', None)
             
             

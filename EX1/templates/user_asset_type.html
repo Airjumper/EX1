@@ -24,7 +24,7 @@
                 {% elif value[0] == 'Laptop'%}
                 <option value="{{ url_for('tablet') }}">{{ value[0]}} </option>
                 {% else %}
-                <option value="{{ url_for('user_asset_type') }}" >{{ value[0]}} </option>
+                <option value="{{ url_for('user_asset_type') }}">{{ value[0]}} </option>
                 {% endif %}
 
 
@@ -39,7 +39,7 @@
     <div class="container" style="overflow-x:auto;">
         <div class="row">
             <div class="siteHeader">
-                <h3>Mobile Phones:</h3>
+                <h3>Default Assets:</h3>
             </div>
         </div>
         <br>
@@ -55,8 +55,7 @@
                 {%  for x in keys: %}
                 <th> {{ x }} </th>
                 {% endfor %}
-                <th> </th>
-                <th> </th>
+
             </tr>
         </thead>
         {%  for row in range(rows|length): %}
@@ -73,7 +72,5 @@
         {% endfor %}
     </table>
 </div>
-
-
 
 {% endblock %}

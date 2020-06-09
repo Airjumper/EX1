@@ -1,162 +1,151 @@
 {% extends "layout_admin.html" %}
 
 
-{% block nav %}
-<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenu"
-       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Hello! {{username}}</a>
-
-    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenu">
-        <a class="dropdown-item" href="{{ url_for('logout') }}  ">Log out</a>
-    </div>
-</li>
-{% endblock %}
-
 
 {% block content %}
 
 <div class="msg">{{ msg }}</div>
 
+<div class="formcontainer">
+    <form action="{{ submit_url }}" method="post" id="mobileform">
+        <div class="h1form">
+            <h1>Delete Asset - Laptop</h1>
+        </div>
+        <br>
+        <div class="h3form">
+            <h3>Asset Characteristics:</h3>
+        </div>
+        <br>
 
-<form class="formcontainer" action="{{ submit_url }}" method="post" id="mobileform">
-    <div class="h1form">
-        <h1>Delete Asset - Laptop</h1>
-    </div>
-    <br>
-    <div class="h3form">
-        <h3>Asset Characteristics:</h3>
-    </div>
-    <br>
+        <div class="row">
+            <div class="column-25">
+                <label for="assetType"><strong>Type:</strong></label>
+            </div>
+            <div class="column-50">
+                <select id="assetType" name="assetType" onchange="location = this.value;" disabled>
+                    {% for value in menu: %}
+                    {% if value[0] == 'Tablet' %}
+                    <option value="{{url_for('new_assetsTablet') }}">{{value[0]}}</option>
+                    {% elif value[0] == 'Mobile Phone' %}
+                    <option value="{{url_for('new_assetsMobile') }}">{{value[0]}}</option>
+                    {% elif value[0] == 'Laptop' %}
+                    <option value="{{url_for('new_assetsLaptop') }}" selected>{{value[0]}}</option>
+                    {% else %}
+                    <option value="#">{{value[0]}}</option>
+                    {% endif %}
 
-    <div class="row">
-        <div class="column-25">
-            <label for="assetType"><strong>Type:</strong></label>
+                    {% endfor %}
+                </select>
+            </div>
         </div>
-        <div class="column-50">
-            <select id="assetType" name="assetType" onchange="location = this.value;" disabled>
-                {% for value in menu: %}
-                {% if value[0] == 'Tablet' %}
-                <option value="{{url_for('new_assetsTablet') }}">{{value[0]}}</option>
-                {% elif value[0] == 'Mobile Phone' %}
-                <option value="{{url_for('new_assetsMobile') }}">{{value[0]}}</option>
-                {% elif value[0] == 'Laptop' %}
-                <option value="{{url_for('new_assetsLaptop') }}" selected>{{value[0]}}</option>
-                {% else %}
-                <option value="#">{{value[0]}}</option>
-                {% endif %}
 
-                {% endfor %}
-            </select>
+        <div class="row">
+            <div class="column-25">
+                <label for="Status"><strong>Status:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="Status" value="{{ asset_kv_pair['Status'] }}" disabled />
+            </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="column-25">
-            <label for="Status"><strong>Status:</strong></label>
+        <div class="row">
+            <div class="column-25">
+                <label for="Manufacturer"><strong>Manufacturer:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" name="asManufacturersetMake" value="{{asset_kv_pair['Manufacturer']}}" disabled />
+            </div>
         </div>
-        <div class="column-50">
-            <input type="text" class="" name="Status" value="{{ asset_kv_pair['Status'] }}" disabled />
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="column-25">
-            <label for="Manufacturer"><strong>Manufacturer:</strong></label>
+        <div class="row">
+            <div class="column-25">
+                <label for="Name"><strong>Asset Name:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="Name" value="{{asset_details[0][1]}}" disabled />
+            </div>
         </div>
-        <div class="column-50">
-            <input type="text" name="asManufacturersetMake" value="{{asset_kv_pair['Manufacturer']}}" disabled />
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="column-25">
-            <label for="Name"><strong>Asset Name:</strong></label>
+        <div class="row">
+            <div class="column-25">
+                <label for="Model"><strong>Model:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="Model" value="{{ asset_kv_pair['Model'] }}" disabled />
+            </div>
         </div>
-        <div class="column-50">
-            <input type="text" class="" name="Name" value="{{asset_details[0][1]}}" disabled />
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="column-25">
-            <label for="Model"><strong>Model:</strong></label>
+        <div class="row">
+            <div class="column-25">
+                <label for="Hardware"><strong>Asset Hardware:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="Hardware" value="{{ asset_kv_pair['Hardware'] }}"
+                       disabled />
+            </div>
         </div>
-        <div class="column-50">
-            <input type="text" class="" name="Model" value="{{ asset_kv_pair['Model'] }}" disabled />
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="column-25">
-            <label for="Hardware"><strong>Asset Hardware:</strong></label>
+        <div class="row">
+            <div class="column-25">
+                <label for="Device"><strong>Device:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="Device" value="{{ asset_kv_pair['Device'] }}" disabled />
+            </div>
         </div>
-        <div class="column-50">
-            <input type="text" class="" name="Hardware" value="{{ asset_kv_pair['Hardware'] }}"
-                   disabled />
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="column-25">
-            <label for="Device"><strong>Device:</strong></label>
+        <div class="row">
+            <div class="column-25">
+                <label for="Serial"><strong>Serial:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="Serial" value="{{ asset_kv_pair['Serial'] }}" disabled />
+            </div>
         </div>
-        <div class="column-50">
-            <input type="text" class="" name="Device" value="{{ asset_kv_pair['Device'] }}" disabled />
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="column-25">
-            <label for="Serial"><strong>Serial:</strong></label>
+        <div class="row">
+            <div class="column-25">
+                <label for="assetAssigned"><strong>Assigned To:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="assetAssigned" value="{{ asset_kv_pair['assetAssigned'] }}"
+                       disabled />
+            </div>
         </div>
-        <div class="column-50">
-            <input type="text" class="" name="Serial" value="{{ asset_kv_pair['Serial'] }}" disabled />
+        <div class="row">
+            <div class="column-25">
+                <label for="PurchaseDate"><strong>Purchase Date:</strong></label>
+            </div>
+            <div class="column-50">
+                <input type="text" class="" name="PurchaseDate" value="{{ asset_kv_pair['PurchaseDate'] }}" disabled />
+            </div>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="column-25">
-            <label for="assetAssigned"><strong>Assigned To:</strong></label>
+        <br>
+        <div class="h3form">
+            <h3>Additional Characteristics</h3>
         </div>
-        <div class="column-50">
-            <input type="text" class="" name="assetAssigned" value="{{ asset_kv_pair['assetAssigned'] }}"
-                   disabled />
+        <div class="row">
+            <div class="column-25">
+                <label for="Notes"><strong>Asset Notes:</strong></label>
+                <br>
+            </div>
+            <div class="column-50">
+                <textarea rows="5" cols="50" name="Notes" placeholder="Enter Additional Asset Specifications Here"
+                          disabled>{{ asset_kv_pair['Notes'] }}</textarea>
+                <br>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="column-25">
-            <label for="PurchaseDate"><strong>Purchase Date:</strong></label>
+        <div>
+            <div style="display:none;">
+                <input type="text" class="hidden" name="assetID" value="{{asset_details[0][0]}}" />
+            </div>
         </div>
-        <div class="column-50">
-            <input type="text" class="" name="PurchaseDate" value="{{ asset_kv_pair['PurchaseDate'] }}" disabled />
+        <div class="row">
+            <div class="column-25"></div>
+            <input class="btn btn-primary" type="Submit" value="Confirm">
+            <div class="col-1"></div>
+            <a class="btn btn-primary" id="cancelButton" href="{{ url_for('admin_laptop') }}"> Cancel</a>
         </div>
-    </div>
-    <br>
-    <div class="h3form">
-        <h3>Additional Characteristics</h3>
-    </div>
-    <div class="row">
-        <div class="column-25">
-            <label for="Notes"><strong>Asset Notes:</strong></label>
-            <br>
-        </div>
-        <div class="column-50">
-            <textarea rows="5" cols="50" name="Notes" placeholder="Enter Additional Asset Specifications Here"
-                      disabled>{{ asset_kv_pair['Notes'] }}</textarea>
-            <br>
-        </div>
-    </div>
-    <div>
-        <div style="display:none;">
-            <input type="text" class="hidden" name="assetID" value="{{asset_details[0][0]}}" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="column-25"></div>
-        <input class="btn btn-primary" type="Submit" value="Confirm">
-        <div class="col-1"></div>
-        <a class="btn btn-primary" id="cancelButton" href="{{ url_for('admin_laptop') }}"> Cancel</a>
-    </div>
-</form>
-
-{% endblock %}
+    </form>
+</div>
+    {% endblock %}

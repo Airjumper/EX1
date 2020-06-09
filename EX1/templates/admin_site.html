@@ -7,40 +7,43 @@
     <div class="siteHeader">
         <h2>Site Details:</h2>
     </div>
-    <div class="container" style="overflow-x:auto;">
-        <div class="text-success">{{ msg }}</div>
-        <br>
-        <button class="btn btn-primary" onclick="printRecords()">Print Records</button>
-        <button id="export" class="btn btn-primary" data-export="export">Export CSV</button>
+    <div class="extendedTable">
+        <div class="container" style="overflow-x:auto;">
+            <div class="text-success">{{ msg }}</div>
+            <br>
+            <button class="btn btn-primary" onclick="printRecords()">Print Records</button>
+            <button id="export" class="btn btn-primary" data-export="export">Export CSV</button>
 
+        </div>
+
+        <table class="view-table" id="tableView">
+            <thead>
+                <tr>
+                    <th scope="row"></th>
+                    {%  for x in header: %}
+                    <th> {{ x }} </th>
+                    {% endfor %}
+                    <th> </th>
+                    <th> </th>
+                </tr>
+            </thead>
+            {%  for row in range(rows|length): %}
+            <tbody>
+                <tr>
+                    <td><input type="checkbox" name="row-check" value="{{ rows[row][0] }}"></td>
+                    {%  for x in rows[row]: %}
+                    <td>{{ x }}</td>
+                    {% endfor %}
+                    <td><a href="{{ url_for('update_site')}}?id={{ rows[row][0] }}" class="text-primary">Edit</a></td>
+                    <td>
+                        <a href="{{ url_for('delete_site')}}?id={{ rows[row][0] }}" class="text-primary">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
     </div>
-    <table class="view-table" id="tableView">
-        <thead>
-            <tr>
-                <th scope="row"></th>
-                {%  for x in header: %}
-                <th> {{ x }} </th>
-                {% endfor %}
-                <th> </th>
-                <th> </th>
-            </tr>
-        </thead>
-        {%  for row in range(rows|length): %}
-        <tbody>
-            <tr>
-                <td><input type="checkbox" name="row-check" value="{{ rows[row][0] }}"></td>
-                {%  for x in rows[row]: %}
-                <td>{{ x }}</td>
-                {% endfor %}
-                <td><a href="{{ url_for('update_site')}}?id={{ rows[row][0] }}" class="text-primary">Edit</a></td>
-                <td><a href="{{ url_for('delete_site')}}?id={{ rows[row][0] }}" class="text-primary">Delete</a>
-                <td>
-            </tr>
-        </tbody>
-        {% endfor %}
-    </table>
-
 </div>
 
 
-{% endblock %}
+        {% endblock %}

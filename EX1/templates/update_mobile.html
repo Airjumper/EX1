@@ -56,9 +56,9 @@
             </div>
             <div class="column-50">
                 <select id="assetStatus" name="Status">
-                    <option value="active" {% if asset_kv_pair['Asset Status'] =='active' %} selected {% endif %}>Active</option>
-                    <option value="inrepair" {% if asset_kv_pair['Asset Status'] =='inrepair' %} selected {% endif %}>In Repair</option>
-                    <option value="condemned" {% if asset_kv_pair['Asset Status'] =='condemned' %} selected {% endif %}>Condemned</option>
+                    <option value="active" {% if asset_kv_pair['Status'] =='active' %} selected {% endif %}>Active</option>
+                    <option value="inrepair" {% if asset_kv_pair['Status'] =='inrepair' %} selected {% endif %}>In Repair</option>
+                    <option value="condemned" {% if asset_kv_pair['Status'] =='condemned' %} selected {% endif %}>Condemned</option>
                 </select>
             </div>
         </div>

@@ -22,7 +22,7 @@
             </div>
         </div>
         <div>
-            <input type="text" class="" name="assetID" value="{{ asset_details [0][0] }}"  hidden/>
+            <input type="text" class="" name="assetID" value="{{ asset_details [0][0] }}" hidden />
         </div>
 
         <div class="row">
@@ -39,13 +39,13 @@
                 <label for="Status"><strong>Status:</strong></label>
             </div>
             <div class="column-50">
-                    <select id="assetStatus" name="Status">
-                        <option value="active" {% if asset_kv_pair['Asset Status']=='active' %} selected {% endif %}>Active</option>
-                        <option value="inrepair" {% if asset_kv_pair['Asset Status']=='inrepair' %} selected {% endif %}>In Repair</option>
-                        <option value="condemned" {% if asset_kv_pair['Asset Status']=='condemned' %} selected {% endif %}>Condemned</option>
-                    </select>
+                <select id="assetStatus" name="Status">
+                    <option value="active" {% if asset_kv_pair['Status']=='active' %} selected {% endif %}>Active</option>
+                    <option value="inrepair" {% if asset_kv_pair['Status']=='inrepair' %} selected {% endif %}>In Repair</option>
+                    <option value="condemned" {% if asset_kv_pair['Status']=='condemned' %} selected {% endif %}>Condemned</option>
+                </select>
 
-</div>
+            </div>
         </div>
 
         <div class="row">
@@ -108,7 +108,7 @@
                 <label for="assetAssigned"><strong>Assigned To:</strong></label>
             </div>
             <div class="column-50">
-                <input type="text" class="" name="assetAssigned" value="{{asset_kv_pair['assetAssigned']}}"  />
+                <input type="text" class="" name="assetAssigned" value="{{asset_kv_pair['assetAssigned']}}" />
             </div>
         </div>
 
